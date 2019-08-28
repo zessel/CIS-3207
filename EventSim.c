@@ -104,24 +104,33 @@ void main ()
 
     event_queue_root = start_event;
 
-
-    while (event_queue_root != NULL)
+    while (event_queue_root->next != NULL)
     {
         current_event = popevent(event_queue_root);
+        printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", event_queue_root->eventid);
+        printf("Pop successful");
         print_event(current_event);
+        print_event(event_queue_root);
+        printf("Print successful\n");
         if (eventcount == 1)
+        {
             sorted_event_enqueue(event_queue_root, create_event());
+            printf("Enqueue successful\n");
+            }
         ++eventcount;
         free(current_event);
+        printf("Free successful");
     }
+    
 }
 
 struct event* popevent(struct event *event_queue_root)
 {
     struct event *old_root = event_queue_root;
-    event_queue_root->next = event_queue_root;
+    event_queue_root = event_queue_root->next;
     old_root->next = NULL;
     event_queue_root->prev = NULL;
+    printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", event_queue_root->eventid);
     return old_root; 
 }
 
@@ -138,20 +147,25 @@ struct event* create_event()
     new_event->finishtime = 40;
     new_event->prev = NULL;
     new_event->next = NULL;
+    printf("Create successful\n");
+    return new_event;
 }
 
 void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event)
-{
+{/*
+printf("launched");
     struct event *traverser = event_queue_root;
-
+printf ("~~~here~~~~");
     if (new_event->finishtime < traverser->finishtime)
     {
+        printf("1111\n");
         event_queue_root->prev = new_event;
         new_event->next = event_queue_root;
         event_queue_root = new_event;
     }
     else 
     {        
+        printf("22222");
         while ((new_event->finishtime > traverser->finishtime) && (traverser->next != NULL))
         {
             traverser = traverser->next;
@@ -163,10 +177,11 @@ void sorted_event_enqueue(struct event *event_queue_root, struct event *new_even
         }
         else
         {
+        printf("3333"); 
             new_event->next = traverser;
             traverser->prev->next = new_event;
             new_event->prev = traverser->prev;
             traverser->prev = new_event;
         }
-    } 
+    }*/ 
 }
