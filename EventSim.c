@@ -2,13 +2,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct node
+int PRIORITY_QUEUE_SIZE = 100;
+int CPU_QUEUE_SIZE = 25;
+int DISK1_QUEUE_SIZE = 25;
+int DISK2_QUEUE_SIZE = 25;
+
+struct process
 {
-    char eventid[4];
-    int finishtime;
-    struct node *prev;
-    struct node *next;     
+    char processid[8];
+    struct process *next;     
 };
+
+struct event
+{
+    char eventid[8];
+    int finishtime;
+    struct event *prev;
+    struct event *next;
+};
+
+struct event* popevent(struct event *event_queue_root);
+void print_event(struct event *current_event);
+struct event* create_event();
+void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event);
+
+
 
 void main ()
 {
@@ -60,18 +78,95 @@ void main ()
         DISK2_MIN,
         DISK2_MAX);
 
+    int time = INIT_TIME;
+    int eventcount = 1;
 
-    struct node *node1, *node2;
+    struct process *cpu_queue_head = NULL;
+    struct process *cpu_queue_tail = NULL;
+    struct process *disc1_queue_head = NULL;
+    struct process *disc1_queue_tail = NULL;
+    struct process *disc2_queue_head = NULL;
+    struct process *disc2_queue_tail = NULL;
 
-    node1 = (struct node*) malloc(sizeof(struct node));
-    node2 = (struct node*) malloc(sizeof(struct node));
-    
-    strcpy (node1->eventid, "One");
-    strcpy (node2->eventid, "Two");
+    struct event *event_queue_root = NULL;
+    struct event *current_event = NULL;
 
-    printf("%s\n", node1->eventid);
-    printf("%s\n", node2->eventid);
-    free(node1);
-    free(node2);
+    struct event *start_event = (struct event*) malloc(sizeof(struct event));
+    strcpy(start_event->eventid, "START");
+    start_event->finishtime = INIT_TIME;
+    start_event->prev = NULL;
+
+    struct event *end_event = (struct event*) malloc(sizeof(struct event));
+    strcpy(end_event->eventid, "END");
+    end_event->finishtime = FIN_TIME;
+    end_event->prev = start_event;
+    start_event->next = end_event;
+
+    event_queue_root = start_event;
+
+
+    while (event_queue_root != NULL)
+    {
+        current_event = popevent(event_queue_root);
+        print_event(current_event);
+        if (eventcount == 1)
+            sorted_event_enqueue(event_queue_root, create_event());
+        ++eventcount;
+        free(current_event);
+    }
 }
 
+struct event* popevent(struct event *event_queue_root)
+{
+    struct event *old_root = event_queue_root;
+    event_queue_root->next = event_queue_root;
+    old_root->next = NULL;
+    event_queue_root->prev = NULL;
+    return old_root; 
+}
+
+void print_event(struct event *current_event)
+{
+    printf("\nThe event id is %s", current_event->eventid);
+    printf("\nThe Event time is %d\n", current_event->finishtime);
+}
+
+struct event* create_event()
+{
+    struct event *new_event = (struct event*) malloc(sizeof(struct event));
+    strcpy(new_event->eventid, "one");
+    new_event->finishtime = 40;
+    new_event->prev = NULL;
+    new_event->next = NULL;
+}
+
+void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event)
+{
+    struct event *traverser = event_queue_root;
+
+    if (new_event->finishtime < traverser->finishtime)
+    {
+        event_queue_root->prev = new_event;
+        new_event->next = event_queue_root;
+        event_queue_root = new_event;
+    }
+    else 
+    {        
+        while ((new_event->finishtime > traverser->finishtime) && (traverser->next != NULL))
+        {
+            traverser = traverser->next;
+        }
+        if ((new_event->finishtime > traverser->finishtime) && (traverser->next != NULL))
+        {
+            traverser->next = new_event;
+            new_event->prev = traverser;
+        }
+        else
+        {
+            new_event->next = traverser;
+            traverser->prev->next = new_event;
+            new_event->prev = traverser->prev;
+            traverser->prev = new_event;
+        }
+    } 
+}
