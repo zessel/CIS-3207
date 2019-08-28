@@ -1,16 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-struct node
-{
-    char eventid[4];
-    int finishtime;
-    struct node *prev;
-    struct node *next;     
-};
+using namespace std;
 
-void main ()
+int main ()
 {
     char inputfilename[] = "initializers.dat";
     char outputfilename[] = "eventoutput.dat";
@@ -20,6 +13,7 @@ void main ()
     if (input == NULL)
     {
         printf("The file %s was not found", inputfilename);
+        _Exit(7);
     }
     output = fopen(outputfilename, "w");
 
@@ -36,7 +30,6 @@ void main ()
         DISK2_MIN,
         DISK2_MAX;
 
-    char emptystring[20];
     fscanf(input, "%*s %d", &SEED);
     fscanf(input, "%*s %d", &INIT_TIME);
     fscanf(input, "%*s %d", &FIN_TIME);
@@ -60,18 +53,5 @@ void main ()
         DISK2_MIN,
         DISK2_MAX);
 
-
-    struct node *node1, *node2;
-
-    node1 = (struct node*) malloc(sizeof(struct node));
-    node2 = (struct node*) malloc(sizeof(struct node));
-    
-    strcpy (node1->eventid, "One");
-    strcpy (node2->eventid, "Two");
-
-    printf("%s\n", node1->eventid);
-    printf("%s\n", node2->eventid);
-    free(node1);
-    free(node2);
+    return 0;
 }
-
