@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int PRIORITY_QUEUE_SIZE = 100;
-int CPU_QUEUE_SIZE = 25;
-int DISK1_QUEUE_SIZE = 25;
-int DISK2_QUEUE_SIZE = 25;
+#include <stdbool.h>
 
 struct process
 {
@@ -16,15 +12,16 @@ struct process
 struct event
 {
     char eventid[8];
-    int finishtime;
+    int poptime;
     struct event *prev;
     struct event *next;
 };
 
+int ranged_rand(int max, int min);
 struct event* popevent(struct event **event_queue_root);
 void print_event(struct event *current_event);
-struct event* create_event();
-void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event);
+struct event* create_event(int id, int time);
+void sorted_event_enqueue(struct event **event_queue_root, struct event *new_event);
 
 
 
@@ -77,8 +74,9 @@ void main ()
         DISK1_MAX,
         DISK2_MIN,
         DISK2_MAX);
-
-    int time = INIT_TIME;
+    srand((unsigned int)SEED);  // So I don't forget rand() % (MAX - MIN + 1) + MIN 
+    int globaltime = INIT_TIME;
+    int processcount = 1;
     int eventcount = 1;
 
     struct process *cpu_queue_head = NULL;
@@ -93,95 +91,104 @@ void main ()
 
     struct event *start_event = (struct event*) malloc(sizeof(struct event));
     strcpy(start_event->eventid, "START");
-    start_event->finishtime = INIT_TIME;
+    start_event->poptime = INIT_TIME;
     start_event->prev = NULL;
 
     struct event *end_event = (struct event*) malloc(sizeof(struct event));
     strcpy(end_event->eventid, "END");
-    end_event->finishtime = FIN_TIME;
+    end_event->poptime = FIN_TIME;
     end_event->prev = start_event;
     start_event->next = end_event;
 
-    event_queue_root = start_event;
+    event_queue_root = start_event;        
 
-    while (event_queue_root->next != NULL)
+    int endhit = 0;
+    while (endhit != 1)
     {
         current_event = popevent(&event_queue_root);
-        printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", event_queue_root->eventid);
+        globaltime = current_event->poptime;
+        if (strcmp(current_event->eventid, "END") == 0)
+            endhit = 1;
         printf("Pop successful");
+
         print_event(current_event);
-        print_event(event_queue_root);
         printf("Print successful\n");
-        if (eventcount == 1)
-        {
-            sorted_event_enqueue(event_queue_root, create_event());
-            printf("Enqueue successful\n");
-            }
-        ++eventcount;
+
+        sorted_event_enqueue(&event_queue_root, create_event(eventcount++, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN)));
         free(current_event);
-        printf("Free successful");
+        printf("Free successful\n");
+
     }
     
+}
+
+/*  Exists to slightly clean up the code when a random is called  */
+
+int ranged_rand(int max, int min)
+{
+    return (rand() % (max - min + 1) + min);
 }
 
 struct event* popevent(struct event **event_queue_root)
 {
     struct event *old_root = *event_queue_root;
-    *event_queue_root = (*event_queue_root)->next;
-    old_root->next = NULL;
-    (*event_queue_root)->prev = NULL;
-    printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", (*event_queue_root)->eventid);
+    if ((*event_queue_root)->next != NULL)
+    {
+        *event_queue_root = (*event_queue_root)->next;
+        old_root->next = NULL;
+        (*event_queue_root)->prev = NULL;
+    }
     return old_root; 
 }
 
 void print_event(struct event *current_event)
 {
     printf("\nThe event id is %s", current_event->eventid);
-    printf("\nThe Event time is %d\n", current_event->finishtime);
+    printf("\nThe Event time is %d\n", current_event->poptime);
 }
 
-struct event* create_event()
+struct event* create_event(int id, int time)
 {
     struct event *new_event = (struct event*) malloc(sizeof(struct event));
-    strcpy(new_event->eventid, "one");
-    new_event->finishtime = 40;
+    
+    char str[8];
+    sprintf(str, "%d", id);
+    strcpy(new_event->eventid, str);
+    
+    new_event->poptime = time;
     new_event->prev = NULL;
     new_event->next = NULL;
     printf("Create successful\n");
     return new_event;
 }
 
-void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event)
-{/*
-printf("launched");
-    struct event *traverser = event_queue_root;
-printf ("~~~here~~~~");
-    if (new_event->finishtime < traverser->finishtime)
+void sorted_event_enqueue(struct event **event_queue_root, struct event *new_event)
+{
+    struct event *traverser = *event_queue_root;
+
+    if (new_event->poptime < traverser->poptime)
     {
-        printf("1111\n");
-        event_queue_root->prev = new_event;
-        new_event->next = event_queue_root;
-        event_queue_root = new_event;
+        (*event_queue_root)->prev = new_event;
+        new_event->next = *event_queue_root;
+        *event_queue_root = new_event;
     }
     else 
     {        
-        printf("22222");
-        while ((new_event->finishtime > traverser->finishtime) && (traverser->next != NULL))
+        while ((new_event->poptime > traverser->poptime) && (traverser->next != NULL))
         {
             traverser = traverser->next;
         }
-        if ((new_event->finishtime > traverser->finishtime) && (traverser->next != NULL))
+        if ((new_event->poptime > traverser->poptime) && (traverser->next == NULL))
         {
             traverser->next = new_event;
             new_event->prev = traverser;
         }
         else
         {
-        printf("3333"); 
             new_event->next = traverser;
             traverser->prev->next = new_event;
             new_event->prev = traverser->prev;
             traverser->prev = new_event;
         }
-    }*/ 
+    } 
 }
