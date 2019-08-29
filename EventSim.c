@@ -21,7 +21,7 @@ struct event
     struct event *next;
 };
 
-struct event* popevent(struct event *event_queue_root);
+struct event* popevent(struct event **event_queue_root);
 void print_event(struct event *current_event);
 struct event* create_event();
 void sorted_event_enqueue(struct event *event_queue_root, struct event *new_event);
@@ -106,7 +106,7 @@ void main ()
 
     while (event_queue_root->next != NULL)
     {
-        current_event = popevent(event_queue_root);
+        current_event = popevent(&event_queue_root);
         printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", event_queue_root->eventid);
         printf("Pop successful");
         print_event(current_event);
@@ -124,13 +124,13 @@ void main ()
     
 }
 
-struct event* popevent(struct event *event_queue_root)
+struct event* popevent(struct event **event_queue_root)
 {
-    struct event *old_root = event_queue_root;
-    event_queue_root = event_queue_root->next;
+    struct event *old_root = *event_queue_root;
+    *event_queue_root = (*event_queue_root)->next;
     old_root->next = NULL;
-    event_queue_root->prev = NULL;
-    printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", event_queue_root->eventid);
+    (*event_queue_root)->prev = NULL;
+    printf("\n\nTHIS SHOULD SAY END: ~%s~\n\n", (*event_queue_root)->eventid);
     return old_root; 
 }
 
