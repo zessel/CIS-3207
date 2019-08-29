@@ -9,10 +9,20 @@ struct process
     struct process *next;     
 };
 
+/*  Event types:
+    0: Start and end simulation events
+    1: Arrive at CPU queue
+    2: Leave CPU
+    3: Arrive at Disk 1
+    4: Leave Disk 1
+    5: Arrive at Disk 2
+    6: Leave Disk 2
+*/
 struct event
 {
     char eventid[8];
     int poptime;
+    int eventtype;
     struct event *prev;
     struct event *next;
 };
@@ -20,7 +30,7 @@ struct event
 int ranged_rand(int max, int min);
 struct event* popevent(struct event **event_queue_root);
 void print_event(struct event *current_event);
-struct event* create_event(int id, int time);
+struct event* create_event(char* id, int time, int type);
 void sorted_event_enqueue(struct event **event_queue_root, struct event *new_event);
 
 
@@ -92,17 +102,21 @@ void main ()
     struct event *start_event = (struct event*) malloc(sizeof(struct event));
     strcpy(start_event->eventid, "START");
     start_event->poptime = INIT_TIME;
+    start_event->eventtype = 0;
     start_event->prev = NULL;
 
     struct event *end_event = (struct event*) malloc(sizeof(struct event));
     strcpy(end_event->eventid, "END");
     end_event->poptime = FIN_TIME;
+    end_event->eventtype = 0;
     end_event->prev = start_event;
     start_event->next = end_event;
 
     event_queue_root = start_event;        
 
     int endhit = 0;
+    char str[8];
+
     while (endhit != 1)
     {
         current_event = popevent(&event_queue_root);
@@ -111,10 +125,21 @@ void main ()
             endhit = 1;
         printf("Pop successful");
 
+        switch(current_event->eventtype)
+        {
+        case 0:
+            break;
+        case 1: process_arrival(&cpu_queue_tail, current_event->eventid);
+            break;
+        
+        default:
+            break;
+        }
         print_event(current_event);
         printf("Print successful\n");
-
-        sorted_event_enqueue(&event_queue_root, create_event(eventcount++, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN)));
+        sprintf(str, "%d", eventcount);
+        sorted_event_enqueue(&event_queue_root, create_event(str, 
+            globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1));
         free(current_event);
         printf("Free successful\n");
 
@@ -147,15 +172,14 @@ void print_event(struct event *current_event)
     printf("\nThe Event time is %d\n", current_event->poptime);
 }
 
-struct event* create_event(int id, int time)
+struct event* create_event(char* id, int time, int type)
 {
     struct event *new_event = (struct event*) malloc(sizeof(struct event));
-    
-    char str[8];
-    sprintf(str, "%d", id);
-    strcpy(new_event->eventid, str);
+
+    strcpy(new_event->eventid, id);
     
     new_event->poptime = time;
+    new_event->eventtype = type;
     new_event->prev = NULL;
     new_event->next = NULL;
     printf("Create successful\n");
@@ -191,4 +215,29 @@ void sorted_event_enqueue(struct event **event_queue_root, struct event *new_eve
             traverser->prev = new_event;
         }
     } 
+}
+
+struct process* create_process(char* id)
+{
+    struct process *new_process = (struct process*) malloc(sizeof(struct process));
+    return new_process;
+}
+
+void enqueue(struct process **queue_tail, struct process *new_process)
+{
+    (*queue_tail)->next = new_process;
+}
+
+struct process* dequeue(struct process **queue_head)
+{
+    struct process *popped_process = (*queue_head);
+    (*queue_head) = (*queue_head)->next;
+    popped_process->next = NULL;
+    return popped_process;
+}
+
+void process_arrival(struct process **cpu_queue_tail, char* id)
+{
+    struct process *new_process = create_process(id);
+    enqueue(cpu_queue_tail, new_process);
 }
