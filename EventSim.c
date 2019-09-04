@@ -11,12 +11,13 @@ struct process
 
 /*  Event types:
     0: Start simulation events
-    1: Arrive at CPU queue
-    2: Leave CPU
-    3: Arrive at Disk 1
-    4: Leave Disk 1
-    5: Arrive at Disk 2
-    6: Leave Disk 2
+    1: New process in simulation
+    2: Arrive at CPU queue
+    3: Leave CPU
+    4: Arrive at Disk 1
+    5: Leave Disk 1
+    6: Arrive at Disk 2
+    7: Leave Disk 2
     9: End simulation events
 */
 struct event
@@ -75,14 +76,16 @@ void main ()
     srand((unsigned int)SEED);  // So I don't forget rand() % (MAX - MIN + 1) + MIN 
     int globaltime = INIT_TIME;
     int processcount = 1;
-    int eventcount = 1;
 
     struct process *cpu_queue_head = NULL;
     struct process *cpu_queue_tail = NULL;
-    struct process *disc1_queue_head = NULL;
-    struct process *disc1_queue_tail = NULL;
-    struct process *disc2_queue_head = NULL;
-    struct process *disc2_queue_tail = NULL;
+    struct process *disk1_queue_head = NULL;
+    struct process *disk1_queue_tail = NULL;
+    struct process *disk2_queue_head = NULL;
+    struct process *disk2_queue_tail = NULL;
+    struct process *current_process = NULL;
+    int disk1_queue_count = 0;
+    int disk2_queue_count = 0;
 
     struct event *event_queue_root = NULL;
     struct event *current_event = NULL;
@@ -96,14 +99,14 @@ void main ()
     struct event *end_event = (struct event*) malloc(sizeof(struct event));
     strcpy(end_event->eventid, "END");
     end_event->poptime = FIN_TIME;
-    end_event->eventtype = 0;
+    end_event->eventtype = 9;
     end_event->prev = start_event;
     start_event->next = end_event;
 
     event_queue_root = start_event;        
 
     int endhit = 0;
-    char str[8];
+    char id_as_str[8];
 
     while (endhit != 1)
     {
@@ -115,19 +118,74 @@ void main ()
 
         switch(current_event->eventtype)
         {
-        case 0: create_event(eventcount, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1);
+        case 0: create_event(processcount, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1);
+            processcount++;
             break;
         case 1: process_arrival(&cpu_queue_tail, current_event->eventid);
+            if (cpu_queue_head == NULL)
+            {
+                cpu_queue_head = cpu_queue_tail;
+                create_event(processcount, globaltime, 2);
+            }
             break;
-        
+        case 2: create_event(cpu_queue_head->processid, globaltime + ranged_rand(CPU_MAX,CPU_MIN), 3);
+            break;
+        case 3: current_process = dequeue(&cpu_queue_head);
+            create_event(cpu_queue_head->processid, globaltime, 2);
+            if (ranged_rand(0,100) < (QUIT_PROB))
+                free(current_process);
+            else
+            {
+                if (disk1_queue_count >= disk2_queue_count)
+                {
+                    enqueue(&disk1_queue_tail, current_process);
+                    if (disk1_queue_head == NULL)
+                    {
+                        disk1_queue_head = current_process;
+                        create_event(current_process->processid, globaltime, 4);
+                    }
+                    disk1_queue_count++;
+                }
+                else
+                {
+                    enqueue(&disk2_queue_tail, current_process);
+                    if (disk2_queue_head == NULL)
+                    {
+                        disk2_queue_head = current_process;
+                        create_event(current_process->processid, globaltime, 6);
+                    }
+                    disk2_queue_count++;
+                }
+            }
+            break;
+        case 4: create_event(disk1_queue_head->processid, globaltime + ranged_rand(DISK1_MAX,DISK1_MIN), 5);
+            break;
+        case 5: current_process = dequeue(&disk1_queue_tail);
+            create_event(disk1_queue_head->processid, globaltime, 4);
+            enqueue(&cpu_queue_tail, current_process);
+            if (cpu_queue_head == NULL)
+            {
+                cpu_queue_head = cpu_queue_tail;
+                create_event(current_process->processid, globaltime, 2);
+            }
+        case 6: create_event(disk2_queue_head->processid, globaltime + ranged_rand(DISK2_MAX,DISK2_MIN), 7);
+            break;
+        case 7: current_process = dequeue(&disk2_queue_tail);
+            create_event(disk2_queue_head->processid, globaltime, 6);
+            enqueue(&cpu_queue_tail, current_process);
+            if (cpu_queue_head == NULL)
+            {
+                cpu_queue_head = cpu_queue_tail;
+                create_event(current_process->processid, globaltime, 2);
+            }        
         default:
             break;
         }
         print_event(current_event);
         printf("Print successful\n");
-        sprintf(str, "%d", eventcount);
+ /*       sprintf(str, "%d", processcount);
         sorted_event_enqueue(&event_queue_root, create_event(str, 
-            globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1));
+            globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1)); */
         free(current_event);
         printf("Free successful\n");
 
@@ -255,6 +313,11 @@ void process_arrival(struct process **cpu_queue_tail, char* id)
     enqueue(cpu_queue_tail, new_process);
 }
 
+void cpu_start(struct process **cpu_queue_head, struct process **disk_tail)
+{
+
+}
+
 void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail)
 {
     struct process *finished_process = dequeue(cpu_queue_head);
@@ -265,3 +328,5 @@ void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail)
         enqueue(disk_tail, finished_process);
     }
 }
+
+ 
