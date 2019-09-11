@@ -13,14 +13,14 @@ struct process
 /*  Event types:
     1: Start simulation events
     2: New process in simulation
-    X: Enter CPU
-    3: Leave CPU
-    4: Arrive at Disk 1
-    5: Leave Disk 1
-    6: Arrive at Disk 2
-    7: Leave Disk 2
+    3: Enter CPU
+    4: Leave CPU
+    5: Arrive at Disk 1
+    6: Leave Disk 1
+    7: Arrive at Disk 2
+    8: Leave Disk 2
     Y: Exit System
-    9: End simulation events
+    0: End simulation events
 */
 struct event
 {
@@ -147,6 +147,7 @@ void main ()
             enqueue(&cpu_queue_tail, current_process);
             if (cpu_queue_head == NULL)
             {
+                printf("$$In the case 2 if$$");
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 
@@ -190,9 +191,14 @@ void main ()
 
             sorted_event_enqueue(&event_queue_root, new_event);
             }
+            else
+            {
+                    printf("\nITS NULL RIGHT NOW.\n");
+            }
+            
             printf("\n~~~~~~~~~~~~~~~~~~~~~~pre if~~~~~~~~~~~~~~~~~~~~~~~\n");
             sleep(5);
-            if (ranged_rand(0,100) < (QUIT_PROB))
+            if (ranged_rand(100,0) < (QUIT_PROB))
             {
                 free(current_process);
             }
@@ -262,6 +268,13 @@ void main ()
             if (cpu_queue_head == NULL)
             {
                 cpu_queue_head = cpu_queue_tail;
+                new_event = create_event(current_event->eventid, globaltime, 3);
+                
+
+                print_created(new_event);
+
+
+                sorted_event_enqueue(&event_queue_root, new_event);
             }
             break;
         case 7: 
@@ -293,7 +306,17 @@ void main ()
             if (cpu_queue_head == NULL)
             {
                 cpu_queue_head = cpu_queue_tail;
+                new_event = create_event(current_event->eventid, globaltime, 3);
+                
+
+                print_created(new_event);
+
+
+                sorted_event_enqueue(&event_queue_root, new_event);
             }        
+            break;
+        case 9: 
+            break;
         default:        printf("\nCASE DEFAULT\n");
         sleep(1);
             break;
@@ -302,6 +325,9 @@ void main ()
  //       sorted_event_enqueue(&event_queue_root, create_event(str, 
  //           globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1)); 
         free(current_event);
+        if (cpu_queue_head == NULL)
+            printf("\ncpu is EMPTY\n");
+
         printf("Free successful\n  END OF LOOP \n\n********\n\n");
 
     }
@@ -428,6 +454,7 @@ void enqueue(struct process **queue_tail, struct process *new_process)
     {
         (*queue_tail)->next = new_process;
         (*queue_tail) = new_process;
+        new_process->next = NULL;
     }
     else
     {
