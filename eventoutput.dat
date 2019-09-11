@@ -1,0 +1,472 @@
+at time 0 PROCESS START is STARTING SIM
+
+at time 13 PROCESS 1 is arriving at cpu queue
+
+at time 13 PROCESS 1 is entering CPU
+
+at time 15 PROCESS 1 is leaving CPU
+
+at time 15 PROCESS 1 is entering DISK1
+
+at time 22 PROCESS 1 is leaving DISK1
+
+at time 22 PROCESS 1 is entering CPU
+
+at time 23 PROCESS 2 is arriving at cpu queue
+
+at time 29 PROCESS 3 is arriving at cpu queue
+
+at time 30 PROCESS 1 is leaving CPU
+
+at time 30 PROCESS 1 is entering DISK1
+
+at time 30 PROCESS 2 is entering CPU
+
+at time 40 PROCESS 1 is leaving DISK1
+
+at time 40 PROCESS 4 is arriving at cpu queue
+
+at time 41 PROCESS 2 is leaving CPU
+
+at time 41 PROCESS 2 is entering CPU
+
+at time 49 PROCESS 2 is leaving CPU
+
+at time 49 PROCESS 2 is entering DISK1
+
+at time 49 PROCESS 3 is entering CPU
+
+at time 49 PROCESS 5 is arriving at cpu queue
+
+at time 54 PROCESS 3 is leaving CPU
+
+at time 54 PROCESS 3 is entering CPU
+
+at time 56 PROCESS 6 is arriving at cpu queue
+
+at time 56 PROCESS 2 is leaving DISK1
+
+at time 56 PROCESS 3 is entering DISK1
+
+at time 61 PROCESS 3 is leaving DISK1
+
+at time 62 PROCESS 3 is leaving CPU
+
+at time 62 PROCESS 1 is entering CPU
+
+at time 64 PROCESS 1 is leaving CPU
+
+at time 64 PROCESS 2 is entering CPU
+
+at time 71 PROCESS 2 is leaving CPU
+
+at time 71 PROCESS 2 is entering DISK1
+
+at time 71 PROCESS 3 is entering CPU
+
+at time 75 PROCESS 7 is arriving at cpu queue
+
+at time 79 PROCESS 2 is leaving DISK1
+
+at time 82 PROCESS 3 is leaving CPU
+
+at time 82 PROCESS 7 is entering CPU
+
+at time 92 PROCESS 8 is arriving at cpu queue
+
+at time 94 PROCESS 7 is leaving CPU
+
+at time 94 PROCESS 7 is entering DISK1
+
+at time 94 PROCESS 7 is entering CPU
+
+at time 97 PROCESS 7 is leaving CPU
+
+at time 97 PROCESS 2 is entering CPU
+
+at time 98 PROCESS 9 is arriving at cpu queue
+
+at time 99 PROCESS 7 is leaving DISK1
+
+at time 102 PROCESS 2 is leaving CPU
+
+at time 102 PROCESS 2 is entering DISK1
+
+at time 102 PROCESS 7 is entering CPU
+
+at time 109 PROCESS 7 is leaving CPU
+
+at time 109 PROCESS 2 is entering CPU
+
+at time 111 PROCESS 10 is arriving at cpu queue
+
+at time 112 PROCESS 2 is leaving CPU
+
+at time 115 PROCESS 2 is leaving DISK1
+
+at time 115 PROCESS 2 is entering CPU
+
+at time 116 PROCESS 11 is arriving at cpu queue
+
+at time 123 PROCESS 2 is leaving CPU
+
+at time 123 PROCESS 11 is entering DISK1
+
+at time 123 PROCESS 11 is entering CPU
+
+at time 125 PROCESS 12 is arriving at cpu queue
+
+at time 131 PROCESS 11 is leaving CPU
+
+at time 131 PROCESS 12 is entering CPU
+
+at time 135 PROCESS 11 is leaving DISK1
+
+at time 135 PROCESS 11 is entering DISK1
+
+at time 138 PROCESS 12 is leaving CPU
+
+at time 138 PROCESS 12 is entering CPU
+
+at time 138 PROCESS 13 is arriving at cpu queue
+
+at time 139 PROCESS 11 is leaving DISK1
+
+at time 146 PROCESS 14 is arriving at cpu queue
+
+at time 148 PROCESS 12 is leaving CPU
+
+at time 148 PROCESS 11 is entering CPU
+
+at time 157 PROCESS 11 is leaving CPU
+
+at time 157 PROCESS 11 is entering DISK1
+
+at time 157 PROCESS 13 is entering CPU
+
+at time 164 PROCESS 13 is leaving CPU
+
+at time 164 PROCESS 13 is entering CPU
+
+at time 164 PROCESS 11 is leaving DISK1
+
+at time 164 PROCESS 13 is entering DISK1
+
+at time 165 PROCESS 15 is arriving at cpu queue
+
+at time 170 PROCESS 13 is leaving CPU
+
+at time 170 PROCESS 11 is entering CPU
+
+at time 171 PROCESS 13 is leaving DISK1
+
+at time 171 PROCESS 13 is entering DISK1
+
+at time 172 PROCESS 11 is leaving CPU
+
+at time 172 PROCESS 11 is entering CPU
+
+at time 178 PROCESS 11 is leaving CPU
+
+at time 178 PROCESS 15 is entering CPU
+
+at time 183 PROCESS 16 is arriving at cpu queue
+
+at time 184 PROCESS 13 is leaving DISK1
+
+at time 184 PROCESS 11 is entering DISK1
+
+at time 188 PROCESS 11 is leaving DISK1
+
+at time 188 PROCESS 11 is entering DISK1
+
+at time 188 PROCESS 15 is leaving CPU
+
+at time 188 PROCESS 15 is entering CPU
+
+at time 192 PROCESS 11 is leaving DISK1
+
+at time 192 PROCESS 15 is entering DISK1
+
+at time 195 PROCESS 17 is arriving at cpu queue
+
+at time 199 PROCESS 15 is leaving CPU
+
+at time 199 PROCESS 13 is entering CPU
+
+at time 205 PROCESS 15 is leaving DISK1
+
+at time 206 PROCESS 18 is arriving at cpu queue
+
+at time 207 PROCESS 13 is leaving CPU
+
+at time 207 PROCESS 13 is entering DISK1
+
+at time 207 PROCESS 16 is entering CPU
+
+at time 217 PROCESS 13 is leaving DISK1
+
+at time 217 PROCESS 19 is arriving at cpu queue
+
+at time 219 PROCESS 16 is leaving CPU
+
+at time 219 PROCESS 16 is entering CPU
+
+at time 225 PROCESS 16 is leaving CPU
+
+at time 225 PROCESS 16 is entering DISK1
+
+at time 225 PROCESS 13 is entering CPU
+
+at time 230 PROCESS 20 is arriving at cpu queue
+
+at time 235 PROCESS 13 is leaving CPU
+
+at time 235 PROCESS 11 is entering CPU
+
+at time 237 PROCESS 11 is leaving CPU
+
+at time 237 PROCESS 11 is entering CPU
+
+at time 237 PROCESS 16 is leaving DISK1
+
+at time 244 PROCESS 11 is leaving CPU
+
+at time 244 PROCESS 17 is entering CPU
+
+at time 244 PROCESS 21 is arriving at cpu queue
+
+at time 255 PROCESS 17 is leaving CPU
+
+at time 255 PROCESS 17 is entering DISK1
+
+at time 255 PROCESS 17 is entering CPU
+
+at time 260 PROCESS 17 is leaving DISK1
+
+at time 262 PROCESS 22 is arriving at cpu queue
+
+at time 264 PROCESS 17 is leaving CPU
+
+at time 264 PROCESS 15 is entering CPU
+
+at time 270 PROCESS 23 is arriving at cpu queue
+
+at time 272 PROCESS 15 is leaving CPU
+
+at time 272 PROCESS 15 is entering DISK1
+
+at time 272 PROCESS 13 is entering CPU
+
+at time 276 PROCESS 24 is arriving at cpu queue
+
+at time 277 PROCESS 15 is leaving DISK1
+
+at time 279 PROCESS 13 is leaving CPU
+
+at time 279 PROCESS 16 is entering CPU
+
+at time 281 PROCESS 16 is leaving CPU
+
+at time 281 PROCESS 17 is entering CPU
+
+at time 286 PROCESS 25 is arriving at cpu queue
+
+at time 292 PROCESS 17 is leaving CPU
+
+at time 292 PROCESS 17 is entering DISK1
+
+at time 292 PROCESS 15 is entering CPU
+
+at time 299 PROCESS 26 is arriving at cpu queue
+
+at time 300 PROCESS 15 is leaving CPU
+
+at time 300 PROCESS 17 is entering CPU
+
+at time 302 PROCESS 17 is leaving DISK1
+
+at time 304 PROCESS 27 is arriving at cpu queue
+
+at time 305 PROCESS 17 is leaving CPU
+
+at time 305 PROCESS 27 is entering CPU
+
+at time 317 PROCESS 27 is leaving CPU
+
+at time 317 PROCESS 27 is entering DISK1
+
+at time 317 PROCESS 27 is entering CPU
+
+at time 322 PROCESS 27 is leaving DISK1
+
+at time 323 PROCESS 27 is leaving CPU
+
+at time 323 PROCESS 27 is entering DISK1
+
+at time 323 PROCESS 27 is entering CPU
+
+at time 324 PROCESS 28 is arriving at cpu queue
+
+at time 326 PROCESS 27 is leaving DISK1
+
+at time 329 PROCESS 29 is arriving at cpu queue
+
+at time 330 PROCESS 27 is leaving CPU
+
+at time 330 PROCESS 28 is entering CPU
+
+at time 336 PROCESS 28 is leaving CPU
+
+at time 336 PROCESS 28 is entering CPU
+
+at time 344 PROCESS 28 is leaving CPU
+
+at time 344 PROCESS 27 is entering CPU
+
+at time 345 PROCESS 30 is arriving at cpu queue
+
+at time 351 PROCESS 27 is leaving CPU
+
+at time 351 PROCESS 29 is entering CPU
+
+at time 354 PROCESS 31 is arriving at cpu queue
+
+at time 361 PROCESS 32 is arriving at cpu queue
+
+at time 361 PROCESS 29 is leaving CPU
+
+at time 361 PROCESS 29 is entering CPU
+
+at time 369 PROCESS 29 is leaving CPU
+
+at time 369 PROCESS 30 is entering CPU
+
+at time 371 PROCESS 33 is arriving at cpu queue
+
+at time 372 PROCESS 30 is leaving CPU
+
+at time 372 PROCESS 30 is entering DISK1
+
+at time 372 PROCESS 30 is entering CPU
+
+at time 377 PROCESS 34 is arriving at cpu queue
+
+at time 381 PROCESS 30 is leaving DISK1
+
+at time 382 PROCESS 30 is leaving CPU
+
+at time 382 PROCESS 31 is entering CPU
+
+at time 384 PROCESS 31 is leaving CPU
+
+at time 384 PROCESS 30 is entering CPU
+
+at time 386 PROCESS 35 is arriving at cpu queue
+
+at time 396 PROCESS 30 is leaving CPU
+
+at time 396 PROCESS 35 is entering CPU
+
+at time 402 PROCESS 35 is leaving CPU
+
+at time 402 PROCESS 35 is entering DISK1
+
+at time 402 PROCESS 35 is entering CPU
+
+at time 402 PROCESS 36 is arriving at cpu queue
+
+at time 406 PROCESS 35 is leaving CPU
+
+at time 406 PROCESS 36 is entering CPU
+
+at time 407 PROCESS 35 is leaving DISK1
+
+at time 412 PROCESS 36 is leaving CPU
+
+at time 412 PROCESS 36 is entering DISK1
+
+at time 412 PROCESS 36 is entering CPU
+
+at time 412 PROCESS 37 is arriving at cpu queue
+
+at time 418 PROCESS 36 is leaving CPU
+
+at time 418 PROCESS 35 is entering CPU
+
+at time 420 PROCESS 38 is arriving at cpu queue
+
+at time 424 PROCESS 36 is leaving DISK1
+
+at time 428 PROCESS 35 is leaving CPU
+
+at time 428 PROCESS 37 is entering CPU
+
+at time 430 PROCESS 37 is leaving CPU
+
+at time 430 PROCESS 37 is entering CPU
+
+at time 432 PROCESS 39 is arriving at cpu queue
+
+at time 437 PROCESS 40 is arriving at cpu queue
+
+at time 438 PROCESS 37 is leaving CPU
+
+at time 438 PROCESS 37 is entering DISK1
+
+at time 438 PROCESS 38 is entering CPU
+
+at time 441 PROCESS 37 is leaving DISK1
+
+at time 446 PROCESS 41 is arriving at cpu queue
+
+at time 447 PROCESS 38 is leaving CPU
+
+at time 447 PROCESS 38 is entering DISK1
+
+at time 447 PROCESS 38 is entering CPU
+
+at time 450 PROCESS 38 is leaving CPU
+
+at time 450 PROCESS 36 is entering CPU
+
+at time 451 PROCESS 42 is arriving at cpu queue
+
+at time 452 PROCESS 38 is leaving DISK1
+
+at time 462 PROCESS 36 is leaving CPU
+
+at time 462 PROCESS 37 is entering CPU
+
+at time 467 PROCESS 37 is leaving CPU
+
+at time 467 PROCESS 38 is entering CPU
+
+at time 470 PROCESS 38 is leaving CPU
+
+at time 470 PROCESS 43 is arriving at cpu queue
+
+at time 470 PROCESS 43 is entering CPU
+
+at time 475 PROCESS 43 is leaving CPU
+
+at time 475 PROCESS 43 is entering DISK1
+
+at time 481 PROCESS 43 is leaving DISK1
+
+at time 481 PROCESS 43 is entering CPU
+
+at time 487 PROCESS 44 is arriving at cpu queue
+
+at time 493 PROCESS 43 is leaving CPU
+
+at time 493 PROCESS 44 is entering CPU
+
+at time 497 PROCESS 45 is arriving at cpu queue
+
+at time 499 PROCESS 44 is leaving CPU
+
+at time 499 PROCESS 44 is entering CPU
+
+at time 500 PROCESS END is 
+

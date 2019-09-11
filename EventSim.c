@@ -44,6 +44,7 @@ struct process* dequeue(struct process **queue_head);
 void process_arrival(struct process **cpu_queue_tail, char* id);
 void cpu_start(struct process **cpu_queue_head, struct process **disk_tail);
 void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail);
+void printToOutput(FILE *output, struct event *current_event);
 
 
 
@@ -118,86 +119,40 @@ void main ()
     while (endhit != 1)
     {
         current_event = popevent(&event_queue_root);
-        fprintf(output, "at time %d PROCESS %s is %d\n\n", current_event->poptime, current_event->eventid, current_event->eventtype);
-        print_event(current_event);
-        printf("Print successful\n");
+        printToOutput(output, current_event);
         globaltime = current_event->poptime;
         if (strcmp(current_event->eventid, "END") == 0)
             endhit = 1;
-        printf("Pop successful");
         sprintf(id_as_str, "%d", processcount);
-        sleep(1);
         
         switch(current_event->eventtype)
         {
-        case 1: 
-        printf("\nCASE 1\n");
-        sleep(1);
-        new_event = create_event(id_as_str, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 2);
-
-                print_created(new_event);
-
+        case 1: new_event = create_event(id_as_str, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 2);
             sorted_event_enqueue(&event_queue_root, new_event);
             processcount++;
             break;
-        case 2: 
-                printf("\nCASE 2\n");
-        sleep(1);process_arrival(&cpu_queue_tail, current_event->eventid);
+        case 2: process_arrival(&cpu_queue_tail, current_event->eventid);
             current_process = create_process(current_event->eventid);
             enqueue(&cpu_queue_tail, current_process);
             if (cpu_queue_head == NULL)
             {
-                printf("$$In the case 2 if$$");
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
-                
-
-                print_created(new_event);
-
-
                 sorted_event_enqueue(&event_queue_root, new_event);
             }
             new_event = create_event(id_as_str, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 2);
-            
-
-                print_created(new_event);
-
-
             sorted_event_enqueue(&event_queue_root, new_event);
             processcount++;
             break;
         case 3: new_event = create_event(current_event->eventid, globaltime + ranged_rand(CPU_MAX, CPU_MIN), 4);
-        
-                print_created(new_event);
-
-
             sorted_event_enqueue(&event_queue_root, new_event);
             break;
-        case 4: 
-        
-                printf("\nCASE 4\n");
-        sleep(1);
-        
-            current_process = dequeue(&cpu_queue_head);
-
+        case 4: current_process = dequeue(&cpu_queue_head);
             if (cpu_queue_head != NULL)
             {
-                            printf("\n~~~~~~~~~~~~~~~~~~~~~~in if~~~~~~~~~~~~~~~~~~~~~~~\n");
-            sleep(5);
                 new_event = create_event(cpu_queue_head->processid, globaltime, 3);
-            
-                print_created(new_event);
-
-
-            sorted_event_enqueue(&event_queue_root, new_event);
+                sorted_event_enqueue(&event_queue_root, new_event);
             }
-            else
-            {
-                    printf("\nITS NULL RIGHT NOW.\n");
-            }
-            
-            printf("\n~~~~~~~~~~~~~~~~~~~~~~pre if~~~~~~~~~~~~~~~~~~~~~~~\n");
-            sleep(5);
             if (ranged_rand(100,0) < (QUIT_PROB))
             {
                 free(current_process);
@@ -211,11 +166,6 @@ void main ()
                     {
                         disk1_queue_head = current_process;                      
                         new_event = create_event(current_process->processid, globaltime, 5);
-                        
-
-                print_created(new_event);
-
-
                         sorted_event_enqueue(&event_queue_root, new_event);
                     }
                     disk1_queue_count++;
@@ -227,41 +177,19 @@ void main ()
                     {
                         disk2_queue_head = current_process;
                         new_event = create_event(current_process->processid, globaltime, 7);
-                        
-                        
-
-                print_created(new_event);
-
-
                         sorted_event_enqueue(&event_queue_root, new_event);
                     }
                     disk2_queue_count++;
                 }
             }
             break;
-        case 5: 
-        
-                printf("\nCASE 5\n");
-        sleep(1);new_event = create_event(disk1_queue_head->processid, globaltime + ranged_rand(DISK1_MAX,DISK1_MIN), 6);
-        
-
-                print_created(new_event);
-
-
+        case 5: new_event = create_event(disk1_queue_head->processid, globaltime + ranged_rand(DISK1_MAX,DISK1_MIN), 6);
             sorted_event_enqueue(&event_queue_root, new_event);
             break;
-        case 6: 
-        
-                printf("\nCASE 6\n");
-        sleep(1);current_process = dequeue(&disk1_queue_head);
+        case 6: current_process = dequeue(&disk1_queue_head);
             if (disk1_queue_head != NULL)
             {
-                new_event = create_event(disk1_queue_head->processid, globaltime, 5);
-            
-
-                print_created(new_event);
-
-            
+                new_event = create_event(disk1_queue_head->processid, globaltime, 5);            
                 sorted_event_enqueue(&event_queue_root, new_event);
             }
             enqueue(&cpu_queue_tail, current_process);
@@ -269,37 +197,16 @@ void main ()
             {
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
-                
-
-                print_created(new_event);
-
-
                 sorted_event_enqueue(&event_queue_root, new_event);
             }
             break;
-        case 7: 
-        
-                printf("\nCASE 7\n");
-        sleep(1);new_event = create_event(disk2_queue_head->processid, globaltime + ranged_rand(DISK2_MAX,DISK2_MIN), 8);
-        
-
-                print_created(new_event);
-
-
+        case 7: new_event = create_event(disk2_queue_head->processid, globaltime + ranged_rand(DISK2_MAX,DISK2_MIN), 8);
             sorted_event_enqueue(&event_queue_root, new_event);
             break;
-        case 8: 
-        
-                printf("\nCASE 8\n");
-        sleep(1);current_process = dequeue(&disk2_queue_head);
+        case 8: current_process = dequeue(&disk2_queue_head);
         if (disk2_queue_head != NULL)
         {
             new_event = create_event(disk2_queue_head->processid, globaltime, 7);
-            
-
-                print_created(new_event);
-
-
             sorted_event_enqueue(&event_queue_root, new_event);
         }
             enqueue(&cpu_queue_tail, current_process);
@@ -307,11 +214,6 @@ void main ()
             {
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
-                
-
-                print_created(new_event);
-
-
                 sorted_event_enqueue(&event_queue_root, new_event);
             }        
             break;
@@ -325,11 +227,6 @@ void main ()
  //       sorted_event_enqueue(&event_queue_root, create_event(str, 
  //           globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 1)); 
         free(current_event);
-        if (cpu_queue_head == NULL)
-            printf("\ncpu is EMPTY\n");
-
-        printf("Free successful\n  END OF LOOP \n\n********\n\n");
-
     }
     fclose(output);
 }
@@ -494,3 +391,29 @@ void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail)
     }
 }
 
+void printToOutput(FILE *output, struct event *current_event)
+{
+    char printType[22];
+    switch (current_event->eventtype)
+    {
+    case 1: strcpy(printType, "STARTING SIM");
+        break;
+    case 2: strcpy(printType, "arriving at cpu queue");
+        break;
+    case 3: strcpy(printType, "entering CPU");
+        break;
+    case 4: strcpy(printType, "leaving CPU");
+        break;
+    case 5: strcpy(printType, "entering DISK1");
+        break;
+    case 6: strcpy(printType, "leaving DISK1");
+        break;
+    case 7: strcpy(printType, "entering DISK2");
+        break;
+    case 8: strcpy(printType, "leaving DISK2");
+        break;
+    case 9: strcpy(printType, "");
+        break;
+    }
+    fprintf(output, "at time %d process %s is %s\n\n", current_event->poptime, current_event->eventid, printType);
+}
