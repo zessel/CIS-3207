@@ -1,6 +1,9 @@
 Zach Essel
+
 09/11/2019
+
 CIS 3207 001
+
 Project 1: Giorgio's Discrete Event Simulator
 
 The goal of this project is to simulate virtualization of the cpu.  This is accomplished by having processes
