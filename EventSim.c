@@ -74,7 +74,7 @@ void process_arrival(struct process **cpu_queue_tail, char* id);
 int is_empty(struct process *queue_head);
 //void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail); TODO: Flesh out or remove
 void printToOutput(FILE *output, struct event *current_event);
-void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout);
+void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout, FILE *output);
 
 
 
@@ -100,15 +100,13 @@ void main ()
     FILE *output;
     output = fopen(outputfilename, "w");
 
-    printf("\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n", SEED,INIT_TIME,FIN_TIME,ARRIVE_MIN,
-        ARRIVE_MAX,
-        QUIT_PROB,
-        CPU_MIN,
-        CPU_MAX,
-        DISK1_MIN,
-        DISK1_MAX,
-        DISK2_MIN,
-        DISK2_MAX);
+    fprintf(output, "The simulation ran with the following values\n"
+        "\nSeed: %30d\nInitial Time: %22d\nFinish Time: %23d\nArrival Window Minimum: %12d"
+        "\nArrival Window Maximum: %12d\nQuit Probability (out of 100): %5d\nCPU Processing Minimum: %12d"
+        "\nCPU Processing Maximum: %12d\nDISK1 Time Minimum: %16d\nDISK1 Time Maximum: %16d"
+        "\nDISK2 Time Minimum: %16d\nDISK2 Time Maximum: %16d\n\n\n", SEED,INIT_TIME,FIN_TIME,ARRIVE_MIN,
+        ARRIVE_MAX, QUIT_PROB, CPU_MIN, CPU_MAX, DISK1_MIN, DISK1_MAX, DISK2_MIN, DISK2_MAX);
+
     srand((unsigned int)SEED);  // So I don't forget rand() % (MAX - MIN + 1) + MIN 
     int globaltime = INIT_TIME;
     int processcount = 1;
@@ -252,14 +250,13 @@ void main ()
             break;
         case 9: free(current_process);
             break;
-        default:        printf("\nCASE DEFAULT\n");
-        sleep(1);
+        default:        
             break;
         }
-        calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1);
+        calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 0, output);
         free(current_event);
     }
-    calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1);
+    calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1, output);
     fclose(output);
 }
 
@@ -398,7 +395,6 @@ struct event* create_event(char* id, int time, int type)
     new_event->eventtype = type;
     new_event->prev = NULL;
     new_event->next = NULL;
-    printf("Create successful\n");
     return new_event;
 }
 
@@ -595,7 +591,7 @@ void printToOutput(FILE *output, struct event *current_event)
     fprintf(output, "at time %d process %s is %s\n\n", current_event->poptime, current_event->eventid, printType);
 }
 
-void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout)
+void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout, FILE *output)
 {
     static int lastFilledCPU = 0;
     static int lastFilledD1 = 0;
@@ -608,6 +604,7 @@ void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct
     static int CPUWasEmpty = 0;
     static int D1WasEmpty = 0;
     static int D2WasEmpty = 0;
+    int runtime = FIN_TIME-INIT_TIME;
 
     if ((is_empty(cpu_head)) && (lastFilledCPU <= time))
     {
@@ -646,6 +643,11 @@ void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct
         D2WasEmpty = 0;
     }
     if (printout)
-        printf("\nUnused cycles:\nCPU:   %d\nDISK1: %d\nDISK2: %d\n", totalCPU, totalD1, totalD2);
+        fprintf(output, "\nUnused cycles:\n\tCPU:   %d\n\tDISK1: %d\n\tDISK2: %d"
+                        "\nUtilization:\n\tCPU:   %f%%\n\tDISK1: %f%%\n\tDISK2: %f%%",
+                        totalCPU, totalD1, totalD2,
+                        (float)(runtime-totalCPU)*100/runtime,
+                        (float)(runtime-totalD1)*100/runtime,
+                        (float)(runtime-totalD2)*100/runtime);
 
 }

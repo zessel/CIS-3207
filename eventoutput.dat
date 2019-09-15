@@ -1,3 +1,19 @@
+The simulation ran with the following values
+
+Seed:                            100
+Initial Time:                      0
+Finish Time:                    1000
+Arrival Window Minimum:            5
+Arrival Window Maximum:           20
+Quit Probability (out of 100):    20
+CPU Processing Minimum:            2
+CPU Processing Maximum:           12
+DISK1 Time Minimum:                3
+DISK1 Time Maximum:               13
+DISK2 Time Minimum:                4
+DISK2 Time Maximum:               14
+
+
 at time 0 process START is STARTING SIMULATION
 
 at time 13 process 1 is arriving at CPU queue
@@ -1202,3 +1218,12 @@ at time 997 process 73 is entering CPU
 
 at time 1000 process END is ENDING SIMULATION
 
+
+Unused cycles:
+	CPU:   29
+	DISK1: 75
+	DISK2: 138
+Utilization:
+	CPU:   97.099998%
+	DISK1: 92.500000%
+	DISK2: 86.199997%
