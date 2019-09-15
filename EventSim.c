@@ -184,7 +184,8 @@ void main ()
             }
             if (ranged_rand(100,0) < (QUIT_PROB))
             {
-                free(current_process);
+                new_event = create_event(cpu_queue_head->processid, globaltime, 9);
+                sorted_event_enqueue(&event_queue_root, new_event);
             }
             else
             {
@@ -246,7 +247,7 @@ void main ()
                 sorted_event_enqueue(&event_queue_root, new_event);
             }        
             break;
-        case 9: 
+        case 9: free(current_process);
             break;
         default:        printf("\nCASE DEFAULT\n");
         sleep(1);
@@ -555,11 +556,11 @@ void printToOutput(FILE *output, struct event *current_event)
     char printType[22];
     switch (current_event->eventtype)
     {
-    case 0: strcpy(printType, "ENDING SIM");
+    case 0: strcpy(printType, "ENDING SIMULATION");
         break;
-    case 1: strcpy(printType, "STARTING SIM");
+    case 1: strcpy(printType, "STARTING SIMULATION");
         break;
-    case 2: strcpy(printType, "arriving at cpu queue");
+    case 2: strcpy(printType, "arriving at CPU queue");
         break;
     case 3: strcpy(printType, "entering CPU");
         break;
