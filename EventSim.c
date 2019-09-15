@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <unistd.h>
 
 /*  This is the structure for the processes that go between cpu and i/o
@@ -72,9 +71,11 @@ struct process* create_process(char* id);
 void enqueue(struct process **queue_tail, struct process *new_process);
 struct process* dequeue(struct process **queue_head);
 void process_arrival(struct process **cpu_queue_tail, char* id);
-//void cpu_start(struct process **cpu_queue_head, struct process **disk_tail);  TODO: Flesh out or remove
-//void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail);
+int is_empty(struct process *queue_head);
+//void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail); TODO: Flesh out or remove
 void printToOutput(FILE *output, struct event *current_event);
+void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout);
+
 
 
 
@@ -189,7 +190,7 @@ void main ()
             }
             else
             {
-                if (disk1_queue_count >= disk2_queue_count)
+                if (disk1_queue_count <= disk2_queue_count)
                 {
                     enqueue(&disk1_queue_tail, current_process);
                     if (disk1_queue_head == NULL)
@@ -229,6 +230,7 @@ void main ()
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
             }
+            disk1_queue_count--;
             break;
         case 7: new_event = create_event(disk2_queue_head->processid, globaltime + ranged_rand(DISK2_MAX,DISK2_MIN), 8);
             sorted_event_enqueue(&event_queue_root, new_event);
@@ -245,7 +247,8 @@ void main ()
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
-            }        
+            }
+            disk2_queue_count--;        
             break;
         case 9: free(current_process);
             break;
@@ -253,8 +256,10 @@ void main ()
         sleep(1);
             break;
         }
+        calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1);
         free(current_event);
     }
+    calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1);
     fclose(output);
 }
 
@@ -521,12 +526,22 @@ void process_arrival(struct process **cpu_queue_tail, char* id)
     enqueue(cpu_queue_tail, new_process);
 }
 
-/*  TODO: Flesh out or remove
-void cpu_is_empty(struct process **cpu_queue_head, struct process **disk_tail)
+/*  is_empty checks if a queue_head pointer is empty returns 1 if true
+
+    Arguments:
+    queue_head - a pointer to the head of a process queue
+
+    Return:
+    int of 0 (false) or 1 (true)
+*/
+int is_empty(struct process *queue_head)
 {
-
+    int empty = 0;
+    if (queue_head == NULL)
+        empty = 1;
+    return empty;
 }
-
+/*  TODO: Flesh out or remove
 void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail)
 {
     struct process *finished_process = dequeue(cpu_queue_head);
@@ -578,4 +593,59 @@ void printToOutput(FILE *output, struct event *current_event)
         break;
     }
     fprintf(output, "at time %d process %s is %s\n\n", current_event->poptime, current_event->eventid, printType);
+}
+
+void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout)
+{
+    static int lastFilledCPU = 0;
+    static int lastFilledD1 = 0;
+    static int lastFilledD2 = 0;
+
+    static int totalCPU = 0;
+    static int totalD1 = 0;
+    static int totalD2 = 0;
+
+    static int CPUWasEmpty = 0;
+    static int D1WasEmpty = 0;
+    static int D2WasEmpty = 0;
+
+    if ((is_empty(cpu_head)) && (lastFilledCPU <= time))
+    {
+        lastFilledCPU = time;
+        CPUWasEmpty = 1;
+    }
+    else
+    {
+        if (CPUWasEmpty)
+            totalCPU = totalCPU + time - lastFilledCPU;
+        lastFilledCPU = time;
+        CPUWasEmpty = 0;
+    } 
+    if ((is_empty(disk1_head)) && (lastFilledD1 <= time))
+    {
+        lastFilledD1 = time;
+        D1WasEmpty = 1;
+    }
+    else
+    {
+        if (D1WasEmpty)
+            totalD1 = totalD1 + time - lastFilledD1;
+        lastFilledD1 = time;
+        D1WasEmpty = 0;
+    }
+    if ((is_empty(disk2_head)) && (lastFilledD2 <= time))
+    {
+        lastFilledD2 = time;
+        D2WasEmpty = 1;
+    }
+    else
+    {
+        if (D2WasEmpty)
+            totalD2 = totalD2 + time - lastFilledD2;
+        lastFilledD2 = time;
+        D2WasEmpty = 0;
+    }
+    if (printout)
+        printf("\nUnused cycles:\nCPU:   %d\nDISK1: %d\nDISK2: %d\n", totalCPU, totalD1, totalD2);
+
 }
