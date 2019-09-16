@@ -1,0 +1,4 @@
+# Builds an executable "EventSim" from EventSim.c
+
+all: EventSim.c 
+    gcc -o EventSim EventSim.c

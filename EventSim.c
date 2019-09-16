@@ -76,7 +76,6 @@ void enqueue(struct process **queue_tail, struct process *new_process);
 struct process* dequeue(struct process **queue_head, struct process **queue_tail);
 void process_arrival(struct process **cpu_queue_tail, char* id);
 int is_empty(struct process *queue_head);
-//void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail); TODO: Flesh out or remove
 void printToOutput(FILE *output, struct event *current_event);
 void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout, FILE *output);
 void statistics(int cpu_length, int d1_length, int d2_length, int event_length, int printbool, FILE *output);
@@ -655,6 +654,29 @@ void printToOutput(FILE *output, struct event *current_event)
     fprintf(output, "at time %d process %s is %s\n\n", current_event->poptime, current_event->eventid, printType);
 }
 
+/*  calculate_idle contains the variables and actions for determining utilization
+    the function has an argument parameter to print the results, but unfortunately
+    needs an output ile whether or not printing is taking place.
+    Uses statics to keep track of the "time" that any given queue was empty,
+    then it calculates how much time passed since then.
+
+    Prints both the number of cycles of inactivity for any given queue
+    along with the percentage of utilization out of the total run time
+
+    Arguments:
+    cpu_head - pointer to a process struc containing the head of the cpu queue
+
+    disk1_head - pointer to a process struc containing the head of the disk1 queue
+
+    disk2_head - pointer to a process struc containing the head of the disk2 queue
+
+    printout - bool for whether the function prints to the output file
+
+    output - the output file for printing
+
+    Returns:
+    Nothing 
+*/
 void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout, FILE *output)
 {
     static int lastFilledCPU = 0;
@@ -716,6 +738,29 @@ void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct
 
 }
 
+/*  statistics provides the data and calculations pertaining to queue lengths
+    The function runs every event so the average is the length of the queues / the total number
+    of events.  Remember that multiple events can run at the same time slice.
+
+    The average is only calculated after you decide to print, in other cases it simply tallies
+    the average prior to dividing by n runs.
+
+    Arguments:
+    cpu_length - the current length of the cpu queue
+    
+    d1_length - the current length of the disk1 queue
+
+    d2_length - the current length of the disk2 queue
+
+    event_length - the current length of the event queue
+
+    printbool - boolean for whether output file printing is needed
+
+    output - output file
+
+    Returns:
+    Nothing
+*/
 void statistics(int cpu_length, int d1_length, int d2_length, int event_length, int printbool, FILE *output)
 {
     static int cpu_queue_max = 0;
@@ -763,6 +808,21 @@ void statistics(int cpu_length, int d1_length, int d2_length, int event_length, 
     }
 }
 
+/*  response_times contains the data and math for determining average and maximum response time
+    Calculates the response times for the three queue systems.
+
+    Arguments:
+    current_event - a pointer to am event struct containing the event driving this loop
+
+    arrival_time - the time value of the process the current_event is dequeueing
+
+    printbool - a boolean for determining whether to print to outputfile
+
+    outputfile - the file to print output to
+
+    Returns:
+    Nothing
+*/
 void response_times (struct event *current_event, int arrival_time, int printbool, FILE *outputfile)
 {
     static long avg_cpu_response = 0;
@@ -812,6 +872,18 @@ void response_times (struct event *current_event, int arrival_time, int printboo
     }
 }
 
+/*  throughput prints the jobs completed for each system / total simulation time
+
+    Arguments:
+    cpu - the total number of processes that exited cpu queue
+
+    d1 - the total number of processes that exited disk 1 queue
+
+    d2 - the total number of processese that exited disk 2 queue
+
+    Returns:
+    Nothing
+*/
 void throughput (int cpu, int d1, int d2, FILE *output)
 {
     fprintf(output, "\nThroughput of System:\n\tCPU:   %f\n\tDISK1: %f\n\tDISK2: %f\n",
