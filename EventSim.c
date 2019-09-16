@@ -170,8 +170,6 @@ void main ()
         statistics(cpu_length, d1_length, d2_length, event_length, 0, output);
         printToOutput(output, current_event);
         globaltime = current_event->poptime;
-        if (strcmp(current_event->eventid, "END") == 0)
-            endhit = 1;
         sprintf(id_as_str, "%d", processcount);
         
         switch(current_event->eventtype)
@@ -306,7 +304,7 @@ void main ()
         case 9: free(current_process);
             total_exited++;
             break;
-        default:        
+        case 0: endhit = 1;       
             break;
         }
 
