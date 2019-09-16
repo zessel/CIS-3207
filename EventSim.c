@@ -30,6 +30,7 @@
 struct process
 {
     char processid[8];
+    int arrival_time;
     struct process *next;     
 };
 
@@ -60,6 +61,9 @@ struct event
     struct event *next;
 };
 
+int upped = 0;
+int downed = 0;
+
 void initialize_from_file();
 int ranged_rand(int max, int min);
 struct event* popevent(struct event **event_queue_root);
@@ -69,12 +73,16 @@ struct event* create_event(char* id, int time, int type);
 void sorted_event_enqueue(struct event **event_queue_root, struct event *new_event);
 struct process* create_process(char* id);
 void enqueue(struct process **queue_tail, struct process *new_process);
-struct process* dequeue(struct process **queue_head);
+struct process* dequeue(struct process **queue_head, struct process **queue_tail);
 void process_arrival(struct process **cpu_queue_tail, char* id);
 int is_empty(struct process *queue_head);
 //void cpu_finish(struct process **cpu_queue_head, struct process **disk_tail); TODO: Flesh out or remove
 void printToOutput(FILE *output, struct event *current_event);
 void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct process *disk2_head, int time, int printout, FILE *output);
+void statistics(int cpu_length, int d1_length, int d2_length, int event_length, int printbool, FILE *output);
+void response_times (struct event *current_event, int arrival_time, int printbool, FILE *outputfile);
+void throughput (int cpu, int d1, int d2, FILE *output);
+
 
 
 
@@ -118,18 +126,28 @@ void main ()
     struct process *disk2_queue_head = NULL;
     struct process *disk2_queue_tail = NULL;
     struct process *current_process = NULL;
-    int disk1_queue_count = 0;
-    int disk2_queue_count = 0;
+
+    int cpu_length = 0;
+    int d1_length = 0;
+    int d2_length = 0;
+    int event_length = 0;
+    int completed_cpu = 0;
+    int completed_d1 = 0;
+    int completed_d2 = 0;
+    int total_exited = 0;
 
     struct event *event_queue_root = NULL;
     struct event *current_event = NULL;
     struct event *new_event = NULL;
+
+
 
     struct event *start_event = (struct event*) malloc(sizeof(struct event));
     strcpy(start_event->eventid, "START");
     start_event->poptime = INIT_TIME;
     start_event->eventtype = 1;
     start_event->prev = NULL;
+    event_length++;
 
     struct event *end_event = (struct event*) malloc(sizeof(struct event));
     strcpy(end_event->eventid, "END");
@@ -137,16 +155,20 @@ void main ()
     end_event->eventtype = 0;
     end_event->prev = start_event;
     start_event->next = end_event;
+    event_length++;
 
     event_queue_root = start_event;        
 
     int endhit = 0;
     char id_as_str[8];
-
+    int d1_ran = 0;
+    int d2_ran = 0;
 
     while (endhit != 1)
     {
         current_event = popevent(&event_queue_root);
+        event_length--;
+        statistics(cpu_length, d1_length, d2_length, event_length, 0, output);
         printToOutput(output, current_event);
         globaltime = current_event->poptime;
         if (strcmp(current_event->eventid, "END") == 0)
@@ -157,106 +179,145 @@ void main ()
         {
         case 1: new_event = create_event(id_as_str, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 2);
             sorted_event_enqueue(&event_queue_root, new_event);
+            event_length++;
             processcount++;
             break;
-        case 2: process_arrival(&cpu_queue_tail, current_event->eventid);
-            current_process = create_process(current_event->eventid);
+        case 2: current_process = create_process(current_event->eventid);
+            current_process->arrival_time = globaltime;
             enqueue(&cpu_queue_tail, current_process);
-            if (cpu_queue_head == NULL)
+            cpu_length++;
+            if (is_empty(cpu_queue_head))
             {
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
             new_event = create_event(id_as_str, globaltime + ranged_rand(ARRIVE_MAX,ARRIVE_MIN), 2);
             sorted_event_enqueue(&event_queue_root, new_event);
+            event_length++;
             processcount++;
             break;
         case 3: new_event = create_event(current_event->eventid, globaltime + ranged_rand(CPU_MAX, CPU_MIN), 4);
             sorted_event_enqueue(&event_queue_root, new_event);
+            event_length++;
             break;
-        case 4: current_process = dequeue(&cpu_queue_head);
-            if (cpu_queue_head != NULL)
+        case 4: current_process = dequeue(&cpu_queue_head, &cpu_queue_tail);
+            cpu_length--;
+            completed_cpu++;
+            response_times (current_event, current_process->arrival_time, 0, output);
+
+            if (!is_empty(cpu_queue_head))
             {
                 new_event = create_event(cpu_queue_head->processid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
             if (ranged_rand(100,0) < (QUIT_PROB))
             {
-                new_event = create_event(cpu_queue_head->processid, globaltime, 9);
+                new_event = create_event(current_process->processid, globaltime, 9);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
             else
             {
-                if (disk1_queue_count <= disk2_queue_count)
+                if (d1_length <= d2_length)
                 {
+                    current_process->arrival_time = globaltime;
                     enqueue(&disk1_queue_tail, current_process);
-                    if (disk1_queue_head == NULL)
+
+                    if (is_empty(disk1_queue_head))
                     {
-                        disk1_queue_head = current_process;                      
+                        disk1_queue_head = disk1_queue_tail;                      
                         new_event = create_event(current_process->processid, globaltime, 5);
                         sorted_event_enqueue(&event_queue_root, new_event);
+                        event_length++;
                     }
-                    disk1_queue_count++;
+                    d1_length++;
                 }
                 else
                 {
+                    current_process->arrival_time = globaltime;
                     enqueue(&disk2_queue_tail, current_process);
-                    if (disk2_queue_head == NULL)
+                    if (is_empty(disk2_queue_head))
                     {
-                        disk2_queue_head = current_process;
+                        disk2_queue_head = disk2_queue_tail;
                         new_event = create_event(current_process->processid, globaltime, 7);
                         sorted_event_enqueue(&event_queue_root, new_event);
+                        event_length++;
                     }
-                    disk2_queue_count++;
+                    d2_length++;
+                    upped++;
                 }
             }
             break;
         case 5: new_event = create_event(disk1_queue_head->processid, globaltime + ranged_rand(DISK1_MAX,DISK1_MIN), 6);
             sorted_event_enqueue(&event_queue_root, new_event);
+            event_length++;
             break;
-        case 6: current_process = dequeue(&disk1_queue_head);
-            if (disk1_queue_head != NULL)
+        case 6: current_process = dequeue(&disk1_queue_head, &disk1_queue_tail);
+            d1_length--;
+            completed_d1++;
+            response_times (current_event, current_process->arrival_time, 0, output);
+            
+            if (!is_empty(disk1_queue_head))
             {
-                new_event = create_event(disk1_queue_head->processid, globaltime, 5);            
+                new_event = create_event(disk1_queue_head->processid, globaltime, 5);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
+            current_process->arrival_time = globaltime;
             enqueue(&cpu_queue_tail, current_process);
-            if (cpu_queue_head == NULL)
+            cpu_length++;
+
+            if (is_empty(cpu_queue_head))
             {
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
-            disk1_queue_count--;
             break;
         case 7: new_event = create_event(disk2_queue_head->processid, globaltime + ranged_rand(DISK2_MAX,DISK2_MIN), 8);
             sorted_event_enqueue(&event_queue_root, new_event);
+            event_length++;
             break;
-        case 8: current_process = dequeue(&disk2_queue_head);
-        if (disk2_queue_head != NULL)
-        {
-            new_event = create_event(disk2_queue_head->processid, globaltime, 7);
-            sorted_event_enqueue(&event_queue_root, new_event);
-        }
+        case 8: current_process = dequeue(&disk2_queue_head, &disk2_queue_tail);
+            d2_length--;
+            completed_d2++;
+            response_times (current_event, current_process->arrival_time, 0, output);
+            if (!is_empty(disk2_queue_head))
+            {
+                new_event = create_event(disk2_queue_head->processid, globaltime, 7);
+                sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
+            }
+            current_process->arrival_time = globaltime;
             enqueue(&cpu_queue_tail, current_process);
-            if (cpu_queue_head == NULL)
+            cpu_length++;
+
+            if (is_empty(cpu_queue_head))
             {
                 cpu_queue_head = cpu_queue_tail;
                 new_event = create_event(current_event->eventid, globaltime, 3);
                 sorted_event_enqueue(&event_queue_root, new_event);
+                event_length++;
             }
-            disk2_queue_count--;        
             break;
         case 9: free(current_process);
+            total_exited++;
             break;
         default:        
             break;
         }
+
         calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 0, output);
         free(current_event);
     }
     calculate_idle(cpu_queue_head, disk1_queue_head, disk2_queue_head, globaltime, 1, output);
+    response_times (current_event, 0, 1, output);
+    statistics(cpu_length, d1_length, d2_length, event_length, 1, output);
+    throughput (completed_cpu, completed_d1, completed_d2, output);
     fclose(output);
 }
 
@@ -457,7 +518,8 @@ void sorted_event_enqueue(struct event **event_queue_root, struct event *new_eve
 struct process* create_process(char* id)
 {
     struct process *new_process = (struct process*) malloc(sizeof(struct process));
-    strcpy(new_process->processid, id); 
+    strcpy(new_process->processid, id);
+    new_process->arrival_time = 0; 
     return new_process;
 }
 
@@ -496,11 +558,13 @@ void enqueue(struct process **queue_tail, struct process *new_process)
     Return:
     pointer to the removed process node
 */
-struct process* dequeue(struct process **queue_head)
+struct process* dequeue(struct process **queue_head, struct process **queue_tail)
 {
     struct process *popped_process = (*queue_head);
     (*queue_head) = (*queue_head)->next;
     popped_process->next = NULL;
+    if ((*queue_head) == NULL)
+        (*queue_tail) = NULL;
     return popped_process;
 }
 
@@ -643,11 +707,115 @@ void calculate_idle(struct process *cpu_head, struct process *disk1_head, struct
         D2WasEmpty = 0;
     }
     if (printout)
-        fprintf(output, "\nUnused cycles:\n\tCPU:   %d\n\tDISK1: %d\n\tDISK2: %d"
-                        "\nUtilization:\n\tCPU:   %f%%\n\tDISK1: %f%%\n\tDISK2: %f%%",
+        fprintf(output, "\nUnused cycles:\n\tCPU:   %d\n\tDISK1: %d\n\tDISK2: %d\n"
+                        "\nUtilization:\n\tCPU:   %f%%\n\tDISK1: %f%%\n\tDISK2: %f%%\n",
                         totalCPU, totalD1, totalD2,
                         (float)(runtime-totalCPU)*100/runtime,
                         (float)(runtime-totalD1)*100/runtime,
                         (float)(runtime-totalD2)*100/runtime);
 
+}
+
+void statistics(int cpu_length, int d1_length, int d2_length, int event_length, int printbool, FILE *output)
+{
+    static int cpu_queue_max = 0;
+    static int d1_queue_max = 0;
+    static int d2_queue_max = 0;
+    static int event_queue_max = 0;
+
+    static long cpu_average = 0;
+    static long d1_average =0;
+    static long d2_average = 0;
+    static long event_average =0;
+
+    static int stat_calls = 1;
+
+    if (printbool)
+    {
+        fprintf(output, "\nMaximum Queue Lengths:\n\tCPU:   %d\n\tDISK1: %d\n\tDISK2: %d\n\tEvent: %d\n",
+            cpu_queue_max,
+            d1_queue_max,
+            d2_queue_max,
+            event_queue_max);
+        fprintf(output, "\nAverage Queue Lengths:\n\tCPU:   %f\n\tDISK1: %f\n\tDISK2: %f\n\tEvent: %f\n",
+            (float) cpu_average / stat_calls,
+            (float) d1_average / stat_calls,
+            (float) d2_average / stat_calls,
+            (float) event_average / stat_calls);
+    }
+    else
+    {    
+        if (cpu_length > cpu_queue_max)
+            cpu_queue_max = cpu_length;
+        if (d1_length > d1_queue_max)
+            d1_queue_max = d1_length;
+        if (d2_length > d2_queue_max)
+            d2_queue_max = d2_length;
+        if (event_length > event_queue_max)
+            event_queue_max = event_length;
+            
+        cpu_average += cpu_length;
+        d1_average += d1_length;
+        d2_average += d2_length;
+        event_average += event_length;
+
+        stat_calls++;
+    }
+}
+
+void response_times (struct event *current_event, int arrival_time, int printbool, FILE *outputfile)
+{
+    static long avg_cpu_response = 0;
+    static long avg_d1_response = 0;
+    static long avg_d2_response = 0;
+    static int cpu_total = 0;
+    static int d1_total = 0;
+    static int d2_total = 0;
+    static int largest_cpu = 0;
+    static int largest_d1 = 0;
+    static int largest_d2 = 0;
+
+    if (printbool)
+    {
+        fprintf(outputfile, "\nAverage Reponse Times:\n\tCPU:   %f\n\tDISK1: %f\n\tDISK2: %f\n",
+            (float)avg_cpu_response/cpu_total,
+            (float)avg_d1_response/d1_total,
+            (float)avg_d2_response/d2_total);
+        fprintf(outputfile, "\nLongest Reponse Times:\n\tCPU:   %d\n\tDISK1: %d\n\tDISK2: %d\n",
+            largest_cpu,
+            largest_d1,
+            largest_d2);
+    }
+    else
+    {
+        if ((current_event->eventtype) == 4)
+        {
+            if ((current_event->poptime - arrival_time) > largest_cpu)
+                largest_cpu = current_event->poptime - arrival_time;
+            avg_cpu_response += (current_event->poptime - arrival_time);
+            cpu_total++;
+        }
+        if ((current_event->eventtype) == 6)
+        {
+            if ((current_event->poptime - arrival_time) > largest_d1)
+                largest_d1 = current_event->poptime - arrival_time;
+            avg_d1_response += (current_event->poptime - arrival_time);
+            d1_total++;
+        }
+        if ((current_event->eventtype) == 8)
+        {
+            if ((current_event->poptime - arrival_time) > largest_d2)
+                largest_d2 = current_event->poptime - arrival_time;
+            avg_d2_response += (current_event->poptime - arrival_time);
+            d2_total++;
+        }
+    }
+}
+
+void throughput (int cpu, int d1, int d2, FILE *output)
+{
+    fprintf(output, "\nThroughput of System:\n\tCPU:   %f\n\tDISK1: %f\n\tDISK2: %f\n",
+        (float)cpu / (FIN_TIME - INIT_TIME),
+        (float)d1 / (FIN_TIME - INIT_TIME),
+        (float)d2 / (FIN_TIME - INIT_TIME));
 }
