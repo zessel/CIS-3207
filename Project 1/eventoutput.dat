@@ -1,0 +1,5505 @@
+The simulation ran with the following values
+
+Seed:                             38
+Initial Time:                      0
+Finish Time:                   20000
+Arrival Window Minimum:           10
+Arrival Window Maximum:           30
+Quit Probability (out of 100):    20
+CPU Processing Minimum:           20
+CPU Processing Maximum:           50
+DISK1 Time Minimum:              100
+DISK1 Time Maximum:              150
+DISK2 Time Minimum:              200
+DISK2 Time Maximum:              300
+
+
+at time 0 process START is STARTING SIMULATION
+
+at time 30 process 1 is arriving at CPU queue
+
+at time 30 process 1 is entering CPU
+
+at time 40 process 2 is arriving at CPU queue
+
+at time 57 process 3 is arriving at CPU queue
+
+at time 57 process 1 is leaving CPU
+
+at time 57 process 1 is entering DISK1
+
+at time 57 process 2 is entering CPU
+
+at time 70 process 4 is arriving at CPU queue
+
+at time 87 process 5 is arriving at CPU queue
+
+at time 88 process 2 is leaving CPU
+
+at time 88 process 2 is entering DISK2
+
+at time 88 process 3 is entering CPU
+
+at time 98 process 6 is arriving at CPU queue
+
+at time 115 process 7 is arriving at CPU queue
+
+at time 117 process 3 is leaving CPU
+
+at time 117 process 4 is entering CPU
+
+at time 125 process 8 is arriving at CPU queue
+
+at time 149 process 9 is arriving at CPU queue
+
+at time 157 process 4 is leaving CPU
+
+at time 157 process 5 is entering CPU
+
+at time 170 process 1 is leaving DISK1
+
+at time 170 process 3 is entering DISK1
+
+at time 173 process 10 is arriving at CPU queue
+
+at time 192 process 11 is arriving at CPU queue
+
+at time 202 process 5 is leaving CPU
+
+at time 202 process 6 is entering CPU
+
+at time 212 process 12 is arriving at CPU queue
+
+at time 234 process 13 is arriving at CPU queue
+
+at time 236 process 6 is leaving CPU
+
+at time 236 process 6 is leaving simulation
+
+at time 236 process 7 is entering CPU
+
+at time 259 process 14 is arriving at CPU queue
+
+at time 263 process 7 is leaving CPU
+
+at time 263 process 8 is entering CPU
+
+at time 269 process 15 is arriving at CPU queue
+
+at time 289 process 8 is leaving CPU
+
+at time 289 process 9 is entering CPU
+
+at time 290 process 16 is arriving at CPU queue
+
+at time 302 process 17 is arriving at CPU queue
+
+at time 316 process 18 is arriving at CPU queue
+
+at time 319 process 3 is leaving DISK1
+
+at time 319 process 5 is entering DISK1
+
+at time 328 process 9 is leaving CPU
+
+at time 328 process 1 is entering CPU
+
+at time 332 process 19 is arriving at CPU queue
+
+at time 342 process 20 is arriving at CPU queue
+
+at time 344 process 2 is leaving DISK2
+
+at time 344 process 4 is entering DISK2
+
+at time 356 process 21 is arriving at CPU queue
+
+at time 367 process 1 is leaving CPU
+
+at time 367 process 10 is entering CPU
+
+at time 385 process 22 is arriving at CPU queue
+
+at time 389 process 10 is leaving CPU
+
+at time 389 process 10 is leaving simulation
+
+at time 389 process 11 is entering CPU
+
+at time 407 process 23 is arriving at CPU queue
+
+at time 428 process 11 is leaving CPU
+
+at time 428 process 12 is entering CPU
+
+at time 430 process 24 is arriving at CPU queue
+
+at time 442 process 25 is arriving at CPU queue
+
+at time 452 process 26 is arriving at CPU queue
+
+at time 459 process 5 is leaving DISK1
+
+at time 459 process 7 is entering DISK1
+
+at time 468 process 27 is arriving at CPU queue
+
+at time 475 process 12 is leaving CPU
+
+at time 475 process 13 is entering CPU
+
+at time 492 process 28 is arriving at CPU queue
+
+at time 515 process 13 is leaving CPU
+
+at time 515 process 14 is entering CPU
+
+at time 516 process 29 is arriving at CPU queue
+
+at time 528 process 30 is arriving at CPU queue
+
+at time 545 process 31 is arriving at CPU queue
+
+at time 560 process 7 is leaving DISK1
+
+at time 560 process 9 is entering DISK1
+
+at time 561 process 14 is leaving CPU
+
+at time 561 process 15 is entering CPU
+
+at time 574 process 32 is arriving at CPU queue
+
+at time 590 process 15 is leaving CPU
+
+at time 590 process 15 is leaving simulation
+
+at time 590 process 16 is entering CPU
+
+at time 594 process 33 is arriving at CPU queue
+
+at time 612 process 34 is arriving at CPU queue
+
+at time 636 process 16 is leaving CPU
+
+at time 636 process 17 is entering CPU
+
+at time 637 process 4 is leaving DISK2
+
+at time 637 process 8 is entering DISK2
+
+at time 641 process 35 is arriving at CPU queue
+
+at time 651 process 36 is arriving at CPU queue
+
+at time 665 process 17 is leaving CPU
+
+at time 665 process 17 is leaving simulation
+
+at time 665 process 18 is entering CPU
+
+at time 665 process 9 is leaving DISK1
+
+at time 665 process 11 is entering DISK1
+
+at time 677 process 37 is arriving at CPU queue
+
+at time 690 process 38 is arriving at CPU queue
+
+at time 707 process 39 is arriving at CPU queue
+
+at time 712 process 18 is leaving CPU
+
+at time 712 process 3 is entering CPU
+
+at time 726 process 40 is arriving at CPU queue
+
+at time 737 process 41 is arriving at CPU queue
+
+at time 761 process 3 is leaving CPU
+
+at time 761 process 19 is entering CPU
+
+at time 762 process 42 is arriving at CPU queue
+
+at time 778 process 43 is arriving at CPU queue
+
+at time 790 process 44 is arriving at CPU queue
+
+at time 794 process 11 is leaving DISK1
+
+at time 794 process 12 is entering DISK1
+
+at time 795 process 19 is leaving CPU
+
+at time 795 process 20 is entering CPU
+
+at time 809 process 45 is arriving at CPU queue
+
+at time 828 process 46 is arriving at CPU queue
+
+at time 833 process 20 is leaving CPU
+
+at time 833 process 20 is leaving simulation
+
+at time 833 process 2 is entering CPU
+
+at time 857 process 47 is arriving at CPU queue
+
+at time 862 process 2 is leaving CPU
+
+at time 862 process 21 is entering CPU
+
+at time 872 process 8 is leaving DISK2
+
+at time 872 process 1 is entering DISK2
+
+at time 881 process 48 is arriving at CPU queue
+
+at time 883 process 21 is leaving CPU
+
+at time 883 process 21 is leaving simulation
+
+at time 883 process 22 is entering CPU
+
+at time 900 process 49 is arriving at CPU queue
+
+at time 917 process 50 is arriving at CPU queue
+
+at time 926 process 22 is leaving CPU
+
+at time 926 process 22 is leaving simulation
+
+at time 926 process 23 is entering CPU
+
+at time 932 process 51 is arriving at CPU queue
+
+at time 932 process 12 is leaving DISK1
+
+at time 932 process 14 is entering DISK1
+
+at time 949 process 23 is leaving CPU
+
+at time 949 process 24 is entering CPU
+
+at time 954 process 52 is arriving at CPU queue
+
+at time 973 process 53 is arriving at CPU queue
+
+at time 976 process 24 is leaving CPU
+
+at time 976 process 25 is entering CPU
+
+at time 998 process 54 is arriving at CPU queue
+
+at time 1014 process 25 is leaving CPU
+
+at time 1014 process 25 is leaving simulation
+
+at time 1014 process 26 is entering CPU
+
+at time 1021 process 55 is arriving at CPU queue
+
+at time 1043 process 26 is leaving CPU
+
+at time 1043 process 5 is entering CPU
+
+at time 1043 process 14 is leaving DISK1
+
+at time 1043 process 16 is entering DISK1
+
+at time 1044 process 56 is arriving at CPU queue
+
+at time 1066 process 5 is leaving CPU
+
+at time 1066 process 27 is entering CPU
+
+at time 1074 process 57 is arriving at CPU queue
+
+at time 1091 process 58 is arriving at CPU queue
+
+at time 1103 process 1 is leaving DISK2
+
+at time 1103 process 13 is entering DISK2
+
+at time 1106 process 27 is leaving CPU
+
+at time 1106 process 28 is entering CPU
+
+at time 1121 process 59 is arriving at CPU queue
+
+at time 1144 process 28 is leaving CPU
+
+at time 1144 process 29 is entering CPU
+
+at time 1151 process 60 is arriving at CPU queue
+
+at time 1175 process 16 is leaving DISK1
+
+at time 1175 process 3 is entering DISK1
+
+at time 1178 process 61 is arriving at CPU queue
+
+at time 1190 process 29 is leaving CPU
+
+at time 1190 process 30 is entering CPU
+
+at time 1206 process 62 is arriving at CPU queue
+
+at time 1225 process 63 is arriving at CPU queue
+
+at time 1237 process 30 is leaving CPU
+
+at time 1237 process 31 is entering CPU
+
+at time 1246 process 64 is arriving at CPU queue
+
+at time 1269 process 31 is leaving CPU
+
+at time 1269 process 7 is entering CPU
+
+at time 1275 process 65 is arriving at CPU queue
+
+at time 1285 process 66 is arriving at CPU queue
+
+at time 1294 process 3 is leaving DISK1
+
+at time 1294 process 19 is entering DISK1
+
+at time 1300 process 7 is leaving CPU
+
+at time 1300 process 32 is entering CPU
+
+at time 1311 process 67 is arriving at CPU queue
+
+at time 1326 process 68 is arriving at CPU queue
+
+at time 1339 process 32 is leaving CPU
+
+at time 1339 process 33 is entering CPU
+
+at time 1355 process 69 is arriving at CPU queue
+
+at time 1362 process 13 is leaving DISK2
+
+at time 1362 process 18 is entering DISK2
+
+at time 1366 process 70 is arriving at CPU queue
+
+at time 1377 process 33 is leaving CPU
+
+at time 1377 process 34 is entering CPU
+
+at time 1385 process 71 is arriving at CPU queue
+
+at time 1403 process 72 is arriving at CPU queue
+
+at time 1403 process 19 is leaving DISK1
+
+at time 1403 process 23 is entering DISK1
+
+at time 1416 process 73 is arriving at CPU queue
+
+at time 1420 process 34 is leaving CPU
+
+at time 1420 process 4 is entering CPU
+
+at time 1440 process 74 is arriving at CPU queue
+
+at time 1445 process 4 is leaving CPU
+
+at time 1445 process 35 is entering CPU
+
+at time 1456 process 75 is arriving at CPU queue
+
+at time 1471 process 35 is leaving CPU
+
+at time 1471 process 36 is entering CPU
+
+at time 1480 process 76 is arriving at CPU queue
+
+at time 1492 process 77 is arriving at CPU queue
+
+at time 1501 process 36 is leaving CPU
+
+at time 1501 process 9 is entering CPU
+
+at time 1507 process 23 is leaving DISK1
+
+at time 1507 process 26 is entering DISK1
+
+at time 1508 process 78 is arriving at CPU queue
+
+at time 1526 process 79 is arriving at CPU queue
+
+at time 1529 process 9 is leaving CPU
+
+at time 1529 process 37 is entering CPU
+
+at time 1555 process 80 is arriving at CPU queue
+
+at time 1561 process 37 is leaving CPU
+
+at time 1561 process 38 is entering CPU
+
+at time 1569 process 81 is arriving at CPU queue
+
+at time 1586 process 82 is arriving at CPU queue
+
+at time 1596 process 38 is leaving CPU
+
+at time 1596 process 39 is entering CPU
+
+at time 1605 process 83 is arriving at CPU queue
+
+at time 1614 process 26 is leaving DISK1
+
+at time 1614 process 5 is entering DISK1
+
+at time 1621 process 39 is leaving CPU
+
+at time 1621 process 40 is entering CPU
+
+at time 1633 process 18 is leaving DISK2
+
+at time 1633 process 2 is entering DISK2
+
+at time 1634 process 84 is arriving at CPU queue
+
+at time 1661 process 85 is arriving at CPU queue
+
+at time 1671 process 40 is leaving CPU
+
+at time 1671 process 41 is entering CPU
+
+at time 1689 process 86 is arriving at CPU queue
+
+at time 1695 process 41 is leaving CPU
+
+at time 1695 process 42 is entering CPU
+
+at time 1700 process 87 is arriving at CPU queue
+
+at time 1717 process 5 is leaving DISK1
+
+at time 1717 process 29 is entering DISK1
+
+at time 1723 process 42 is leaving CPU
+
+at time 1723 process 43 is entering CPU
+
+at time 1725 process 88 is arriving at CPU queue
+
+at time 1735 process 89 is arriving at CPU queue
+
+at time 1765 process 90 is arriving at CPU queue
+
+at time 1770 process 43 is leaving CPU
+
+at time 1770 process 44 is entering CPU
+
+at time 1795 process 91 is arriving at CPU queue
+
+at time 1803 process 44 is leaving CPU
+
+at time 1803 process 11 is entering CPU
+
+at time 1821 process 92 is arriving at CPU queue
+
+at time 1848 process 11 is leaving CPU
+
+at time 1848 process 45 is entering CPU
+
+at time 1850 process 2 is leaving DISK2
+
+at time 1850 process 24 is entering DISK2
+
+at time 1851 process 93 is arriving at CPU queue
+
+at time 1856 process 29 is leaving DISK1
+
+at time 1856 process 30 is entering DISK1
+
+at time 1864 process 94 is arriving at CPU queue
+
+at time 1878 process 45 is leaving CPU
+
+at time 1878 process 46 is entering CPU
+
+at time 1884 process 95 is arriving at CPU queue
+
+at time 1895 process 96 is arriving at CPU queue
+
+at time 1908 process 97 is arriving at CPU queue
+
+at time 1926 process 46 is leaving CPU
+
+at time 1926 process 47 is entering CPU
+
+at time 1937 process 98 is arriving at CPU queue
+
+at time 1950 process 99 is arriving at CPU queue
+
+at time 1971 process 47 is leaving CPU
+
+at time 1971 process 8 is entering CPU
+
+at time 1975 process 100 is arriving at CPU queue
+
+at time 1982 process 30 is leaving DISK1
+
+at time 1982 process 7 is entering DISK1
+
+at time 1999 process 101 is arriving at CPU queue
+
+at time 2012 process 8 is leaving CPU
+
+at time 2012 process 48 is entering CPU
+
+at time 2022 process 102 is arriving at CPU queue
+
+at time 2032 process 48 is leaving CPU
+
+at time 2032 process 49 is entering CPU
+
+at time 2043 process 103 is arriving at CPU queue
+
+at time 2054 process 49 is leaving CPU
+
+at time 2054 process 49 is leaving simulation
+
+at time 2054 process 50 is entering CPU
+
+at time 2073 process 104 is arriving at CPU queue
+
+at time 2090 process 105 is arriving at CPU queue
+
+at time 2097 process 50 is leaving CPU
+
+at time 2097 process 51 is entering CPU
+
+at time 2098 process 7 is leaving DISK1
+
+at time 2098 process 32 is entering DISK1
+
+at time 2099 process 24 is leaving DISK2
+
+at time 2099 process 27 is entering DISK2
+
+at time 2119 process 106 is arriving at CPU queue
+
+at time 2131 process 107 is arriving at CPU queue
+
+at time 2143 process 108 is arriving at CPU queue
+
+at time 2144 process 51 is leaving CPU
+
+at time 2144 process 12 is entering CPU
+
+at time 2164 process 109 is arriving at CPU queue
+
+at time 2185 process 110 is arriving at CPU queue
+
+at time 2192 process 12 is leaving CPU
+
+at time 2192 process 52 is entering CPU
+
+at time 2198 process 111 is arriving at CPU queue
+
+at time 2210 process 112 is arriving at CPU queue
+
+at time 2221 process 32 is leaving DISK1
+
+at time 2221 process 34 is entering DISK1
+
+at time 2228 process 113 is arriving at CPU queue
+
+at time 2239 process 52 is leaving CPU
+
+at time 2239 process 53 is entering CPU
+
+at time 2240 process 114 is arriving at CPU queue
+
+at time 2263 process 115 is arriving at CPU queue
+
+at time 2268 process 53 is leaving CPU
+
+at time 2268 process 54 is entering CPU
+
+at time 2291 process 116 is arriving at CPU queue
+
+at time 2300 process 54 is leaving CPU
+
+at time 2300 process 55 is entering CPU
+
+at time 2308 process 117 is arriving at CPU queue
+
+at time 2312 process 27 is leaving DISK2
+
+at time 2312 process 28 is entering DISK2
+
+at time 2322 process 34 is leaving DISK1
+
+at time 2322 process 35 is entering DISK1
+
+at time 2324 process 118 is arriving at CPU queue
+
+at time 2333 process 55 is leaving CPU
+
+at time 2333 process 55 is leaving simulation
+
+at time 2333 process 14 is entering CPU
+
+at time 2347 process 119 is arriving at CPU queue
+
+at time 2369 process 120 is arriving at CPU queue
+
+at time 2372 process 14 is leaving CPU
+
+at time 2372 process 56 is entering CPU
+
+at time 2397 process 121 is arriving at CPU queue
+
+at time 2419 process 56 is leaving CPU
+
+at time 2419 process 57 is entering CPU
+
+at time 2427 process 122 is arriving at CPU queue
+
+at time 2442 process 35 is leaving DISK1
+
+at time 2442 process 9 is entering DISK1
+
+at time 2444 process 57 is leaving CPU
+
+at time 2444 process 58 is entering CPU
+
+at time 2445 process 123 is arriving at CPU queue
+
+at time 2464 process 124 is arriving at CPU queue
+
+at time 2470 process 58 is leaving CPU
+
+at time 2470 process 1 is entering CPU
+
+at time 2494 process 125 is arriving at CPU queue
+
+at time 2498 process 1 is leaving CPU
+
+at time 2498 process 59 is entering CPU
+
+at time 2524 process 126 is arriving at CPU queue
+
+at time 2533 process 59 is leaving CPU
+
+at time 2533 process 60 is entering CPU
+
+at time 2546 process 127 is arriving at CPU queue
+
+at time 2557 process 60 is leaving CPU
+
+at time 2557 process 60 is leaving simulation
+
+at time 2557 process 16 is entering CPU
+
+at time 2562 process 28 is leaving DISK2
+
+at time 2562 process 31 is entering DISK2
+
+at time 2567 process 128 is arriving at CPU queue
+
+at time 2584 process 16 is leaving CPU
+
+at time 2584 process 61 is entering CPU
+
+at time 2586 process 129 is arriving at CPU queue
+
+at time 2586 process 9 is leaving DISK1
+
+at time 2586 process 37 is entering DISK1
+
+at time 2597 process 130 is arriving at CPU queue
+
+at time 2605 process 61 is leaving CPU
+
+at time 2605 process 62 is entering CPU
+
+at time 2626 process 131 is arriving at CPU queue
+
+at time 2637 process 132 is arriving at CPU queue
+
+at time 2648 process 62 is leaving CPU
+
+at time 2648 process 63 is entering CPU
+
+at time 2651 process 133 is arriving at CPU queue
+
+at time 2680 process 134 is arriving at CPU queue
+
+at time 2697 process 63 is leaving CPU
+
+at time 2697 process 64 is entering CPU
+
+at time 2700 process 135 is arriving at CPU queue
+
+at time 2707 process 37 is leaving DISK1
+
+at time 2707 process 39 is entering DISK1
+
+at time 2711 process 136 is arriving at CPU queue
+
+at time 2726 process 64 is leaving CPU
+
+at time 2726 process 65 is entering CPU
+
+at time 2736 process 137 is arriving at CPU queue
+
+at time 2760 process 138 is arriving at CPU queue
+
+at time 2770 process 65 is leaving CPU
+
+at time 2770 process 66 is entering CPU
+
+at time 2771 process 139 is arriving at CPU queue
+
+at time 2801 process 140 is arriving at CPU queue
+
+at time 2810 process 66 is leaving CPU
+
+at time 2810 process 3 is entering CPU
+
+at time 2816 process 141 is arriving at CPU queue
+
+at time 2825 process 31 is leaving DISK2
+
+at time 2825 process 33 is entering DISK2
+
+at time 2835 process 142 is arriving at CPU queue
+
+at time 2843 process 39 is leaving DISK1
+
+at time 2843 process 41 is entering DISK1
+
+at time 2844 process 3 is leaving CPU
+
+at time 2844 process 67 is entering CPU
+
+at time 2856 process 143 is arriving at CPU queue
+
+at time 2867 process 67 is leaving CPU
+
+at time 2867 process 68 is entering CPU
+
+at time 2879 process 144 is arriving at CPU queue
+
+at time 2887 process 68 is leaving CPU
+
+at time 2887 process 69 is entering CPU
+
+at time 2907 process 145 is arriving at CPU queue
+
+at time 2932 process 69 is leaving CPU
+
+at time 2932 process 69 is leaving simulation
+
+at time 2932 process 13 is entering CPU
+
+at time 2937 process 146 is arriving at CPU queue
+
+at time 2956 process 147 is arriving at CPU queue
+
+at time 2958 process 41 is leaving DISK1
+
+at time 2958 process 42 is entering DISK1
+
+at time 2974 process 13 is leaving CPU
+
+at time 2974 process 13 is leaving simulation
+
+at time 2974 process 70 is entering CPU
+
+at time 2975 process 148 is arriving at CPU queue
+
+at time 2996 process 149 is arriving at CPU queue
+
+at time 3004 process 70 is leaving CPU
+
+at time 3004 process 71 is entering CPU
+
+at time 3012 process 150 is arriving at CPU queue
+
+at time 3027 process 151 is arriving at CPU queue
+
+at time 3030 process 71 is leaving CPU
+
+at time 3030 process 71 is leaving simulation
+
+at time 3030 process 72 is entering CPU
+
+at time 3049 process 152 is arriving at CPU queue
+
+at time 3052 process 72 is leaving CPU
+
+at time 3052 process 72 is leaving simulation
+
+at time 3052 process 19 is entering CPU
+
+at time 3069 process 42 is leaving DISK1
+
+at time 3069 process 44 is entering DISK1
+
+at time 3074 process 153 is arriving at CPU queue
+
+at time 3081 process 33 is leaving DISK2
+
+at time 3081 process 4 is entering DISK2
+
+at time 3088 process 19 is leaving CPU
+
+at time 3088 process 73 is entering CPU
+
+at time 3091 process 154 is arriving at CPU queue
+
+at time 3105 process 155 is arriving at CPU queue
+
+at time 3115 process 73 is leaving CPU
+
+at time 3115 process 74 is entering CPU
+
+at time 3117 process 156 is arriving at CPU queue
+
+at time 3145 process 157 is arriving at CPU queue
+
+at time 3150 process 74 is leaving CPU
+
+at time 3150 process 74 is leaving simulation
+
+at time 3150 process 75 is entering CPU
+
+at time 3169 process 158 is arriving at CPU queue
+
+at time 3175 process 44 is leaving DISK1
+
+at time 3175 process 45 is entering DISK1
+
+at time 3187 process 75 is leaving CPU
+
+at time 3187 process 76 is entering CPU
+
+at time 3188 process 159 is arriving at CPU queue
+
+at time 3203 process 160 is arriving at CPU queue
+
+at time 3225 process 161 is arriving at CPU queue
+
+at time 3232 process 76 is leaving CPU
+
+at time 3232 process 77 is entering CPU
+
+at time 3240 process 162 is arriving at CPU queue
+
+at time 3253 process 163 is arriving at CPU queue
+
+at time 3261 process 77 is leaving CPU
+
+at time 3261 process 23 is entering CPU
+
+at time 3279 process 164 is arriving at CPU queue
+
+at time 3289 process 165 is arriving at CPU queue
+
+at time 3297 process 23 is leaving CPU
+
+at time 3297 process 23 is leaving simulation
+
+at time 3297 process 78 is entering CPU
+
+at time 3303 process 166 is arriving at CPU queue
+
+at time 3317 process 45 is leaving DISK1
+
+at time 3317 process 47 is entering DISK1
+
+at time 3320 process 167 is arriving at CPU queue
+
+at time 3333 process 78 is leaving CPU
+
+at time 3333 process 79 is entering CPU
+
+at time 3335 process 168 is arriving at CPU queue
+
+at time 3352 process 4 is leaving DISK2
+
+at time 3352 process 36 is entering DISK2
+
+at time 3361 process 169 is arriving at CPU queue
+
+at time 3368 process 79 is leaving CPU
+
+at time 3368 process 80 is entering CPU
+
+at time 3390 process 170 is arriving at CPU queue
+
+at time 3416 process 171 is arriving at CPU queue
+
+at time 3418 process 80 is leaving CPU
+
+at time 3418 process 81 is entering CPU
+
+at time 3423 process 47 is leaving DISK1
+
+at time 3423 process 8 is entering DISK1
+
+at time 3427 process 172 is arriving at CPU queue
+
+at time 3442 process 173 is arriving at CPU queue
+
+at time 3460 process 81 is leaving CPU
+
+at time 3460 process 82 is entering CPU
+
+at time 3468 process 174 is arriving at CPU queue
+
+at time 3483 process 175 is arriving at CPU queue
+
+at time 3497 process 176 is arriving at CPU queue
+
+at time 3505 process 82 is leaving CPU
+
+at time 3505 process 83 is entering CPU
+
+at time 3510 process 177 is arriving at CPU queue
+
+at time 3539 process 178 is arriving at CPU queue
+
+at time 3549 process 179 is arriving at CPU queue
+
+at time 3551 process 83 is leaving CPU
+
+at time 3551 process 26 is entering CPU
+
+at time 3558 process 8 is leaving DISK1
+
+at time 3558 process 50 is entering DISK1
+
+at time 3560 process 180 is arriving at CPU queue
+
+at time 3587 process 26 is leaving CPU
+
+at time 3587 process 18 is entering CPU
+
+at time 3589 process 181 is arriving at CPU queue
+
+at time 3601 process 36 is leaving DISK2
+
+at time 3601 process 38 is entering DISK2
+
+at time 3602 process 182 is arriving at CPU queue
+
+at time 3612 process 18 is leaving CPU
+
+at time 3612 process 84 is entering CPU
+
+at time 3628 process 183 is arriving at CPU queue
+
+at time 3652 process 184 is arriving at CPU queue
+
+at time 3653 process 84 is leaving CPU
+
+at time 3653 process 85 is entering CPU
+
+at time 3664 process 185 is arriving at CPU queue
+
+at time 3675 process 186 is arriving at CPU queue
+
+at time 3680 process 85 is leaving CPU
+
+at time 3680 process 86 is entering CPU
+
+at time 3688 process 187 is arriving at CPU queue
+
+at time 3695 process 50 is leaving DISK1
+
+at time 3695 process 12 is entering DISK1
+
+at time 3706 process 188 is arriving at CPU queue
+
+at time 3722 process 86 is leaving CPU
+
+at time 3722 process 87 is entering CPU
+
+at time 3725 process 189 is arriving at CPU queue
+
+at time 3744 process 87 is leaving CPU
+
+at time 3744 process 87 is leaving simulation
+
+at time 3744 process 5 is entering CPU
+
+at time 3749 process 190 is arriving at CPU queue
+
+at time 3774 process 5 is leaving CPU
+
+at time 3774 process 88 is entering CPU
+
+at time 3779 process 191 is arriving at CPU queue
+
+at time 3807 process 12 is leaving DISK1
+
+at time 3807 process 52 is entering DISK1
+
+at time 3808 process 192 is arriving at CPU queue
+
+at time 3814 process 88 is leaving CPU
+
+at time 3814 process 89 is entering CPU
+
+at time 3834 process 193 is arriving at CPU queue
+
+at time 3846 process 194 is arriving at CPU queue
+
+at time 3858 process 195 is arriving at CPU queue
+
+at time 3861 process 89 is leaving CPU
+
+at time 3861 process 90 is entering CPU
+
+at time 3878 process 196 is arriving at CPU queue
+
+at time 3879 process 38 is leaving DISK2
+
+at time 3879 process 40 is entering DISK2
+
+at time 3889 process 90 is leaving CPU
+
+at time 3889 process 91 is entering CPU
+
+at time 3894 process 197 is arriving at CPU queue
+
+at time 3918 process 198 is arriving at CPU queue
+
+at time 3928 process 199 is arriving at CPU queue
+
+at time 3932 process 91 is leaving CPU
+
+at time 3932 process 92 is entering CPU
+
+at time 3948 process 200 is arriving at CPU queue
+
+at time 3956 process 52 is leaving DISK1
+
+at time 3956 process 54 is entering DISK1
+
+at time 3965 process 92 is leaving CPU
+
+at time 3965 process 2 is entering CPU
+
+at time 3976 process 201 is arriving at CPU queue
+
+at time 3998 process 2 is leaving CPU
+
+at time 3998 process 2 is leaving simulation
+
+at time 3998 process 93 is entering CPU
+
+at time 4004 process 202 is arriving at CPU queue
+
+at time 4028 process 203 is arriving at CPU queue
+
+at time 4028 process 93 is leaving CPU
+
+at time 4028 process 29 is entering CPU
+
+at time 4044 process 204 is arriving at CPU queue
+
+at time 4049 process 29 is leaving CPU
+
+at time 4049 process 94 is entering CPU
+
+at time 4061 process 54 is leaving DISK1
+
+at time 4061 process 56 is entering DISK1
+
+at time 4069 process 94 is leaving CPU
+
+at time 4069 process 95 is entering CPU
+
+at time 4074 process 205 is arriving at CPU queue
+
+at time 4102 process 206 is arriving at CPU queue
+
+at time 4116 process 95 is leaving CPU
+
+at time 4116 process 95 is leaving simulation
+
+at time 4116 process 96 is entering CPU
+
+at time 4131 process 207 is arriving at CPU queue
+
+at time 4136 process 96 is leaving CPU
+
+at time 4136 process 96 is leaving simulation
+
+at time 4136 process 97 is entering CPU
+
+at time 4157 process 97 is leaving CPU
+
+at time 4157 process 98 is entering CPU
+
+at time 4157 process 208 is arriving at CPU queue
+
+at time 4158 process 40 is leaving DISK2
+
+at time 4158 process 43 is entering DISK2
+
+at time 4176 process 209 is arriving at CPU queue
+
+at time 4188 process 56 is leaving DISK1
+
+at time 4188 process 57 is entering DISK1
+
+at time 4195 process 98 is leaving CPU
+
+at time 4195 process 99 is entering CPU
+
+at time 4205 process 210 is arriving at CPU queue
+
+at time 4219 process 211 is arriving at CPU queue
+
+at time 4225 process 99 is leaving CPU
+
+at time 4225 process 100 is entering CPU
+
+at time 4241 process 212 is arriving at CPU queue
+
+at time 4252 process 213 is arriving at CPU queue
+
+at time 4268 process 100 is leaving CPU
+
+at time 4268 process 30 is entering CPU
+
+at time 4276 process 214 is arriving at CPU queue
+
+at time 4293 process 57 is leaving DISK1
+
+at time 4293 process 1 is entering DISK1
+
+at time 4294 process 215 is arriving at CPU queue
+
+at time 4309 process 216 is arriving at CPU queue
+
+at time 4317 process 30 is leaving CPU
+
+at time 4317 process 30 is leaving simulation
+
+at time 4317 process 101 is entering CPU
+
+at time 4339 process 217 is arriving at CPU queue
+
+at time 4359 process 101 is leaving CPU
+
+at time 4359 process 101 is leaving simulation
+
+at time 4359 process 102 is entering CPU
+
+at time 4363 process 218 is arriving at CPU queue
+
+at time 4385 process 219 is arriving at CPU queue
+
+at time 4386 process 43 is leaving DISK2
+
+at time 4386 process 11 is entering DISK2
+
+at time 4391 process 102 is leaving CPU
+
+at time 4391 process 103 is entering CPU
+
+at time 4404 process 220 is arriving at CPU queue
+
+at time 4404 process 1 is leaving DISK1
+
+at time 4404 process 61 is entering DISK1
+
+at time 4431 process 221 is arriving at CPU queue
+
+at time 4440 process 103 is leaving CPU
+
+at time 4440 process 104 is entering CPU
+
+at time 4443 process 222 is arriving at CPU queue
+
+at time 4453 process 223 is arriving at CPU queue
+
+at time 4468 process 224 is arriving at CPU queue
+
+at time 4487 process 225 is arriving at CPU queue
+
+at time 4487 process 104 is leaving CPU
+
+at time 4487 process 105 is entering CPU
+
+at time 4511 process 226 is arriving at CPU queue
+
+at time 4530 process 227 is arriving at CPU queue
+
+at time 4536 process 105 is leaving CPU
+
+at time 4536 process 7 is entering CPU
+
+at time 4548 process 228 is arriving at CPU queue
+
+at time 4550 process 61 is leaving DISK1
+
+at time 4550 process 62 is entering DISK1
+
+at time 4577 process 7 is leaving CPU
+
+at time 4577 process 24 is entering CPU
+
+at time 4578 process 229 is arriving at CPU queue
+
+at time 4598 process 230 is arriving at CPU queue
+
+at time 4611 process 11 is leaving DISK2
+
+at time 4611 process 46 is entering DISK2
+
+at time 4616 process 231 is arriving at CPU queue
+
+at time 4627 process 24 is leaving CPU
+
+at time 4627 process 106 is entering CPU
+
+at time 4634 process 232 is arriving at CPU queue
+
+at time 4646 process 233 is arriving at CPU queue
+
+at time 4667 process 234 is arriving at CPU queue
+
+at time 4676 process 106 is leaving CPU
+
+at time 4676 process 107 is entering CPU
+
+at time 4677 process 235 is arriving at CPU queue
+
+at time 4687 process 62 is leaving DISK1
+
+at time 4687 process 64 is entering DISK1
+
+at time 4699 process 236 is arriving at CPU queue
+
+at time 4699 process 107 is leaving CPU
+
+at time 4699 process 108 is entering CPU
+
+at time 4709 process 237 is arriving at CPU queue
+
+at time 4727 process 108 is leaving CPU
+
+at time 4727 process 109 is entering CPU
+
+at time 4728 process 238 is arriving at CPU queue
+
+at time 4753 process 109 is leaving CPU
+
+at time 4753 process 110 is entering CPU
+
+at time 4756 process 239 is arriving at CPU queue
+
+at time 4782 process 110 is leaving CPU
+
+at time 4782 process 111 is entering CPU
+
+at time 4785 process 240 is arriving at CPU queue
+
+at time 4792 process 64 is leaving DISK1
+
+at time 4792 process 65 is entering DISK1
+
+at time 4806 process 111 is leaving CPU
+
+at time 4806 process 112 is entering CPU
+
+at time 4814 process 241 is arriving at CPU queue
+
+at time 4827 process 242 is arriving at CPU queue
+
+at time 4830 process 112 is leaving CPU
+
+at time 4830 process 32 is entering CPU
+
+at time 4837 process 243 is arriving at CPU queue
+
+at time 4848 process 244 is arriving at CPU queue
+
+at time 4858 process 32 is leaving CPU
+
+at time 4858 process 113 is entering CPU
+
+at time 4859 process 245 is arriving at CPU queue
+
+at time 4871 process 246 is arriving at CPU queue
+
+at time 4879 process 46 is leaving DISK2
+
+at time 4879 process 48 is entering DISK2
+
+at time 4892 process 65 is leaving DISK1
+
+at time 4892 process 3 is entering DISK1
+
+at time 4900 process 247 is arriving at CPU queue
+
+at time 4904 process 113 is leaving CPU
+
+at time 4904 process 114 is entering CPU
+
+at time 4922 process 248 is arriving at CPU queue
+
+at time 4924 process 114 is leaving CPU
+
+at time 4924 process 115 is entering CPU
+
+at time 4943 process 249 is arriving at CPU queue
+
+at time 4950 process 115 is leaving CPU
+
+at time 4950 process 116 is entering CPU
+
+at time 4973 process 250 is arriving at CPU queue
+
+at time 4980 process 116 is leaving CPU
+
+at time 4980 process 117 is entering CPU
+
+at time 5000 process 251 is arriving at CPU queue
+
+at time 5020 process 117 is leaving CPU
+
+at time 5020 process 117 is leaving simulation
+
+at time 5020 process 27 is entering CPU
+
+at time 5024 process 252 is arriving at CPU queue
+
+at time 5028 process 3 is leaving DISK1
+
+at time 5028 process 68 is entering DISK1
+
+at time 5046 process 253 is arriving at CPU queue
+
+at time 5056 process 254 is arriving at CPU queue
+
+at time 5062 process 27 is leaving CPU
+
+at time 5062 process 34 is entering CPU
+
+at time 5082 process 255 is arriving at CPU queue
+
+at time 5102 process 256 is arriving at CPU queue
+
+at time 5102 process 34 is leaving CPU
+
+at time 5102 process 118 is entering CPU
+
+at time 5113 process 48 is leaving DISK2
+
+at time 5113 process 51 is entering DISK2
+
+at time 5120 process 257 is arriving at CPU queue
+
+at time 5130 process 118 is leaving CPU
+
+at time 5130 process 119 is entering CPU
+
+at time 5141 process 68 is leaving DISK1
+
+at time 5141 process 70 is entering DISK1
+
+at time 5145 process 258 is arriving at CPU queue
+
+at time 5158 process 119 is leaving CPU
+
+at time 5158 process 120 is entering CPU
+
+at time 5170 process 259 is arriving at CPU queue
+
+at time 5196 process 260 is arriving at CPU queue
+
+at time 5199 process 120 is leaving CPU
+
+at time 5199 process 121 is entering CPU
+
+at time 5221 process 121 is leaving CPU
+
+at time 5221 process 122 is entering CPU
+
+at time 5221 process 261 is arriving at CPU queue
+
+at time 5238 process 262 is arriving at CPU queue
+
+at time 5251 process 70 is leaving DISK1
+
+at time 5251 process 73 is entering DISK1
+
+at time 5257 process 263 is arriving at CPU queue
+
+at time 5264 process 122 is leaving CPU
+
+at time 5264 process 35 is entering CPU
+
+at time 5274 process 264 is arriving at CPU queue
+
+at time 5287 process 35 is leaving CPU
+
+at time 5287 process 123 is entering CPU
+
+at time 5293 process 265 is arriving at CPU queue
+
+at time 5312 process 266 is arriving at CPU queue
+
+at time 5328 process 267 is arriving at CPU queue
+
+at time 5332 process 123 is leaving CPU
+
+at time 5332 process 124 is entering CPU
+
+at time 5333 process 51 is leaving DISK2
+
+at time 5333 process 53 is entering DISK2
+
+at time 5356 process 268 is arriving at CPU queue
+
+at time 5368 process 124 is leaving CPU
+
+at time 5368 process 125 is entering CPU
+
+at time 5376 process 269 is arriving at CPU queue
+
+at time 5378 process 73 is leaving DISK1
+
+at time 5378 process 75 is entering DISK1
+
+at time 5388 process 270 is arriving at CPU queue
+
+at time 5412 process 271 is arriving at CPU queue
+
+at time 5416 process 125 is leaving CPU
+
+at time 5416 process 125 is leaving simulation
+
+at time 5416 process 126 is entering CPU
+
+at time 5430 process 272 is arriving at CPU queue
+
+at time 5436 process 126 is leaving CPU
+
+at time 5436 process 127 is entering CPU
+
+at time 5458 process 273 is arriving at CPU queue
+
+at time 5470 process 274 is arriving at CPU queue
+
+at time 5470 process 127 is leaving CPU
+
+at time 5470 process 28 is entering CPU
+
+at time 5480 process 275 is arriving at CPU queue
+
+at time 5497 process 276 is arriving at CPU queue
+
+at time 5500 process 75 is leaving DISK1
+
+at time 5500 process 77 is entering DISK1
+
+at time 5518 process 28 is leaving CPU
+
+at time 5518 process 128 is entering CPU
+
+at time 5520 process 277 is arriving at CPU queue
+
+at time 5531 process 278 is arriving at CPU queue
+
+at time 5542 process 279 is arriving at CPU queue
+
+at time 5555 process 280 is arriving at CPU queue
+
+at time 5555 process 128 is leaving CPU
+
+at time 5555 process 129 is entering CPU
+
+at time 5584 process 281 is arriving at CPU queue
+
+at time 5600 process 129 is leaving CPU
+
+at time 5600 process 9 is entering CPU
+
+at time 5600 process 53 is leaving DISK2
+
+at time 5600 process 14 is entering DISK2
+
+at time 5606 process 77 is leaving DISK1
+
+at time 5606 process 78 is entering DISK1
+
+at time 5610 process 282 is arriving at CPU queue
+
+at time 5624 process 283 is arriving at CPU queue
+
+at time 5630 process 9 is leaving CPU
+
+at time 5630 process 130 is entering CPU
+
+at time 5651 process 284 is arriving at CPU queue
+
+at time 5669 process 285 is arriving at CPU queue
+
+at time 5675 process 130 is leaving CPU
+
+at time 5675 process 131 is entering CPU
+
+at time 5696 process 286 is arriving at CPU queue
+
+at time 5718 process 287 is arriving at CPU queue
+
+at time 5718 process 78 is leaving DISK1
+
+at time 5718 process 81 is entering DISK1
+
+at time 5721 process 131 is leaving CPU
+
+at time 5721 process 132 is entering CPU
+
+at time 5736 process 288 is arriving at CPU queue
+
+at time 5765 process 289 is arriving at CPU queue
+
+at time 5768 process 132 is leaving CPU
+
+at time 5768 process 133 is entering CPU
+
+at time 5783 process 290 is arriving at CPU queue
+
+at time 5796 process 291 is arriving at CPU queue
+
+at time 5810 process 133 is leaving CPU
+
+at time 5810 process 133 is leaving simulation
+
+at time 5810 process 134 is entering CPU
+
+at time 5812 process 292 is arriving at CPU queue
+
+at time 5820 process 14 is leaving DISK2
+
+at time 5820 process 58 is entering DISK2
+
+at time 5829 process 293 is arriving at CPU queue
+
+at time 5841 process 294 is arriving at CPU queue
+
+at time 5850 process 134 is leaving CPU
+
+at time 5850 process 135 is entering CPU
+
+at time 5862 process 81 is leaving DISK1
+
+at time 5862 process 82 is entering DISK1
+
+at time 5866 process 295 is arriving at CPU queue
+
+at time 5884 process 296 is arriving at CPU queue
+
+at time 5892 process 135 is leaving CPU
+
+at time 5892 process 37 is entering CPU
+
+at time 5908 process 297 is arriving at CPU queue
+
+at time 5923 process 37 is leaving CPU
+
+at time 5923 process 136 is entering CPU
+
+at time 5926 process 298 is arriving at CPU queue
+
+at time 5949 process 136 is leaving CPU
+
+at time 5949 process 137 is entering CPU
+
+at time 5952 process 299 is arriving at CPU queue
+
+at time 5981 process 300 is arriving at CPU queue
+
+at time 5993 process 137 is leaving CPU
+
+at time 5993 process 137 is leaving simulation
+
+at time 5993 process 138 is entering CPU
+
+at time 6001 process 301 is arriving at CPU queue
+
+at time 6006 process 82 is leaving DISK1
+
+at time 6006 process 26 is entering DISK1
+
+at time 6015 process 302 is arriving at CPU queue
+
+at time 6024 process 138 is leaving CPU
+
+at time 6024 process 139 is entering CPU
+
+at time 6034 process 303 is arriving at CPU queue
+
+at time 6062 process 304 is arriving at CPU queue
+
+at time 6066 process 139 is leaving CPU
+
+at time 6066 process 140 is entering CPU
+
+at time 6074 process 58 is leaving DISK2
+
+at time 6074 process 59 is entering DISK2
+
+at time 6086 process 305 is arriving at CPU queue
+
+at time 6106 process 26 is leaving DISK1
+
+at time 6106 process 84 is entering DISK1
+
+at time 6107 process 140 is leaving CPU
+
+at time 6107 process 140 is leaving simulation
+
+at time 6107 process 141 is entering CPU
+
+at time 6109 process 306 is arriving at CPU queue
+
+at time 6123 process 307 is arriving at CPU queue
+
+at time 6142 process 141 is leaving CPU
+
+at time 6142 process 31 is entering CPU
+
+at time 6146 process 308 is arriving at CPU queue
+
+at time 6160 process 309 is arriving at CPU queue
+
+at time 6176 process 31 is leaving CPU
+
+at time 6176 process 31 is leaving simulation
+
+at time 6176 process 142 is entering CPU
+
+at time 6182 process 310 is arriving at CPU queue
+
+at time 6208 process 311 is arriving at CPU queue
+
+at time 6209 process 142 is leaving CPU
+
+at time 6209 process 39 is entering CPU
+
+at time 6228 process 312 is arriving at CPU queue
+
+at time 6235 process 84 is leaving DISK1
+
+at time 6235 process 86 is entering DISK1
+
+at time 6240 process 313 is arriving at CPU queue
+
+at time 6251 process 39 is leaving CPU
+
+at time 6251 process 143 is entering CPU
+
+at time 6254 process 314 is arriving at CPU queue
+
+at time 6270 process 315 is arriving at CPU queue
+
+at time 6293 process 316 is arriving at CPU queue
+
+at time 6301 process 143 is leaving CPU
+
+at time 6301 process 144 is entering CPU
+
+at time 6304 process 317 is arriving at CPU queue
+
+at time 6326 process 144 is leaving CPU
+
+at time 6326 process 145 is entering CPU
+
+at time 6331 process 318 is arriving at CPU queue
+
+at time 6354 process 319 is arriving at CPU queue
+
+at time 6355 process 86 is leaving DISK1
+
+at time 6355 process 5 is entering DISK1
+
+at time 6357 process 59 is leaving DISK2
+
+at time 6357 process 16 is entering DISK2
+
+at time 6367 process 145 is leaving CPU
+
+at time 6367 process 145 is leaving simulation
+
+at time 6367 process 146 is entering CPU
+
+at time 6369 process 320 is arriving at CPU queue
+
+at time 6390 process 146 is leaving CPU
+
+at time 6390 process 146 is leaving simulation
+
+at time 6390 process 147 is entering CPU
+
+at time 6391 process 321 is arriving at CPU queue
+
+at time 6402 process 322 is arriving at CPU queue
+
+at time 6412 process 147 is leaving CPU
+
+at time 6412 process 41 is entering CPU
+
+at time 6429 process 323 is arriving at CPU queue
+
+at time 6436 process 41 is leaving CPU
+
+at time 6436 process 148 is entering CPU
+
+at time 6446 process 324 is arriving at CPU queue
+
+at time 6459 process 148 is leaving CPU
+
+at time 6459 process 149 is entering CPU
+
+at time 6468 process 325 is arriving at CPU queue
+
+at time 6477 process 5 is leaving DISK1
+
+at time 6477 process 88 is entering DISK1
+
+at time 6490 process 326 is arriving at CPU queue
+
+at time 6502 process 149 is leaving CPU
+
+at time 6502 process 150 is entering CPU
+
+at time 6515 process 327 is arriving at CPU queue
+
+at time 6530 process 328 is arriving at CPU queue
+
+at time 6545 process 329 is arriving at CPU queue
+
+at time 6551 process 150 is leaving CPU
+
+at time 6551 process 151 is entering CPU
+
+at time 6568 process 330 is arriving at CPU queue
+
+at time 6579 process 331 is arriving at CPU queue
+
+at time 6583 process 151 is leaving CPU
+
+at time 6583 process 152 is entering CPU
+
+at time 6602 process 16 is leaving DISK2
+
+at time 6602 process 63 is entering DISK2
+
+at time 6607 process 332 is arriving at CPU queue
+
+at time 6613 process 88 is leaving DISK1
+
+at time 6613 process 91 is entering DISK1
+
+at time 6628 process 152 is leaving CPU
+
+at time 6628 process 42 is entering CPU
+
+at time 6637 process 333 is arriving at CPU queue
+
+at time 6647 process 334 is arriving at CPU queue
+
+at time 6669 process 335 is arriving at CPU queue
+
+at time 6672 process 42 is leaving CPU
+
+at time 6672 process 153 is entering CPU
+
+at time 6690 process 336 is arriving at CPU queue
+
+at time 6706 process 153 is leaving CPU
+
+at time 6706 process 33 is entering CPU
+
+at time 6712 process 337 is arriving at CPU queue
+
+at time 6723 process 338 is arriving at CPU queue
+
+at time 6727 process 91 is leaving DISK1
+
+at time 6727 process 92 is entering DISK1
+
+at time 6745 process 339 is arriving at CPU queue
+
+at time 6751 process 33 is leaving CPU
+
+at time 6751 process 154 is entering CPU
+
+at time 6768 process 340 is arriving at CPU queue
+
+at time 6783 process 341 is arriving at CPU queue
+
+at time 6785 process 154 is leaving CPU
+
+at time 6785 process 155 is entering CPU
+
+at time 6799 process 342 is arriving at CPU queue
+
+at time 6812 process 155 is leaving CPU
+
+at time 6812 process 156 is entering CPU
+
+at time 6820 process 343 is arriving at CPU queue
+
+at time 6838 process 156 is leaving CPU
+
+at time 6838 process 157 is entering CPU
+
+at time 6841 process 344 is arriving at CPU queue
+
+at time 6841 process 92 is leaving DISK1
+
+at time 6841 process 29 is entering DISK1
+
+at time 6849 process 63 is leaving DISK2
+
+at time 6849 process 66 is entering DISK2
+
+at time 6852 process 345 is arriving at CPU queue
+
+at time 6863 process 346 is arriving at CPU queue
+
+at time 6878 process 347 is arriving at CPU queue
+
+at time 6884 process 157 is leaving CPU
+
+at time 6884 process 158 is entering CPU
+
+at time 6896 process 348 is arriving at CPU queue
+
+at time 6906 process 158 is leaving CPU
+
+at time 6906 process 44 is entering CPU
+
+at time 6924 process 349 is arriving at CPU queue
+
+at time 6930 process 44 is leaving CPU
+
+at time 6930 process 159 is entering CPU
+
+at time 6944 process 350 is arriving at CPU queue
+
+at time 6966 process 159 is leaving CPU
+
+at time 6966 process 160 is entering CPU
+
+at time 6967 process 29 is leaving DISK1
+
+at time 6967 process 94 is entering DISK1
+
+at time 6970 process 351 is arriving at CPU queue
+
+at time 6980 process 352 is arriving at CPU queue
+
+at time 6998 process 353 is arriving at CPU queue
+
+at time 7011 process 160 is leaving CPU
+
+at time 7011 process 161 is entering CPU
+
+at time 7025 process 354 is arriving at CPU queue
+
+at time 7035 process 161 is leaving CPU
+
+at time 7035 process 162 is entering CPU
+
+at time 7054 process 355 is arriving at CPU queue
+
+at time 7062 process 66 is leaving DISK2
+
+at time 7062 process 67 is entering DISK2
+
+at time 7074 process 356 is arriving at CPU queue
+
+at time 7077 process 94 is leaving DISK1
+
+at time 7077 process 98 is entering DISK1
+
+at time 7080 process 162 is leaving CPU
+
+at time 7080 process 163 is entering CPU
+
+at time 7096 process 357 is arriving at CPU queue
+
+at time 7108 process 358 is arriving at CPU queue
+
+at time 7126 process 359 is arriving at CPU queue
+
+at time 7128 process 163 is leaving CPU
+
+at time 7128 process 164 is entering CPU
+
+at time 7151 process 360 is arriving at CPU queue
+
+at time 7157 process 164 is leaving CPU
+
+at time 7157 process 165 is entering CPU
+
+at time 7165 process 361 is arriving at CPU queue
+
+at time 7178 process 362 is arriving at CPU queue
+
+at time 7181 process 165 is leaving CPU
+
+at time 7181 process 166 is entering CPU
+
+at time 7182 process 98 is leaving DISK1
+
+at time 7182 process 100 is entering DISK1
+
+at time 7193 process 363 is arriving at CPU queue
+
+at time 7211 process 166 is leaving CPU
+
+at time 7211 process 45 is entering CPU
+
+at time 7218 process 364 is arriving at CPU queue
+
+at time 7233 process 365 is arriving at CPU queue
+
+at time 7244 process 366 is arriving at CPU queue
+
+at time 7249 process 45 is leaving CPU
+
+at time 7249 process 45 is leaving simulation
+
+at time 7249 process 167 is entering CPU
+
+at time 7270 process 367 is arriving at CPU queue
+
+at time 7276 process 167 is leaving CPU
+
+at time 7276 process 168 is entering CPU
+
+at time 7289 process 368 is arriving at CPU queue
+
+at time 7309 process 369 is arriving at CPU queue
+
+at time 7312 process 100 is leaving DISK1
+
+at time 7312 process 103 is entering DISK1
+
+at time 7325 process 370 is arriving at CPU queue
+
+at time 7326 process 168 is leaving CPU
+
+at time 7326 process 168 is leaving simulation
+
+at time 7326 process 4 is entering CPU
+
+at time 7337 process 371 is arriving at CPU queue
+
+at time 7360 process 67 is leaving DISK2
+
+at time 7360 process 19 is entering DISK2
+
+at time 7363 process 372 is arriving at CPU queue
+
+at time 7364 process 4 is leaving CPU
+
+at time 7364 process 169 is entering CPU
+
+at time 7380 process 373 is arriving at CPU queue
+
+at time 7390 process 374 is arriving at CPU queue
+
+at time 7406 process 169 is leaving CPU
+
+at time 7406 process 169 is leaving simulation
+
+at time 7406 process 170 is entering CPU
+
+at time 7410 process 375 is arriving at CPU queue
+
+at time 7431 process 376 is arriving at CPU queue
+
+at time 7434 process 103 is leaving DISK1
+
+at time 7434 process 104 is entering DISK1
+
+at time 7449 process 377 is arriving at CPU queue
+
+at time 7449 process 170 is leaving CPU
+
+at time 7449 process 171 is entering CPU
+
+at time 7461 process 378 is arriving at CPU queue
+
+at time 7472 process 379 is arriving at CPU queue
+
+at time 7489 process 171 is leaving CPU
+
+at time 7489 process 47 is entering CPU
+
+at time 7496 process 380 is arriving at CPU queue
+
+at time 7511 process 47 is leaving CPU
+
+at time 7511 process 172 is entering CPU
+
+at time 7515 process 381 is arriving at CPU queue
+
+at time 7541 process 172 is leaving CPU
+
+at time 7541 process 173 is entering CPU
+
+at time 7542 process 382 is arriving at CPU queue
+
+at time 7554 process 104 is leaving DISK1
+
+at time 7554 process 7 is entering DISK1
+
+at time 7558 process 383 is arriving at CPU queue
+
+at time 7563 process 19 is leaving DISK2
+
+at time 7563 process 76 is entering DISK2
+
+at time 7570 process 173 is leaving CPU
+
+at time 7570 process 173 is leaving simulation
+
+at time 7570 process 174 is entering CPU
+
+at time 7588 process 384 is arriving at CPU queue
+
+at time 7599 process 385 is arriving at CPU queue
+
+at time 7609 process 174 is leaving CPU
+
+at time 7609 process 174 is leaving simulation
+
+at time 7609 process 175 is entering CPU
+
+at time 7613 process 386 is arriving at CPU queue
+
+at time 7643 process 387 is arriving at CPU queue
+
+at time 7654 process 175 is leaving CPU
+
+at time 7654 process 176 is entering CPU
+
+at time 7655 process 388 is arriving at CPU queue
+
+at time 7679 process 389 is arriving at CPU queue
+
+at time 7679 process 7 is leaving DISK1
+
+at time 7679 process 106 is entering DISK1
+
+at time 7689 process 176 is leaving CPU
+
+at time 7689 process 176 is leaving simulation
+
+at time 7689 process 177 is entering CPU
+
+at time 7697 process 390 is arriving at CPU queue
+
+at time 7723 process 391 is arriving at CPU queue
+
+at time 7728 process 177 is leaving CPU
+
+at time 7728 process 178 is entering CPU
+
+at time 7740 process 392 is arriving at CPU queue
+
+at time 7752 process 178 is leaving CPU
+
+at time 7752 process 179 is entering CPU
+
+at time 7764 process 393 is arriving at CPU queue
+
+at time 7792 process 394 is arriving at CPU queue
+
+at time 7801 process 179 is leaving CPU
+
+at time 7801 process 179 is leaving simulation
+
+at time 7801 process 8 is entering CPU
+
+at time 7806 process 106 is leaving DISK1
+
+at time 7806 process 107 is entering DISK1
+
+at time 7818 process 395 is arriving at CPU queue
+
+at time 7843 process 396 is arriving at CPU queue
+
+at time 7844 process 76 is leaving DISK2
+
+at time 7844 process 79 is entering DISK2
+
+at time 7847 process 8 is leaving CPU
+
+at time 7847 process 180 is entering CPU
+
+at time 7857 process 397 is arriving at CPU queue
+
+at time 7872 process 180 is leaving CPU
+
+at time 7872 process 181 is entering CPU
+
+at time 7878 process 398 is arriving at CPU queue
+
+at time 7892 process 181 is leaving CPU
+
+at time 7892 process 36 is entering CPU
+
+at time 7900 process 399 is arriving at CPU queue
+
+at time 7924 process 400 is arriving at CPU queue
+
+at time 7928 process 36 is leaving CPU
+
+at time 7928 process 182 is entering CPU
+
+at time 7932 process 107 is leaving DISK1
+
+at time 7932 process 109 is entering DISK1
+
+at time 7939 process 401 is arriving at CPU queue
+
+at time 7950 process 182 is leaving CPU
+
+at time 7950 process 183 is entering CPU
+
+at time 7958 process 402 is arriving at CPU queue
+
+at time 7970 process 403 is arriving at CPU queue
+
+at time 7972 process 183 is leaving CPU
+
+at time 7972 process 183 is leaving simulation
+
+at time 7972 process 184 is entering CPU
+
+at time 7994 process 404 is arriving at CPU queue
+
+at time 8001 process 184 is leaving CPU
+
+at time 8001 process 185 is entering CPU
+
+at time 8009 process 405 is arriving at CPU queue
+
+at time 8021 process 406 is arriving at CPU queue
+
+at time 8028 process 185 is leaving CPU
+
+at time 8028 process 186 is entering CPU
+
+at time 8047 process 407 is arriving at CPU queue
+
+at time 8048 process 109 is leaving DISK1
+
+at time 8048 process 111 is entering DISK1
+
+at time 8051 process 186 is leaving CPU
+
+at time 8051 process 186 is leaving simulation
+
+at time 8051 process 187 is entering CPU
+
+at time 8067 process 408 is arriving at CPU queue
+
+at time 8083 process 409 is arriving at CPU queue
+
+at time 8086 process 187 is leaving CPU
+
+at time 8086 process 187 is leaving simulation
+
+at time 8086 process 50 is entering CPU
+
+at time 8093 process 410 is arriving at CPU queue
+
+at time 8094 process 79 is leaving DISK2
+
+at time 8094 process 80 is entering DISK2
+
+at time 8105 process 411 is arriving at CPU queue
+
+at time 8123 process 50 is leaving CPU
+
+at time 8123 process 188 is entering CPU
+
+at time 8129 process 412 is arriving at CPU queue
+
+at time 8158 process 413 is arriving at CPU queue
+
+at time 8164 process 188 is leaving CPU
+
+at time 8164 process 188 is leaving simulation
+
+at time 8164 process 189 is entering CPU
+
+at time 8169 process 414 is arriving at CPU queue
+
+at time 8177 process 111 is leaving DISK1
+
+at time 8177 process 112 is entering DISK1
+
+at time 8187 process 415 is arriving at CPU queue
+
+at time 8203 process 189 is leaving CPU
+
+at time 8203 process 190 is entering CPU
+
+at time 8206 process 416 is arriving at CPU queue
+
+at time 8235 process 417 is arriving at CPU queue
+
+at time 8244 process 190 is leaving CPU
+
+at time 8244 process 191 is entering CPU
+
+at time 8261 process 418 is arriving at CPU queue
+
+at time 8281 process 112 is leaving DISK1
+
+at time 8281 process 113 is entering DISK1
+
+at time 8282 process 191 is leaving CPU
+
+at time 8282 process 12 is entering CPU
+
+at time 8288 process 419 is arriving at CPU queue
+
+at time 8301 process 420 is arriving at CPU queue
+
+at time 8307 process 12 is leaving CPU
+
+at time 8307 process 192 is entering CPU
+
+at time 8312 process 421 is arriving at CPU queue
+
+at time 8325 process 422 is arriving at CPU queue
+
+at time 8342 process 192 is leaving CPU
+
+at time 8342 process 193 is entering CPU
+
+at time 8348 process 80 is leaving DISK2
+
+at time 8348 process 83 is entering DISK2
+
+at time 8353 process 423 is arriving at CPU queue
+
+at time 8368 process 424 is arriving at CPU queue
+
+at time 8389 process 193 is leaving CPU
+
+at time 8389 process 194 is entering CPU
+
+at time 8397 process 425 is arriving at CPU queue
+
+at time 8411 process 194 is leaving CPU
+
+at time 8411 process 195 is entering CPU
+
+at time 8414 process 113 is leaving DISK1
+
+at time 8414 process 115 is entering DISK1
+
+at time 8424 process 426 is arriving at CPU queue
+
+at time 8437 process 427 is arriving at CPU queue
+
+at time 8449 process 195 is leaving CPU
+
+at time 8449 process 196 is entering CPU
+
+at time 8462 process 428 is arriving at CPU queue
+
+at time 8474 process 429 is arriving at CPU queue
+
+at time 8493 process 430 is arriving at CPU queue
+
+at time 8495 process 196 is leaving CPU
+
+at time 8495 process 38 is entering CPU
+
+at time 8512 process 431 is arriving at CPU queue
+
+at time 8524 process 38 is leaving CPU
+
+at time 8524 process 38 is leaving simulation
+
+at time 8524 process 197 is entering CPU
+
+at time 8530 process 432 is arriving at CPU queue
+
+at time 8548 process 83 is leaving DISK2
+
+at time 8548 process 18 is entering DISK2
+
+at time 8558 process 433 is arriving at CPU queue
+
+at time 8558 process 115 is leaving DISK1
+
+at time 8558 process 27 is entering DISK1
+
+at time 8567 process 197 is leaving CPU
+
+at time 8567 process 197 is leaving simulation
+
+at time 8567 process 198 is entering CPU
+
+at time 8568 process 434 is arriving at CPU queue
+
+at time 8578 process 435 is arriving at CPU queue
+
+at time 8594 process 436 is arriving at CPU queue
+
+at time 8613 process 437 is arriving at CPU queue
+
+at time 8613 process 198 is leaving CPU
+
+at time 8613 process 198 is leaving simulation
+
+at time 8613 process 199 is entering CPU
+
+at time 8638 process 438 is arriving at CPU queue
+
+at time 8658 process 199 is leaving CPU
+
+at time 8658 process 200 is entering CPU
+
+at time 8660 process 439 is arriving at CPU queue
+
+at time 8661 process 27 is leaving DISK1
+
+at time 8661 process 34 is entering DISK1
+
+at time 8678 process 440 is arriving at CPU queue
+
+at time 8695 process 441 is arriving at CPU queue
+
+at time 8705 process 200 is leaving CPU
+
+at time 8705 process 200 is leaving simulation
+
+at time 8705 process 52 is entering CPU
+
+at time 8710 process 442 is arriving at CPU queue
+
+at time 8726 process 52 is leaving CPU
+
+at time 8726 process 52 is leaving simulation
+
+at time 8726 process 201 is entering CPU
+
+at time 8733 process 443 is arriving at CPU queue
+
+at time 8743 process 444 is arriving at CPU queue
+
+at time 8771 process 445 is arriving at CPU queue
+
+at time 8774 process 201 is leaving CPU
+
+at time 8774 process 202 is entering CPU
+
+at time 8780 process 18 is leaving DISK2
+
+at time 8780 process 85 is entering DISK2
+
+at time 8784 process 34 is leaving DISK1
+
+at time 8784 process 119 is entering DISK1
+
+at time 8799 process 446 is arriving at CPU queue
+
+at time 8808 process 202 is leaving CPU
+
+at time 8808 process 202 is leaving simulation
+
+at time 8808 process 203 is entering CPU
+
+at time 8809 process 447 is arriving at CPU queue
+
+at time 8837 process 448 is arriving at CPU queue
+
+at time 8851 process 203 is leaving CPU
+
+at time 8851 process 204 is entering CPU
+
+at time 8865 process 449 is arriving at CPU queue
+
+at time 8878 process 450 is arriving at CPU queue
+
+at time 8881 process 204 is leaving CPU
+
+at time 8881 process 204 is leaving simulation
+
+at time 8881 process 54 is entering CPU
+
+at time 8892 process 451 is arriving at CPU queue
+
+at time 8915 process 54 is leaving CPU
+
+at time 8915 process 54 is leaving simulation
+
+at time 8915 process 205 is entering CPU
+
+at time 8921 process 452 is arriving at CPU queue
+
+at time 8928 process 119 is leaving DISK1
+
+at time 8928 process 121 is entering DISK1
+
+at time 8936 process 205 is leaving CPU
+
+at time 8936 process 206 is entering CPU
+
+at time 8949 process 453 is arriving at CPU queue
+
+at time 8970 process 454 is arriving at CPU queue
+
+at time 8980 process 206 is leaving CPU
+
+at time 8980 process 206 is leaving simulation
+
+at time 8980 process 207 is entering CPU
+
+at time 8985 process 455 is arriving at CPU queue
+
+at time 9000 process 207 is leaving CPU
+
+at time 9000 process 208 is entering CPU
+
+at time 9008 process 456 is arriving at CPU queue
+
+at time 9026 process 457 is arriving at CPU queue
+
+at time 9031 process 208 is leaving CPU
+
+at time 9031 process 208 is leaving simulation
+
+at time 9031 process 40 is entering CPU
+
+at time 9038 process 458 is arriving at CPU queue
+
+at time 9054 process 121 is leaving DISK1
+
+at time 9054 process 122 is entering DISK1
+
+at time 9058 process 459 is arriving at CPU queue
+
+at time 9064 process 85 is leaving DISK2
+
+at time 9064 process 89 is entering DISK2
+
+at time 9066 process 40 is leaving CPU
+
+at time 9066 process 209 is entering CPU
+
+at time 9080 process 460 is arriving at CPU queue
+
+at time 9096 process 209 is leaving CPU
+
+at time 9096 process 56 is entering CPU
+
+at time 9105 process 461 is arriving at CPU queue
+
+at time 9132 process 462 is arriving at CPU queue
+
+at time 9135 process 56 is leaving CPU
+
+at time 9135 process 210 is entering CPU
+
+at time 9154 process 463 is arriving at CPU queue
+
+at time 9170 process 122 is leaving DISK1
+
+at time 9170 process 123 is entering DISK1
+
+at time 9172 process 464 is arriving at CPU queue
+
+at time 9174 process 210 is leaving CPU
+
+at time 9174 process 211 is entering CPU
+
+at time 9198 process 465 is arriving at CPU queue
+
+at time 9203 process 211 is leaving CPU
+
+at time 9203 process 212 is entering CPU
+
+at time 9209 process 466 is arriving at CPU queue
+
+at time 9223 process 467 is arriving at CPU queue
+
+at time 9223 process 212 is leaving CPU
+
+at time 9223 process 213 is entering CPU
+
+at time 9240 process 468 is arriving at CPU queue
+
+at time 9262 process 469 is arriving at CPU queue
+
+at time 9273 process 213 is leaving CPU
+
+at time 9273 process 214 is entering CPU
+
+at time 9284 process 470 is arriving at CPU queue
+
+at time 9299 process 471 is arriving at CPU queue
+
+at time 9301 process 123 is leaving DISK1
+
+at time 9301 process 126 is entering DISK1
+
+at time 9302 process 214 is leaving CPU
+
+at time 9302 process 57 is entering CPU
+
+at time 9323 process 472 is arriving at CPU queue
+
+at time 9328 process 57 is leaving CPU
+
+at time 9328 process 215 is entering CPU
+
+at time 9333 process 89 is leaving DISK2
+
+at time 9333 process 90 is entering DISK2
+
+at time 9352 process 473 is arriving at CPU queue
+
+at time 9365 process 215 is leaving CPU
+
+at time 9365 process 216 is entering CPU
+
+at time 9371 process 474 is arriving at CPU queue
+
+at time 9381 process 475 is arriving at CPU queue
+
+at time 9393 process 216 is leaving CPU
+
+at time 9393 process 217 is entering CPU
+
+at time 9402 process 476 is arriving at CPU queue
+
+at time 9415 process 217 is leaving CPU
+
+at time 9415 process 218 is entering CPU
+
+at time 9416 process 477 is arriving at CPU queue
+
+at time 9429 process 126 is leaving DISK1
+
+at time 9429 process 28 is entering DISK1
+
+at time 9431 process 478 is arriving at CPU queue
+
+at time 9442 process 218 is leaving CPU
+
+at time 9442 process 219 is entering CPU
+
+at time 9458 process 479 is arriving at CPU queue
+
+at time 9472 process 480 is arriving at CPU queue
+
+at time 9480 process 219 is leaving CPU
+
+at time 9480 process 43 is entering CPU
+
+at time 9487 process 481 is arriving at CPU queue
+
+at time 9507 process 43 is leaving CPU
+
+at time 9507 process 220 is entering CPU
+
+at time 9514 process 482 is arriving at CPU queue
+
+at time 9526 process 483 is arriving at CPU queue
+
+at time 9530 process 28 is leaving DISK1
+
+at time 9530 process 128 is entering DISK1
+
+at time 9541 process 220 is leaving CPU
+
+at time 9541 process 1 is entering CPU
+
+at time 9555 process 484 is arriving at CPU queue
+
+at time 9566 process 485 is arriving at CPU queue
+
+at time 9574 process 1 is leaving CPU
+
+at time 9574 process 221 is entering CPU
+
+at time 9587 process 486 is arriving at CPU queue
+
+at time 9613 process 221 is leaving CPU
+
+at time 9613 process 222 is entering CPU
+
+at time 9617 process 487 is arriving at CPU queue
+
+at time 9632 process 90 is leaving DISK2
+
+at time 9632 process 93 is entering DISK2
+
+at time 9641 process 128 is leaving DISK1
+
+at time 9641 process 9 is entering DISK1
+
+at time 9645 process 488 is arriving at CPU queue
+
+at time 9658 process 222 is leaving CPU
+
+at time 9658 process 222 is leaving simulation
+
+at time 9658 process 223 is entering CPU
+
+at time 9659 process 489 is arriving at CPU queue
+
+at time 9680 process 223 is leaving CPU
+
+at time 9680 process 224 is entering CPU
+
+at time 9683 process 490 is arriving at CPU queue
+
+at time 9702 process 491 is arriving at CPU queue
+
+at time 9710 process 224 is leaving CPU
+
+at time 9710 process 225 is entering CPU
+
+at time 9730 process 492 is arriving at CPU queue
+
+at time 9740 process 493 is arriving at CPU queue
+
+at time 9759 process 225 is leaving CPU
+
+at time 9759 process 226 is entering CPU
+
+at time 9759 process 9 is leaving DISK1
+
+at time 9759 process 131 is entering DISK1
+
+at time 9761 process 494 is arriving at CPU queue
+
+at time 9778 process 495 is arriving at CPU queue
+
+at time 9791 process 226 is leaving CPU
+
+at time 9791 process 226 is leaving simulation
+
+at time 9791 process 227 is entering CPU
+
+at time 9806 process 496 is arriving at CPU queue
+
+at time 9823 process 497 is arriving at CPU queue
+
+at time 9832 process 227 is leaving CPU
+
+at time 9832 process 228 is entering CPU
+
+at time 9846 process 498 is arriving at CPU queue
+
+at time 9860 process 228 is leaving CPU
+
+at time 9860 process 61 is entering CPU
+
+at time 9861 process 499 is arriving at CPU queue
+
+at time 9869 process 131 is leaving DISK1
+
+at time 9869 process 132 is entering DISK1
+
+at time 9882 process 500 is arriving at CPU queue
+
+at time 9901 process 61 is leaving CPU
+
+at time 9901 process 61 is leaving simulation
+
+at time 9901 process 229 is entering CPU
+
+at time 9903 process 501 is arriving at CPU queue
+
+at time 9913 process 93 is leaving DISK2
+
+at time 9913 process 97 is entering DISK2
+
+at time 9924 process 229 is leaving CPU
+
+at time 9924 process 230 is entering CPU
+
+at time 9928 process 502 is arriving at CPU queue
+
+at time 9946 process 503 is arriving at CPU queue
+
+at time 9962 process 230 is leaving CPU
+
+at time 9962 process 11 is entering CPU
+
+at time 9971 process 504 is arriving at CPU queue
+
+at time 9982 process 505 is arriving at CPU queue
+
+at time 10000 process 506 is arriving at CPU queue
+
+at time 10009 process 11 is leaving CPU
+
+at time 10009 process 11 is leaving simulation
+
+at time 10009 process 231 is entering CPU
+
+at time 10014 process 507 is arriving at CPU queue
+
+at time 10014 process 132 is leaving DISK1
+
+at time 10014 process 135 is entering DISK1
+
+at time 10025 process 508 is arriving at CPU queue
+
+at time 10044 process 231 is leaving CPU
+
+at time 10044 process 232 is entering CPU
+
+at time 10050 process 509 is arriving at CPU queue
+
+at time 10061 process 510 is arriving at CPU queue
+
+at time 10074 process 511 is arriving at CPU queue
+
+at time 10090 process 232 is leaving CPU
+
+at time 10090 process 232 is leaving simulation
+
+at time 10090 process 233 is entering CPU
+
+at time 10095 process 512 is arriving at CPU queue
+
+at time 10117 process 233 is leaving CPU
+
+at time 10117 process 234 is entering CPU
+
+at time 10119 process 513 is arriving at CPU queue
+
+at time 10133 process 514 is arriving at CPU queue
+
+at time 10138 process 135 is leaving DISK1
+
+at time 10138 process 136 is entering DISK1
+
+at time 10163 process 515 is arriving at CPU queue
+
+at time 10163 process 234 is leaving CPU
+
+at time 10163 process 235 is entering CPU
+
+at time 10182 process 516 is arriving at CPU queue
+
+at time 10198 process 97 is leaving DISK2
+
+at time 10198 process 99 is entering DISK2
+
+at time 10205 process 235 is leaving CPU
+
+at time 10205 process 62 is entering CPU
+
+at time 10206 process 517 is arriving at CPU queue
+
+at time 10229 process 518 is arriving at CPU queue
+
+at time 10231 process 62 is leaving CPU
+
+at time 10231 process 236 is entering CPU
+
+at time 10256 process 136 is leaving DISK1
+
+at time 10256 process 138 is entering DISK1
+
+at time 10259 process 519 is arriving at CPU queue
+
+at time 10276 process 520 is arriving at CPU queue
+
+at time 10278 process 236 is leaving CPU
+
+at time 10278 process 237 is entering CPU
+
+at time 10291 process 521 is arriving at CPU queue
+
+at time 10305 process 237 is leaving CPU
+
+at time 10305 process 238 is entering CPU
+
+at time 10312 process 522 is arriving at CPU queue
+
+at time 10332 process 523 is arriving at CPU queue
+
+at time 10333 process 238 is leaving CPU
+
+at time 10333 process 239 is entering CPU
+
+at time 10353 process 524 is arriving at CPU queue
+
+at time 10358 process 138 is leaving DISK1
+
+at time 10358 process 141 is entering DISK1
+
+at time 10363 process 239 is leaving CPU
+
+at time 10363 process 240 is entering CPU
+
+at time 10382 process 525 is arriving at CPU queue
+
+at time 10402 process 526 is arriving at CPU queue
+
+at time 10402 process 240 is leaving CPU
+
+at time 10402 process 64 is entering CPU
+
+at time 10417 process 99 is leaving DISK2
+
+at time 10417 process 102 is entering DISK2
+
+at time 10427 process 64 is leaving CPU
+
+at time 10427 process 241 is entering CPU
+
+at time 10427 process 527 is arriving at CPU queue
+
+at time 10453 process 528 is arriving at CPU queue
+
+at time 10463 process 529 is arriving at CPU queue
+
+at time 10474 process 241 is leaving CPU
+
+at time 10474 process 242 is entering CPU
+
+at time 10482 process 530 is arriving at CPU queue
+
+at time 10496 process 141 is leaving DISK1
+
+at time 10496 process 39 is entering DISK1
+
+at time 10498 process 531 is arriving at CPU queue
+
+at time 10509 process 242 is leaving CPU
+
+at time 10509 process 243 is entering CPU
+
+at time 10512 process 532 is arriving at CPU queue
+
+at time 10529 process 533 is arriving at CPU queue
+
+at time 10543 process 534 is arriving at CPU queue
+
+at time 10550 process 243 is leaving CPU
+
+at time 10550 process 243 is leaving simulation
+
+at time 10550 process 244 is entering CPU
+
+at time 10560 process 535 is arriving at CPU queue
+
+at time 10577 process 536 is arriving at CPU queue
+
+at time 10582 process 244 is leaving CPU
+
+at time 10582 process 245 is entering CPU
+
+at time 10592 process 537 is arriving at CPU queue
+
+at time 10604 process 538 is arriving at CPU queue
+
+at time 10610 process 245 is leaving CPU
+
+at time 10610 process 245 is leaving simulation
+
+at time 10610 process 246 is entering CPU
+
+at time 10630 process 39 is leaving DISK1
+
+at time 10630 process 143 is entering DISK1
+
+at time 10633 process 539 is arriving at CPU queue
+
+at time 10636 process 246 is leaving CPU
+
+at time 10636 process 246 is leaving simulation
+
+at time 10636 process 46 is entering CPU
+
+at time 10660 process 540 is arriving at CPU queue
+
+at time 10675 process 541 is arriving at CPU queue
+
+at time 10684 process 46 is leaving CPU
+
+at time 10684 process 65 is entering CPU
+
+at time 10693 process 102 is leaving DISK2
+
+at time 10693 process 105 is entering DISK2
+
+at time 10696 process 542 is arriving at CPU queue
+
+at time 10725 process 543 is arriving at CPU queue
+
+at time 10730 process 65 is leaving CPU
+
+at time 10730 process 247 is entering CPU
+
+at time 10749 process 143 is leaving DISK1
+
+at time 10749 process 147 is entering DISK1
+
+at time 10754 process 544 is arriving at CPU queue
+
+at time 10776 process 247 is leaving CPU
+
+at time 10776 process 248 is entering CPU
+
+at time 10781 process 545 is arriving at CPU queue
+
+at time 10809 process 546 is arriving at CPU queue
+
+at time 10823 process 248 is leaving CPU
+
+at time 10823 process 249 is entering CPU
+
+at time 10838 process 547 is arriving at CPU queue
+
+at time 10863 process 548 is arriving at CPU queue
+
+at time 10866 process 249 is leaving CPU
+
+at time 10866 process 250 is entering CPU
+
+at time 10885 process 549 is arriving at CPU queue
+
+at time 10886 process 147 is leaving DISK1
+
+at time 10886 process 148 is entering DISK1
+
+at time 10895 process 250 is leaving CPU
+
+at time 10895 process 251 is entering CPU
+
+at time 10907 process 550 is arriving at CPU queue
+
+at time 10918 process 551 is arriving at CPU queue
+
+at time 10920 process 251 is leaving CPU
+
+at time 10920 process 252 is entering CPU
+
+at time 10940 process 552 is arriving at CPU queue
+
+at time 10943 process 105 is leaving DISK2
+
+at time 10943 process 24 is entering DISK2
+
+at time 10951 process 553 is arriving at CPU queue
+
+at time 10953 process 252 is leaving CPU
+
+at time 10953 process 3 is entering CPU
+
+at time 10962 process 554 is arriving at CPU queue
+
+at time 10983 process 555 is arriving at CPU queue
+
+at time 10997 process 3 is leaving CPU
+
+at time 10997 process 253 is entering CPU
+
+at time 11008 process 556 is arriving at CPU queue
+
+at time 11018 process 253 is leaving CPU
+
+at time 11018 process 254 is entering CPU
+
+at time 11028 process 148 is leaving DISK1
+
+at time 11028 process 149 is entering DISK1
+
+at time 11033 process 557 is arriving at CPU queue
+
+at time 11046 process 558 is arriving at CPU queue
+
+at time 11061 process 559 is arriving at CPU queue
+
+at time 11062 process 254 is leaving CPU
+
+at time 11062 process 255 is entering CPU
+
+at time 11079 process 560 is arriving at CPU queue
+
+at time 11086 process 255 is leaving CPU
+
+at time 11086 process 256 is entering CPU
+
+at time 11099 process 561 is arriving at CPU queue
+
+at time 11106 process 256 is leaving CPU
+
+at time 11106 process 48 is entering CPU
+
+at time 11126 process 562 is arriving at CPU queue
+
+at time 11136 process 149 is leaving DISK1
+
+at time 11136 process 151 is entering DISK1
+
+at time 11142 process 48 is leaving CPU
+
+at time 11142 process 257 is entering CPU
+
+at time 11147 process 563 is arriving at CPU queue
+
+at time 11167 process 257 is leaving CPU
+
+at time 11167 process 68 is entering CPU
+
+at time 11170 process 24 is leaving DISK2
+
+at time 11170 process 108 is entering DISK2
+
+at time 11177 process 564 is arriving at CPU queue
+
+at time 11187 process 565 is arriving at CPU queue
+
+at time 11203 process 566 is arriving at CPU queue
+
+at time 11203 process 68 is leaving CPU
+
+at time 11203 process 258 is entering CPU
+
+at time 11221 process 567 is arriving at CPU queue
+
+at time 11232 process 568 is arriving at CPU queue
+
+at time 11240 process 151 is leaving DISK1
+
+at time 11240 process 42 is entering DISK1
+
+at time 11250 process 569 is arriving at CPU queue
+
+at time 11253 process 258 is leaving CPU
+
+at time 11253 process 259 is entering CPU
+
+at time 11276 process 570 is arriving at CPU queue
+
+at time 11291 process 571 is arriving at CPU queue
+
+at time 11295 process 259 is leaving CPU
+
+at time 11295 process 260 is entering CPU
+
+at time 11321 process 572 is arriving at CPU queue
+
+at time 11333 process 260 is leaving CPU
+
+at time 11333 process 261 is entering CPU
+
+at time 11351 process 573 is arriving at CPU queue
+
+at time 11363 process 42 is leaving DISK1
+
+at time 11363 process 33 is entering DISK1
+
+at time 11367 process 261 is leaving CPU
+
+at time 11367 process 262 is entering CPU
+
+at time 11372 process 574 is arriving at CPU queue
+
+at time 11398 process 575 is arriving at CPU queue
+
+at time 11410 process 262 is leaving CPU
+
+at time 11410 process 70 is entering CPU
+
+at time 11413 process 576 is arriving at CPU queue
+
+at time 11419 process 108 is leaving DISK2
+
+at time 11419 process 110 is entering DISK2
+
+at time 11439 process 577 is arriving at CPU queue
+
+at time 11446 process 70 is leaving CPU
+
+at time 11446 process 263 is entering CPU
+
+at time 11451 process 578 is arriving at CPU queue
+
+at time 11461 process 579 is arriving at CPU queue
+
+at time 11475 process 580 is arriving at CPU queue
+
+at time 11475 process 263 is leaving CPU
+
+at time 11475 process 264 is entering CPU
+
+at time 11494 process 581 is arriving at CPU queue
+
+at time 11495 process 264 is leaving CPU
+
+at time 11495 process 265 is entering CPU
+
+at time 11510 process 33 is leaving DISK1
+
+at time 11510 process 154 is entering DISK1
+
+at time 11514 process 582 is arriving at CPU queue
+
+at time 11532 process 583 is arriving at CPU queue
+
+at time 11545 process 265 is leaving CPU
+
+at time 11545 process 266 is entering CPU
+
+at time 11554 process 584 is arriving at CPU queue
+
+at time 11573 process 585 is arriving at CPU queue
+
+at time 11583 process 266 is leaving CPU
+
+at time 11583 process 267 is entering CPU
+
+at time 11601 process 586 is arriving at CPU queue
+
+at time 11610 process 267 is leaving CPU
+
+at time 11610 process 51 is entering CPU
+
+at time 11626 process 587 is arriving at CPU queue
+
+at time 11638 process 154 is leaving DISK1
+
+at time 11638 process 156 is entering DISK1
+
+at time 11645 process 588 is arriving at CPU queue
+
+at time 11648 process 51 is leaving CPU
+
+at time 11648 process 268 is entering CPU
+
+at time 11655 process 110 is leaving DISK2
+
+at time 11655 process 32 is entering DISK2
+
+at time 11670 process 589 is arriving at CPU queue
+
+at time 11672 process 268 is leaving CPU
+
+at time 11672 process 269 is entering CPU
+
+at time 11687 process 590 is arriving at CPU queue
+
+at time 11702 process 591 is arriving at CPU queue
+
+at time 11705 process 269 is leaving CPU
+
+at time 11705 process 73 is entering CPU
+
+at time 11717 process 592 is arriving at CPU queue
+
+at time 11727 process 73 is leaving CPU
+
+at time 11727 process 270 is entering CPU
+
+at time 11742 process 593 is arriving at CPU queue
+
+at time 11750 process 270 is leaving CPU
+
+at time 11750 process 270 is leaving simulation
+
+at time 11750 process 271 is entering CPU
+
+at time 11754 process 594 is arriving at CPU queue
+
+at time 11770 process 595 is arriving at CPU queue
+
+at time 11770 process 271 is leaving CPU
+
+at time 11770 process 272 is entering CPU
+
+at time 11788 process 156 is leaving DISK1
+
+at time 11788 process 158 is entering DISK1
+
+at time 11800 process 596 is arriving at CPU queue
+
+at time 11812 process 597 is arriving at CPU queue
+
+at time 11819 process 272 is leaving CPU
+
+at time 11819 process 273 is entering CPU
+
+at time 11831 process 598 is arriving at CPU queue
+
+at time 11842 process 599 is arriving at CPU queue
+
+at time 11860 process 600 is arriving at CPU queue
+
+at time 11860 process 273 is leaving CPU
+
+at time 11860 process 274 is entering CPU
+
+at time 11879 process 601 is arriving at CPU queue
+
+at time 11884 process 274 is leaving CPU
+
+at time 11884 process 275 is entering CPU
+
+at time 11890 process 602 is arriving at CPU queue
+
+at time 11897 process 158 is leaving DISK1
+
+at time 11897 process 159 is entering DISK1
+
+at time 11913 process 275 is leaving CPU
+
+at time 11913 process 276 is entering CPU
+
+at time 11919 process 603 is arriving at CPU queue
+
+at time 11940 process 604 is arriving at CPU queue
+
+at time 11948 process 32 is leaving DISK2
+
+at time 11948 process 114 is entering DISK2
+
+at time 11959 process 605 is arriving at CPU queue
+
+at time 11960 process 276 is leaving CPU
+
+at time 11960 process 75 is entering CPU
+
+at time 11988 process 606 is arriving at CPU queue
+
+at time 11990 process 75 is leaving CPU
+
+at time 11990 process 75 is leaving simulation
+
+at time 11990 process 277 is entering CPU
+
+at time 11999 process 607 is arriving at CPU queue
+
+at time 12013 process 608 is arriving at CPU queue
+
+at time 12015 process 159 is leaving DISK1
+
+at time 12015 process 160 is entering DISK1
+
+at time 12031 process 609 is arriving at CPU queue
+
+at time 12031 process 277 is leaving CPU
+
+at time 12031 process 278 is entering CPU
+
+at time 12058 process 610 is arriving at CPU queue
+
+at time 12074 process 278 is leaving CPU
+
+at time 12074 process 279 is entering CPU
+
+at time 12087 process 611 is arriving at CPU queue
+
+at time 12103 process 612 is arriving at CPU queue
+
+at time 12112 process 279 is leaving CPU
+
+at time 12112 process 280 is entering CPU
+
+at time 12120 process 613 is arriving at CPU queue
+
+at time 12141 process 160 is leaving DISK1
+
+at time 12141 process 162 is entering DISK1
+
+at time 12145 process 614 is arriving at CPU queue
+
+at time 12150 process 280 is leaving CPU
+
+at time 12150 process 281 is entering CPU
+
+at time 12168 process 615 is arriving at CPU queue
+
+at time 12187 process 281 is leaving CPU
+
+at time 12187 process 281 is leaving simulation
+
+at time 12187 process 53 is entering CPU
+
+at time 12189 process 616 is arriving at CPU queue
+
+at time 12202 process 114 is leaving DISK2
+
+at time 12202 process 116 is entering DISK2
+
+at time 12204 process 617 is arriving at CPU queue
+
+at time 12230 process 618 is arriving at CPU queue
+
+at time 12234 process 53 is leaving CPU
+
+at time 12234 process 77 is entering CPU
+
+at time 12250 process 162 is leaving DISK1
+
+at time 12250 process 164 is entering DISK1
+
+at time 12258 process 619 is arriving at CPU queue
+
+at time 12274 process 77 is leaving CPU
+
+at time 12274 process 282 is entering CPU
+
+at time 12277 process 620 is arriving at CPU queue
+
+at time 12298 process 621 is arriving at CPU queue
+
+at time 12312 process 622 is arriving at CPU queue
+
+at time 12314 process 282 is leaving CPU
+
+at time 12314 process 282 is leaving simulation
+
+at time 12314 process 283 is entering CPU
+
+at time 12341 process 623 is arriving at CPU queue
+
+at time 12350 process 283 is leaving CPU
+
+at time 12350 process 284 is entering CPU
+
+at time 12358 process 624 is arriving at CPU queue
+
+at time 12372 process 164 is leaving DISK1
+
+at time 12372 process 166 is entering DISK1
+
+at time 12375 process 284 is leaving CPU
+
+at time 12375 process 285 is entering CPU
+
+at time 12377 process 625 is arriving at CPU queue
+
+at time 12388 process 626 is arriving at CPU queue
+
+at time 12403 process 627 is arriving at CPU queue
+
+at time 12409 process 285 is leaving CPU
+
+at time 12409 process 285 is leaving simulation
+
+at time 12409 process 286 is entering CPU
+
+at time 12414 process 116 is leaving DISK2
+
+at time 12414 process 118 is entering DISK2
+
+at time 12415 process 628 is arriving at CPU queue
+
+at time 12427 process 629 is arriving at CPU queue
+
+at time 12437 process 630 is arriving at CPU queue
+
+at time 12444 process 286 is leaving CPU
+
+at time 12444 process 287 is entering CPU
+
+at time 12465 process 631 is arriving at CPU queue
+
+at time 12482 process 287 is leaving CPU
+
+at time 12482 process 78 is entering CPU
+
+at time 12488 process 632 is arriving at CPU queue
+
+at time 12504 process 633 is arriving at CPU queue
+
+at time 12505 process 78 is leaving CPU
+
+at time 12505 process 78 is leaving simulation
+
+at time 12505 process 288 is entering CPU
+
+at time 12515 process 166 is leaving DISK1
+
+at time 12515 process 167 is entering DISK1
+
+at time 12526 process 634 is arriving at CPU queue
+
+at time 12536 process 288 is leaving CPU
+
+at time 12536 process 288 is leaving simulation
+
+at time 12536 process 289 is entering CPU
+
+at time 12549 process 635 is arriving at CPU queue
+
+at time 12575 process 289 is leaving CPU
+
+at time 12575 process 289 is leaving simulation
+
+at time 12575 process 290 is entering CPU
+
+at time 12577 process 636 is arriving at CPU queue
+
+at time 12588 process 637 is arriving at CPU queue
+
+at time 12605 process 290 is leaving CPU
+
+at time 12605 process 291 is entering CPU
+
+at time 12608 process 638 is arriving at CPU queue
+
+at time 12618 process 639 is arriving at CPU queue
+
+at time 12629 process 167 is leaving DISK1
+
+at time 12629 process 170 is entering DISK1
+
+at time 12639 process 640 is arriving at CPU queue
+
+at time 12639 process 291 is leaving CPU
+
+at time 12639 process 292 is entering CPU
+
+at time 12653 process 641 is arriving at CPU queue
+
+at time 12660 process 118 is leaving DISK2
+
+at time 12660 process 120 is entering DISK2
+
+at time 12666 process 642 is arriving at CPU queue
+
+at time 12681 process 292 is leaving CPU
+
+at time 12681 process 14 is entering CPU
+
+at time 12682 process 643 is arriving at CPU queue
+
+at time 12703 process 644 is arriving at CPU queue
+
+at time 12724 process 645 is arriving at CPU queue
+
+at time 12731 process 14 is leaving CPU
+
+at time 12731 process 293 is entering CPU
+
+at time 12742 process 646 is arriving at CPU queue
+
+at time 12766 process 647 is arriving at CPU queue
+
+at time 12768 process 293 is leaving CPU
+
+at time 12768 process 294 is entering CPU
+
+at time 12772 process 170 is leaving DISK1
+
+at time 12772 process 171 is entering DISK1
+
+at time 12779 process 648 is arriving at CPU queue
+
+at time 12798 process 294 is leaving CPU
+
+at time 12798 process 81 is entering CPU
+
+at time 12806 process 649 is arriving at CPU queue
+
+at time 12829 process 650 is arriving at CPU queue
+
+at time 12833 process 81 is leaving CPU
+
+at time 12833 process 81 is leaving simulation
+
+at time 12833 process 295 is entering CPU
+
+at time 12842 process 651 is arriving at CPU queue
+
+at time 12864 process 652 is arriving at CPU queue
+
+at time 12879 process 171 is leaving DISK1
+
+at time 12879 process 172 is entering DISK1
+
+at time 12883 process 295 is leaving CPU
+
+at time 12883 process 296 is entering CPU
+
+at time 12886 process 653 is arriving at CPU queue
+
+at time 12898 process 120 is leaving DISK2
+
+at time 12898 process 35 is entering DISK2
+
+at time 12912 process 654 is arriving at CPU queue
+
+at time 12915 process 296 is leaving CPU
+
+at time 12915 process 296 is leaving simulation
+
+at time 12915 process 297 is entering CPU
+
+at time 12939 process 655 is arriving at CPU queue
+
+at time 12961 process 297 is leaving CPU
+
+at time 12961 process 298 is entering CPU
+
+at time 12965 process 656 is arriving at CPU queue
+
+at time 12986 process 657 is arriving at CPU queue
+
+at time 13005 process 298 is leaving CPU
+
+at time 13005 process 298 is leaving simulation
+
+at time 13005 process 299 is entering CPU
+
+at time 13011 process 658 is arriving at CPU queue
+
+at time 13014 process 172 is leaving DISK1
+
+at time 13014 process 177 is entering DISK1
+
+at time 13027 process 659 is arriving at CPU queue
+
+at time 13043 process 299 is leaving CPU
+
+at time 13043 process 299 is leaving simulation
+
+at time 13043 process 300 is entering CPU
+
+at time 13049 process 660 is arriving at CPU queue
+
+at time 13064 process 661 is arriving at CPU queue
+
+at time 13083 process 300 is leaving CPU
+
+at time 13083 process 301 is entering CPU
+
+at time 13088 process 662 is arriving at CPU queue
+
+at time 13100 process 663 is arriving at CPU queue
+
+at time 13110 process 301 is leaving CPU
+
+at time 13110 process 82 is entering CPU
+
+at time 13130 process 664 is arriving at CPU queue
+
+at time 13146 process 177 is leaving DISK1
+
+at time 13146 process 178 is entering DISK1
+
+at time 13151 process 82 is leaving CPU
+
+at time 13151 process 302 is entering CPU
+
+at time 13154 process 665 is arriving at CPU queue
+
+at time 13155 process 35 is leaving DISK2
+
+at time 13155 process 124 is entering DISK2
+
+at time 13167 process 666 is arriving at CPU queue
+
+at time 13181 process 302 is leaving CPU
+
+at time 13181 process 302 is leaving simulation
+
+at time 13181 process 303 is entering CPU
+
+at time 13190 process 667 is arriving at CPU queue
+
+at time 13210 process 668 is arriving at CPU queue
+
+at time 13215 process 303 is leaving CPU
+
+at time 13215 process 304 is entering CPU
+
+at time 13228 process 669 is arriving at CPU queue
+
+at time 13243 process 670 is arriving at CPU queue
+
+at time 13261 process 304 is leaving CPU
+
+at time 13261 process 58 is entering CPU
+
+at time 13263 process 671 is arriving at CPU queue
+
+at time 13276 process 178 is leaving DISK1
+
+at time 13276 process 180 is entering DISK1
+
+at time 13281 process 672 is arriving at CPU queue
+
+at time 13294 process 58 is leaving CPU
+
+at time 13294 process 305 is entering CPU
+
+at time 13308 process 673 is arriving at CPU queue
+
+at time 13327 process 674 is arriving at CPU queue
+
+at time 13339 process 675 is arriving at CPU queue
+
+at time 13340 process 305 is leaving CPU
+
+at time 13340 process 305 is leaving simulation
+
+at time 13340 process 26 is entering CPU
+
+at time 13360 process 676 is arriving at CPU queue
+
+at time 13371 process 26 is leaving CPU
+
+at time 13371 process 26 is leaving simulation
+
+at time 13371 process 306 is entering CPU
+
+at time 13383 process 677 is arriving at CPU queue
+
+at time 13402 process 678 is arriving at CPU queue
+
+at time 13406 process 180 is leaving DISK1
+
+at time 13406 process 36 is entering DISK1
+
+at time 13413 process 306 is leaving CPU
+
+at time 13413 process 307 is entering CPU
+
+at time 13419 process 679 is arriving at CPU queue
+
+at time 13424 process 124 is leaving DISK2
+
+at time 13424 process 127 is entering DISK2
+
+at time 13430 process 680 is arriving at CPU queue
+
+at time 13455 process 681 is arriving at CPU queue
+
+at time 13463 process 307 is leaving CPU
+
+at time 13463 process 308 is entering CPU
+
+at time 13480 process 682 is arriving at CPU queue
+
+at time 13492 process 683 is arriving at CPU queue
+
+at time 13508 process 308 is leaving CPU
+
+at time 13508 process 309 is entering CPU
+
+at time 13515 process 684 is arriving at CPU queue
+
+at time 13521 process 36 is leaving DISK1
+
+at time 13521 process 182 is entering DISK1
+
+at time 13527 process 685 is arriving at CPU queue
+
+at time 13535 process 309 is leaving CPU
+
+at time 13535 process 310 is entering CPU
+
+at time 13551 process 686 is arriving at CPU queue
+
+at time 13570 process 687 is arriving at CPU queue
+
+at time 13585 process 310 is leaving CPU
+
+at time 13585 process 311 is entering CPU
+
+at time 13586 process 688 is arriving at CPU queue
+
+at time 13603 process 689 is arriving at CPU queue
+
+at time 13623 process 311 is leaving CPU
+
+at time 13623 process 312 is entering CPU
+
+at time 13628 process 690 is arriving at CPU queue
+
+at time 13629 process 182 is leaving DISK1
+
+at time 13629 process 185 is entering DISK1
+
+at time 13645 process 691 is arriving at CPU queue
+
+at time 13670 process 692 is arriving at CPU queue
+
+at time 13672 process 312 is leaving CPU
+
+at time 13672 process 84 is entering CPU
+
+at time 13684 process 127 is leaving DISK2
+
+at time 13684 process 129 is entering DISK2
+
+at time 13694 process 693 is arriving at CPU queue
+
+at time 13711 process 84 is leaving CPU
+
+at time 13711 process 313 is entering CPU
+
+at time 13717 process 694 is arriving at CPU queue
+
+at time 13729 process 185 is leaving DISK1
+
+at time 13729 process 189 is entering DISK1
+
+at time 13734 process 695 is arriving at CPU queue
+
+at time 13735 process 313 is leaving CPU
+
+at time 13735 process 313 is leaving simulation
+
+at time 13735 process 314 is entering CPU
+
+at time 13756 process 696 is arriving at CPU queue
+
+at time 13765 process 314 is leaving CPU
+
+at time 13765 process 315 is entering CPU
+
+at time 13770 process 697 is arriving at CPU queue
+
+at time 13784 process 698 is arriving at CPU queue
+
+at time 13800 process 315 is leaving CPU
+
+at time 13800 process 315 is leaving simulation
+
+at time 13800 process 316 is entering CPU
+
+at time 13814 process 699 is arriving at CPU queue
+
+at time 13830 process 700 is arriving at CPU queue
+
+at time 13837 process 316 is leaving CPU
+
+at time 13837 process 317 is entering CPU
+
+at time 13851 process 189 is leaving DISK1
+
+at time 13851 process 190 is entering DISK1
+
+at time 13854 process 701 is arriving at CPU queue
+
+at time 13863 process 317 is leaving CPU
+
+at time 13863 process 318 is entering CPU
+
+at time 13870 process 702 is arriving at CPU queue
+
+at time 13893 process 703 is arriving at CPU queue
+
+at time 13904 process 318 is leaving CPU
+
+at time 13904 process 318 is leaving simulation
+
+at time 13904 process 319 is entering CPU
+
+at time 13912 process 704 is arriving at CPU queue
+
+at time 13925 process 705 is arriving at CPU queue
+
+at time 13928 process 319 is leaving CPU
+
+at time 13928 process 86 is entering CPU
+
+at time 13951 process 706 is arriving at CPU queue
+
+at time 13956 process 190 is leaving DISK1
+
+at time 13956 process 191 is entering DISK1
+
+at time 13964 process 86 is leaving CPU
+
+at time 13964 process 59 is entering CPU
+
+at time 13966 process 129 is leaving DISK2
+
+at time 13966 process 130 is entering DISK2
+
+at time 13968 process 707 is arriving at CPU queue
+
+at time 13997 process 708 is arriving at CPU queue
+
+at time 14010 process 59 is leaving CPU
+
+at time 14010 process 320 is entering CPU
+
+at time 14027 process 709 is arriving at CPU queue
+
+at time 14044 process 320 is leaving CPU
+
+at time 14044 process 321 is entering CPU
+
+at time 14057 process 710 is arriving at CPU queue
+
+at time 14064 process 321 is leaving CPU
+
+at time 14064 process 321 is leaving simulation
+
+at time 14064 process 322 is entering CPU
+
+at time 14074 process 191 is leaving DISK1
+
+at time 14074 process 192 is entering DISK1
+
+at time 14086 process 711 is arriving at CPU queue
+
+at time 14101 process 322 is leaving CPU
+
+at time 14101 process 323 is entering CPU
+
+at time 14114 process 712 is arriving at CPU queue
+
+at time 14129 process 323 is leaving CPU
+
+at time 14129 process 323 is leaving simulation
+
+at time 14129 process 324 is entering CPU
+
+at time 14131 process 713 is arriving at CPU queue
+
+at time 14147 process 714 is arriving at CPU queue
+
+at time 14157 process 324 is leaving CPU
+
+at time 14157 process 325 is entering CPU
+
+at time 14169 process 715 is arriving at CPU queue
+
+at time 14197 process 716 is arriving at CPU queue
+
+at time 14202 process 325 is leaving CPU
+
+at time 14202 process 5 is entering CPU
+
+at time 14212 process 717 is arriving at CPU queue
+
+at time 14224 process 192 is leaving DISK1
+
+at time 14224 process 195 is entering DISK1
+
+at time 14229 process 5 is leaving CPU
+
+at time 14229 process 326 is entering CPU
+
+at time 14240 process 718 is arriving at CPU queue
+
+at time 14251 process 719 is arriving at CPU queue
+
+at time 14254 process 130 is leaving DISK2
+
+at time 14254 process 134 is entering DISK2
+
+at time 14266 process 720 is arriving at CPU queue
+
+at time 14267 process 326 is leaving CPU
+
+at time 14267 process 326 is leaving simulation
+
+at time 14267 process 327 is entering CPU
+
+at time 14276 process 721 is arriving at CPU queue
+
+at time 14292 process 327 is leaving CPU
+
+at time 14292 process 327 is leaving simulation
+
+at time 14292 process 328 is entering CPU
+
+at time 14306 process 722 is arriving at CPU queue
+
+at time 14317 process 328 is leaving CPU
+
+at time 14317 process 329 is entering CPU
+
+at time 14332 process 723 is arriving at CPU queue
+
+at time 14336 process 195 is leaving DISK1
+
+at time 14336 process 196 is entering DISK1
+
+at time 14358 process 329 is leaving CPU
+
+at time 14358 process 330 is entering CPU
+
+at time 14359 process 724 is arriving at CPU queue
+
+at time 14380 process 725 is arriving at CPU queue
+
+at time 14407 process 330 is leaving CPU
+
+at time 14407 process 331 is entering CPU
+
+at time 14410 process 726 is arriving at CPU queue
+
+at time 14429 process 727 is arriving at CPU queue
+
+at time 14433 process 331 is leaving CPU
+
+at time 14433 process 331 is leaving simulation
+
+at time 14433 process 16 is entering CPU
+
+at time 14444 process 728 is arriving at CPU queue
+
+at time 14460 process 16 is leaving CPU
+
+at time 14460 process 332 is entering CPU
+
+at time 14462 process 729 is arriving at CPU queue
+
+at time 14475 process 134 is leaving DISK2
+
+at time 14475 process 37 is entering DISK2
+
+at time 14477 process 730 is arriving at CPU queue
+
+at time 14481 process 196 is leaving DISK1
+
+at time 14481 process 201 is entering DISK1
+
+at time 14492 process 332 is leaving CPU
+
+at time 14492 process 88 is entering CPU
+
+at time 14493 process 731 is arriving at CPU queue
+
+at time 14514 process 732 is arriving at CPU queue
+
+at time 14534 process 88 is leaving CPU
+
+at time 14534 process 88 is leaving simulation
+
+at time 14534 process 333 is entering CPU
+
+at time 14542 process 733 is arriving at CPU queue
+
+at time 14561 process 333 is leaving CPU
+
+at time 14561 process 334 is entering CPU
+
+at time 14568 process 734 is arriving at CPU queue
+
+at time 14587 process 735 is arriving at CPU queue
+
+at time 14592 process 334 is leaving CPU
+
+at time 14592 process 334 is leaving simulation
+
+at time 14592 process 335 is entering CPU
+
+at time 14613 process 736 is arriving at CPU queue
+
+at time 14613 process 201 is leaving DISK1
+
+at time 14613 process 203 is entering DISK1
+
+at time 14619 process 335 is leaving CPU
+
+at time 14619 process 336 is entering CPU
+
+at time 14643 process 737 is arriving at CPU queue
+
+at time 14657 process 336 is leaving CPU
+
+at time 14657 process 337 is entering CPU
+
+at time 14669 process 738 is arriving at CPU queue
+
+at time 14683 process 739 is arriving at CPU queue
+
+at time 14690 process 37 is leaving DISK2
+
+at time 14690 process 139 is entering DISK2
+
+at time 14701 process 337 is leaving CPU
+
+at time 14701 process 338 is entering CPU
+
+at time 14710 process 740 is arriving at CPU queue
+
+at time 14732 process 338 is leaving CPU
+
+at time 14732 process 91 is entering CPU
+
+at time 14738 process 741 is arriving at CPU queue
+
+at time 14747 process 203 is leaving DISK1
+
+at time 14747 process 205 is entering DISK1
+
+at time 14757 process 91 is leaving CPU
+
+at time 14757 process 339 is entering CPU
+
+at time 14762 process 742 is arriving at CPU queue
+
+at time 14776 process 743 is arriving at CPU queue
+
+at time 14790 process 744 is arriving at CPU queue
+
+at time 14804 process 339 is leaving CPU
+
+at time 14804 process 340 is entering CPU
+
+at time 14807 process 745 is arriving at CPU queue
+
+at time 14817 process 746 is arriving at CPU queue
+
+at time 14832 process 747 is arriving at CPU queue
+
+at time 14850 process 340 is leaving CPU
+
+at time 14850 process 341 is entering CPU
+
+at time 14853 process 748 is arriving at CPU queue
+
+at time 14874 process 749 is arriving at CPU queue
+
+at time 14880 process 205 is leaving DISK1
+
+at time 14880 process 40 is entering DISK1
+
+at time 14897 process 750 is arriving at CPU queue
+
+at time 14897 process 341 is leaving CPU
+
+at time 14897 process 342 is entering CPU
+
+at time 14916 process 751 is arriving at CPU queue
+
+at time 14918 process 342 is leaving CPU
+
+at time 14918 process 342 is leaving simulation
+
+at time 14918 process 343 is entering CPU
+
+at time 14931 process 752 is arriving at CPU queue
+
+at time 14950 process 753 is arriving at CPU queue
+
+at time 14962 process 139 is leaving DISK2
+
+at time 14962 process 142 is entering DISK2
+
+at time 14963 process 343 is leaving CPU
+
+at time 14963 process 344 is entering CPU
+
+at time 14971 process 754 is arriving at CPU queue
+
+at time 14994 process 344 is leaving CPU
+
+at time 14994 process 92 is entering CPU
+
+at time 14998 process 40 is leaving DISK1
+
+at time 14998 process 56 is entering DISK1
+
+at time 15000 process 755 is arriving at CPU queue
+
+at time 15028 process 756 is arriving at CPU queue
+
+at time 15030 process 92 is leaving CPU
+
+at time 15030 process 92 is leaving simulation
+
+at time 15030 process 63 is entering CPU
+
+at time 15054 process 757 is arriving at CPU queue
+
+at time 15073 process 63 is leaving CPU
+
+at time 15073 process 63 is leaving simulation
+
+at time 15073 process 345 is entering CPU
+
+at time 15082 process 758 is arriving at CPU queue
+
+at time 15096 process 345 is leaving CPU
+
+at time 15096 process 345 is leaving simulation
+
+at time 15096 process 346 is entering CPU
+
+at time 15100 process 56 is leaving DISK1
+
+at time 15100 process 210 is entering DISK1
+
+at time 15102 process 759 is arriving at CPU queue
+
+at time 15126 process 760 is arriving at CPU queue
+
+at time 15135 process 346 is leaving CPU
+
+at time 15135 process 347 is entering CPU
+
+at time 15140 process 761 is arriving at CPU queue
+
+at time 15151 process 762 is arriving at CPU queue
+
+at time 15161 process 763 is arriving at CPU queue
+
+at time 15164 process 347 is leaving CPU
+
+at time 15164 process 347 is leaving simulation
+
+at time 15164 process 348 is entering CPU
+
+at time 15177 process 764 is arriving at CPU queue
+
+at time 15180 process 142 is leaving DISK2
+
+at time 15180 process 144 is entering DISK2
+
+at time 15187 process 765 is arriving at CPU queue
+
+at time 15197 process 348 is leaving CPU
+
+at time 15197 process 349 is entering CPU
+
+at time 15209 process 766 is arriving at CPU queue
+
+at time 15218 process 349 is leaving CPU
+
+at time 15218 process 350 is entering CPU
+
+at time 15226 process 767 is arriving at CPU queue
+
+at time 15227 process 210 is leaving DISK1
+
+at time 15227 process 212 is entering DISK1
+
+at time 15247 process 768 is arriving at CPU queue
+
+at time 15259 process 769 is arriving at CPU queue
+
+at time 15262 process 350 is leaving CPU
+
+at time 15262 process 29 is entering CPU
+
+at time 15277 process 770 is arriving at CPU queue
+
+at time 15295 process 771 is arriving at CPU queue
+
+at time 15295 process 29 is leaving CPU
+
+at time 15295 process 29 is leaving simulation
+
+at time 15295 process 351 is entering CPU
+
+at time 15316 process 772 is arriving at CPU queue
+
+at time 15326 process 773 is arriving at CPU queue
+
+at time 15327 process 351 is leaving CPU
+
+at time 15327 process 352 is entering CPU
+
+at time 15340 process 212 is leaving DISK1
+
+at time 15340 process 214 is entering DISK1
+
+at time 15353 process 774 is arriving at CPU queue
+
+at time 15363 process 352 is leaving CPU
+
+at time 15363 process 353 is entering CPU
+
+at time 15378 process 775 is arriving at CPU queue
+
+at time 15383 process 353 is leaving CPU
+
+at time 15383 process 354 is entering CPU
+
+at time 15402 process 776 is arriving at CPU queue
+
+at time 15420 process 354 is leaving CPU
+
+at time 15420 process 355 is entering CPU
+
+at time 15428 process 144 is leaving DISK2
+
+at time 15428 process 41 is entering DISK2
+
+at time 15432 process 777 is arriving at CPU queue
+
+at time 15445 process 778 is arriving at CPU queue
+
+at time 15458 process 355 is leaving CPU
+
+at time 15458 process 66 is entering CPU
+
+at time 15461 process 779 is arriving at CPU queue
+
+at time 15474 process 214 is leaving DISK1
+
+at time 15474 process 57 is entering DISK1
+
+at time 15477 process 780 is arriving at CPU queue
+
+at time 15481 process 66 is leaving CPU
+
+at time 15481 process 356 is entering CPU
+
+at time 15487 process 781 is arriving at CPU queue
+
+at time 15504 process 782 is arriving at CPU queue
+
+at time 15514 process 783 is arriving at CPU queue
+
+at time 15529 process 356 is leaving CPU
+
+at time 15529 process 94 is entering CPU
+
+at time 15531 process 784 is arriving at CPU queue
+
+at time 15556 process 785 is arriving at CPU queue
+
+at time 15560 process 94 is leaving CPU
+
+at time 15560 process 357 is entering CPU
+
+at time 15585 process 57 is leaving DISK1
+
+at time 15585 process 217 is entering DISK1
+
+at time 15586 process 786 is arriving at CPU queue
+
+at time 15602 process 357 is leaving CPU
+
+at time 15602 process 358 is entering CPU
+
+at time 15607 process 787 is arriving at CPU queue
+
+at time 15617 process 788 is arriving at CPU queue
+
+at time 15637 process 789 is arriving at CPU queue
+
+at time 15643 process 358 is leaving CPU
+
+at time 15643 process 359 is entering CPU
+
+at time 15665 process 790 is arriving at CPU queue
+
+at time 15670 process 41 is leaving DISK2
+
+at time 15670 process 150 is entering DISK2
+
+at time 15690 process 791 is arriving at CPU queue
+
+at time 15691 process 217 is leaving DISK1
+
+at time 15691 process 218 is entering DISK1
+
+at time 15692 process 359 is leaving CPU
+
+at time 15692 process 360 is entering CPU
+
+at time 15705 process 792 is arriving at CPU queue
+
+at time 15717 process 360 is leaving CPU
+
+at time 15717 process 360 is leaving simulation
+
+at time 15717 process 361 is entering CPU
+
+at time 15732 process 793 is arriving at CPU queue
+
+at time 15742 process 361 is leaving CPU
+
+at time 15742 process 362 is entering CPU
+
+at time 15759 process 794 is arriving at CPU queue
+
+at time 15765 process 362 is leaving CPU
+
+at time 15765 process 98 is entering CPU
+
+at time 15789 process 795 is arriving at CPU queue
+
+at time 15805 process 796 is arriving at CPU queue
+
+at time 15813 process 98 is leaving CPU
+
+at time 15813 process 98 is leaving simulation
+
+at time 15813 process 363 is entering CPU
+
+at time 15825 process 797 is arriving at CPU queue
+
+at time 15836 process 363 is leaving CPU
+
+at time 15836 process 364 is entering CPU
+
+at time 15838 process 218 is leaving DISK1
+
+at time 15838 process 43 is entering DISK1
+
+at time 15844 process 798 is arriving at CPU queue
+
+at time 15861 process 799 is arriving at CPU queue
+
+at time 15878 process 800 is arriving at CPU queue
+
+at time 15881 process 364 is leaving CPU
+
+at time 15881 process 364 is leaving simulation
+
+at time 15881 process 365 is entering CPU
+
+at time 15888 process 801 is arriving at CPU queue
+
+at time 15916 process 802 is arriving at CPU queue
+
+at time 15920 process 365 is leaving CPU
+
+at time 15920 process 366 is entering CPU
+
+at time 15943 process 803 is arriving at CPU queue
+
+at time 15950 process 366 is leaving CPU
+
+at time 15950 process 367 is entering CPU
+
+at time 15969 process 804 is arriving at CPU queue
+
+at time 15969 process 150 is leaving DISK2
+
+at time 15969 process 152 is entering DISK2
+
+at time 15979 process 805 is arriving at CPU queue
+
+at time 15984 process 43 is leaving DISK1
+
+at time 15984 process 220 is entering DISK1
+
+at time 15987 process 367 is leaving CPU
+
+at time 15987 process 368 is entering CPU
+
+at time 16001 process 806 is arriving at CPU queue
+
+at time 16014 process 807 is arriving at CPU queue
+
+at time 16017 process 368 is leaving CPU
+
+at time 16017 process 369 is entering CPU
+
+at time 16031 process 808 is arriving at CPU queue
+
+at time 16044 process 809 is arriving at CPU queue
+
+at time 16059 process 369 is leaving CPU
+
+at time 16059 process 100 is entering CPU
+
+at time 16067 process 810 is arriving at CPU queue
+
+at time 16089 process 811 is arriving at CPU queue
+
+at time 16093 process 100 is leaving CPU
+
+at time 16093 process 370 is entering CPU
+
+at time 16113 process 370 is leaving CPU
+
+at time 16113 process 370 is leaving simulation
+
+at time 16113 process 371 is entering CPU
+
+at time 16116 process 812 is arriving at CPU queue
+
+at time 16127 process 220 is leaving DISK1
+
+at time 16127 process 221 is entering DISK1
+
+at time 16132 process 813 is arriving at CPU queue
+
+at time 16134 process 371 is leaving CPU
+
+at time 16134 process 67 is entering CPU
+
+at time 16158 process 814 is arriving at CPU queue
+
+at time 16167 process 67 is leaving CPU
+
+at time 16167 process 372 is entering CPU
+
+at time 16178 process 815 is arriving at CPU queue
+
+at time 16178 process 152 is leaving DISK2
+
+at time 16178 process 153 is entering DISK2
+
+at time 16194 process 816 is arriving at CPU queue
+
+at time 16211 process 372 is leaving CPU
+
+at time 16211 process 373 is entering CPU
+
+at time 16219 process 817 is arriving at CPU queue
+
+at time 16234 process 818 is arriving at CPU queue
+
+at time 16244 process 373 is leaving CPU
+
+at time 16244 process 374 is entering CPU
+
+at time 16261 process 819 is arriving at CPU queue
+
+at time 16274 process 221 is leaving DISK1
+
+at time 16274 process 224 is entering DISK1
+
+at time 16291 process 820 is arriving at CPU queue
+
+at time 16293 process 374 is leaving CPU
+
+at time 16293 process 375 is entering CPU
+
+at time 16321 process 821 is arriving at CPU queue
+
+at time 16324 process 375 is leaving CPU
+
+at time 16324 process 376 is entering CPU
+
+at time 16343 process 822 is arriving at CPU queue
+
+at time 16356 process 823 is arriving at CPU queue
+
+at time 16366 process 824 is arriving at CPU queue
+
+at time 16367 process 376 is leaving CPU
+
+at time 16367 process 103 is entering CPU
+
+at time 16380 process 825 is arriving at CPU queue
+
+at time 16380 process 153 is leaving DISK2
+
+at time 16380 process 155 is entering DISK2
+
+at time 16405 process 826 is arriving at CPU queue
+
+at time 16406 process 103 is leaving CPU
+
+at time 16406 process 377 is entering CPU
+
+at time 16421 process 827 is arriving at CPU queue
+
+at time 16424 process 224 is leaving DISK1
+
+at time 16424 process 227 is entering DISK1
+
+at time 16433 process 377 is leaving CPU
+
+at time 16433 process 378 is entering CPU
+
+at time 16447 process 828 is arriving at CPU queue
+
+at time 16459 process 829 is arriving at CPU queue
+
+at time 16475 process 378 is leaving CPU
+
+at time 16475 process 379 is entering CPU
+
+at time 16480 process 830 is arriving at CPU queue
+
+at time 16500 process 831 is arriving at CPU queue
+
+at time 16519 process 379 is leaving CPU
+
+at time 16519 process 380 is entering CPU
+
+at time 16522 process 832 is arriving at CPU queue
+
+at time 16535 process 833 is arriving at CPU queue
+
+at time 16556 process 227 is leaving DISK1
+
+at time 16556 process 228 is entering DISK1
+
+at time 16563 process 834 is arriving at CPU queue
+
+at time 16568 process 380 is leaving CPU
+
+at time 16568 process 381 is entering CPU
+
+at time 16574 process 835 is arriving at CPU queue
+
+at time 16595 process 836 is arriving at CPU queue
+
+at time 16598 process 381 is leaving CPU
+
+at time 16598 process 382 is entering CPU
+
+at time 16605 process 837 is arriving at CPU queue
+
+at time 16634 process 838 is arriving at CPU queue
+
+at time 16644 process 382 is leaving CPU
+
+at time 16644 process 104 is entering CPU
+
+at time 16645 process 155 is leaving DISK2
+
+at time 16645 process 157 is entering DISK2
+
+at time 16663 process 228 is leaving DISK1
+
+at time 16663 process 230 is entering DISK1
+
+at time 16664 process 839 is arriving at CPU queue
+
+at time 16670 process 104 is leaving CPU
+
+at time 16670 process 383 is entering CPU
+
+at time 16692 process 840 is arriving at CPU queue
+
+at time 16713 process 383 is leaving CPU
+
+at time 16713 process 383 is leaving simulation
+
+at time 16713 process 19 is entering CPU
+
+at time 16715 process 841 is arriving at CPU queue
+
+at time 16730 process 842 is arriving at CPU queue
+
+at time 16741 process 19 is leaving CPU
+
+at time 16741 process 384 is entering CPU
+
+at time 16756 process 843 is arriving at CPU queue
+
+at time 16767 process 384 is leaving CPU
+
+at time 16767 process 385 is entering CPU
+
+at time 16786 process 844 is arriving at CPU queue
+
+at time 16787 process 230 is leaving DISK1
+
+at time 16787 process 231 is entering DISK1
+
+at time 16810 process 385 is leaving CPU
+
+at time 16810 process 386 is entering CPU
+
+at time 16816 process 845 is arriving at CPU queue
+
+at time 16830 process 846 is arriving at CPU queue
+
+at time 16832 process 386 is leaving CPU
+
+at time 16832 process 387 is entering CPU
+
+at time 16842 process 847 is arriving at CPU queue
+
+at time 16864 process 848 is arriving at CPU queue
+
+at time 16865 process 387 is leaving CPU
+
+at time 16865 process 388 is entering CPU
+
+at time 16884 process 849 is arriving at CPU queue
+
+at time 16892 process 231 is leaving DISK1
+
+at time 16892 process 234 is entering DISK1
+
+at time 16902 process 850 is arriving at CPU queue
+
+at time 16912 process 388 is leaving CPU
+
+at time 16912 process 388 is leaving simulation
+
+at time 16912 process 389 is entering CPU
+
+at time 16923 process 157 is leaving DISK2
+
+at time 16923 process 44 is entering DISK2
+
+at time 16930 process 851 is arriving at CPU queue
+
+at time 16933 process 389 is leaving CPU
+
+at time 16933 process 389 is leaving simulation
+
+at time 16933 process 7 is entering CPU
+
+at time 16954 process 852 is arriving at CPU queue
+
+at time 16959 process 7 is leaving CPU
+
+at time 16959 process 390 is entering CPU
+
+at time 16970 process 853 is arriving at CPU queue
+
+at time 16989 process 854 is arriving at CPU queue
+
+at time 16991 process 390 is leaving CPU
+
+at time 16991 process 391 is entering CPU
+
+at time 17003 process 855 is arriving at CPU queue
+
+at time 17013 process 391 is leaving CPU
+
+at time 17013 process 392 is entering CPU
+
+at time 17017 process 856 is arriving at CPU queue
+
+at time 17020 process 234 is leaving DISK1
+
+at time 17020 process 62 is entering DISK1
+
+at time 17028 process 857 is arriving at CPU queue
+
+at time 17056 process 392 is leaving CPU
+
+at time 17056 process 393 is entering CPU
+
+at time 17057 process 858 is arriving at CPU queue
+
+at time 17087 process 859 is arriving at CPU queue
+
+at time 17103 process 393 is leaving CPU
+
+at time 17103 process 394 is entering CPU
+
+at time 17105 process 860 is arriving at CPU queue
+
+at time 17128 process 44 is leaving DISK2
+
+at time 17128 process 161 is entering DISK2
+
+at time 17131 process 861 is arriving at CPU queue
+
+at time 17136 process 394 is leaving CPU
+
+at time 17136 process 394 is leaving simulation
+
+at time 17136 process 106 is entering CPU
+
+at time 17138 process 62 is leaving DISK1
+
+at time 17138 process 236 is entering DISK1
+
+at time 17156 process 862 is arriving at CPU queue
+
+at time 17177 process 106 is leaving CPU
+
+at time 17177 process 395 is entering CPU
+
+at time 17185 process 863 is arriving at CPU queue
+
+at time 17207 process 864 is arriving at CPU queue
+
+at time 17217 process 395 is leaving CPU
+
+at time 17217 process 396 is entering CPU
+
+at time 17227 process 865 is arriving at CPU queue
+
+at time 17256 process 866 is arriving at CPU queue
+
+at time 17266 process 396 is leaving CPU
+
+at time 17266 process 396 is leaving simulation
+
+at time 17266 process 76 is entering CPU
+
+at time 17271 process 236 is leaving DISK1
+
+at time 17271 process 238 is entering DISK1
+
+at time 17279 process 867 is arriving at CPU queue
+
+at time 17291 process 868 is arriving at CPU queue
+
+at time 17305 process 76 is leaving CPU
+
+at time 17305 process 397 is entering CPU
+
+at time 17306 process 869 is arriving at CPU queue
+
+at time 17320 process 870 is arriving at CPU queue
+
+at time 17336 process 871 is arriving at CPU queue
+
+at time 17341 process 397 is leaving CPU
+
+at time 17341 process 397 is leaving simulation
+
+at time 17341 process 398 is entering CPU
+
+at time 17363 process 872 is arriving at CPU queue
+
+at time 17380 process 238 is leaving DISK1
+
+at time 17380 process 239 is entering DISK1
+
+at time 17381 process 398 is leaving CPU
+
+at time 17381 process 399 is entering CPU
+
+at time 17389 process 873 is arriving at CPU queue
+
+at time 17402 process 874 is arriving at CPU queue
+
+at time 17406 process 399 is leaving CPU
+
+at time 17406 process 400 is entering CPU
+
+at time 17416 process 161 is leaving DISK2
+
+at time 17416 process 163 is entering DISK2
+
+at time 17417 process 875 is arriving at CPU queue
+
+at time 17434 process 400 is leaving CPU
+
+at time 17434 process 107 is entering CPU
+
+at time 17435 process 876 is arriving at CPU queue
+
+at time 17458 process 877 is arriving at CPU queue
+
+at time 17481 process 878 is arriving at CPU queue
+
+at time 17481 process 107 is leaving CPU
+
+at time 17481 process 401 is entering CPU
+
+at time 17492 process 879 is arriving at CPU queue
+
+at time 17517 process 239 is leaving DISK1
+
+at time 17517 process 241 is entering DISK1
+
+at time 17522 process 880 is arriving at CPU queue
+
+at time 17529 process 401 is leaving CPU
+
+at time 17529 process 402 is entering CPU
+
+at time 17546 process 881 is arriving at CPU queue
+
+at time 17570 process 402 is leaving CPU
+
+at time 17570 process 402 is leaving simulation
+
+at time 17570 process 403 is entering CPU
+
+at time 17571 process 882 is arriving at CPU queue
+
+at time 17593 process 883 is arriving at CPU queue
+
+at time 17613 process 884 is arriving at CPU queue
+
+at time 17613 process 403 is leaving CPU
+
+at time 17613 process 404 is entering CPU
+
+at time 17625 process 885 is arriving at CPU queue
+
+at time 17642 process 886 is arriving at CPU queue
+
+at time 17653 process 887 is arriving at CPU queue
+
+at time 17658 process 241 is leaving DISK1
+
+at time 17658 process 242 is entering DISK1
+
+at time 17661 process 404 is leaving CPU
+
+at time 17661 process 405 is entering CPU
+
+at time 17679 process 888 is arriving at CPU queue
+
+at time 17686 process 405 is leaving CPU
+
+at time 17686 process 406 is entering CPU
+
+at time 17696 process 889 is arriving at CPU queue
+
+at time 17712 process 890 is arriving at CPU queue
+
+at time 17715 process 163 is leaving DISK2
+
+at time 17715 process 165 is entering DISK2
+
+at time 17718 process 406 is leaving CPU
+
+at time 17718 process 407 is entering CPU
+
+at time 17735 process 891 is arriving at CPU queue
+
+at time 17745 process 407 is leaving CPU
+
+at time 17745 process 109 is entering CPU
+
+at time 17759 process 892 is arriving at CPU queue
+
+at time 17771 process 893 is arriving at CPU queue
+
+at time 17773 process 109 is leaving CPU
+
+at time 17773 process 408 is entering CPU
+
+at time 17795 process 894 is arriving at CPU queue
+
+at time 17797 process 242 is leaving DISK1
+
+at time 17797 process 46 is entering DISK1
+
+at time 17808 process 408 is leaving CPU
+
+at time 17808 process 409 is entering CPU
+
+at time 17820 process 895 is arriving at CPU queue
+
+at time 17838 process 896 is arriving at CPU queue
+
+at time 17839 process 409 is leaving CPU
+
+at time 17839 process 410 is entering CPU
+
+at time 17867 process 897 is arriving at CPU queue
+
+at time 17871 process 410 is leaving CPU
+
+at time 17871 process 79 is entering CPU
+
+at time 17882 process 898 is arriving at CPU queue
+
+at time 17898 process 899 is arriving at CPU queue
+
+at time 17907 process 79 is leaving CPU
+
+at time 17907 process 79 is leaving simulation
+
+at time 17907 process 411 is entering CPU
+
+at time 17917 process 46 is leaving DISK1
+
+at time 17917 process 247 is entering DISK1
+
+at time 17918 process 900 is arriving at CPU queue
+
+at time 17933 process 901 is arriving at CPU queue
+
+at time 17953 process 411 is leaving CPU
+
+at time 17953 process 412 is entering CPU
+
+at time 17958 process 902 is arriving at CPU queue
+
+at time 17974 process 903 is arriving at CPU queue
+
+at time 17991 process 904 is arriving at CPU queue
+
+at time 18003 process 412 is leaving CPU
+
+at time 18003 process 413 is entering CPU
+
+at time 18006 process 905 is arriving at CPU queue
+
+at time 18012 process 165 is leaving DISK2
+
+at time 18012 process 4 is entering DISK2
+
+at time 18017 process 906 is arriving at CPU queue
+
+at time 18047 process 907 is arriving at CPU queue
+
+at time 18050 process 413 is leaving CPU
+
+at time 18050 process 414 is entering CPU
+
+at time 18050 process 247 is leaving DISK1
+
+at time 18050 process 248 is entering DISK1
+
+at time 18072 process 908 is arriving at CPU queue
+
+at time 18075 process 414 is leaving CPU
+
+at time 18075 process 111 is entering CPU
+
+at time 18090 process 909 is arriving at CPU queue
+
+at time 18116 process 910 is arriving at CPU queue
+
+at time 18120 process 111 is leaving CPU
+
+at time 18120 process 415 is entering CPU
+
+at time 18141 process 911 is arriving at CPU queue
+
+at time 18152 process 415 is leaving CPU
+
+at time 18152 process 416 is entering CPU
+
+at time 18171 process 912 is arriving at CPU queue
+
+at time 18187 process 913 is arriving at CPU queue
+
+at time 18196 process 248 is leaving DISK1
+
+at time 18196 process 250 is entering DISK1
+
+at time 18200 process 416 is leaving CPU
+
+at time 18200 process 417 is entering CPU
+
+at time 18209 process 914 is arriving at CPU queue
+
+at time 18227 process 417 is leaving CPU
+
+at time 18227 process 418 is entering CPU
+
+at time 18239 process 915 is arriving at CPU queue
+
+at time 18255 process 418 is leaving CPU
+
+at time 18255 process 112 is entering CPU
+
+at time 18256 process 916 is arriving at CPU queue
+
+at time 18278 process 917 is arriving at CPU queue
+
+at time 18283 process 112 is leaving CPU
+
+at time 18283 process 419 is entering CPU
+
+at time 18293 process 918 is arriving at CPU queue
+
+at time 18298 process 4 is leaving DISK2
+
+at time 18298 process 47 is entering DISK2
+
+at time 18314 process 419 is leaving CPU
+
+at time 18314 process 420 is entering CPU
+
+at time 18317 process 919 is arriving at CPU queue
+
+at time 18346 process 920 is arriving at CPU queue
+
+at time 18346 process 250 is leaving DISK1
+
+at time 18346 process 251 is entering DISK1
+
+at time 18357 process 420 is leaving CPU
+
+at time 18357 process 421 is entering CPU
+
+at time 18367 process 921 is arriving at CPU queue
+
+at time 18386 process 922 is arriving at CPU queue
+
+at time 18387 process 421 is leaving CPU
+
+at time 18387 process 421 is leaving simulation
+
+at time 18387 process 422 is entering CPU
+
+at time 18406 process 923 is arriving at CPU queue
+
+at time 18417 process 422 is leaving CPU
+
+at time 18417 process 80 is entering CPU
+
+at time 18425 process 924 is arriving at CPU queue
+
+at time 18444 process 80 is leaving CPU
+
+at time 18444 process 423 is entering CPU
+
+at time 18448 process 925 is arriving at CPU queue
+
+at time 18466 process 926 is arriving at CPU queue
+
+at time 18482 process 423 is leaving CPU
+
+at time 18482 process 424 is entering CPU
+
+at time 18489 process 927 is arriving at CPU queue
+
+at time 18495 process 251 is leaving DISK1
+
+at time 18495 process 253 is entering DISK1
+
+at time 18513 process 928 is arriving at CPU queue
+
+at time 18519 process 47 is leaving DISK2
+
+at time 18519 process 175 is entering DISK2
+
+at time 18520 process 424 is leaving CPU
+
+at time 18520 process 425 is entering CPU
+
+at time 18535 process 929 is arriving at CPU queue
+
+at time 18541 process 425 is leaving CPU
+
+at time 18541 process 425 is leaving simulation
+
+at time 18541 process 113 is entering CPU
+
+at time 18555 process 930 is arriving at CPU queue
+
+at time 18580 process 931 is arriving at CPU queue
+
+at time 18583 process 113 is leaving CPU
+
+at time 18583 process 426 is entering CPU
+
+at time 18603 process 932 is arriving at CPU queue
+
+at time 18615 process 933 is arriving at CPU queue
+
+at time 18623 process 426 is leaving CPU
+
+at time 18623 process 427 is entering CPU
+
+at time 18623 process 253 is leaving DISK1
+
+at time 18623 process 254 is entering DISK1
+
+at time 18635 process 934 is arriving at CPU queue
+
+at time 18661 process 935 is arriving at CPU queue
+
+at time 18667 process 427 is leaving CPU
+
+at time 18667 process 428 is entering CPU
+
+at time 18689 process 936 is arriving at CPU queue
+
+at time 18700 process 937 is arriving at CPU queue
+
+at time 18707 process 428 is leaving CPU
+
+at time 18707 process 429 is entering CPU
+
+at time 18728 process 938 is arriving at CPU queue
+
+at time 18738 process 939 is arriving at CPU queue
+
+at time 18742 process 429 is leaving CPU
+
+at time 18742 process 430 is entering CPU
+
+at time 18750 process 940 is arriving at CPU queue
+
+at time 18767 process 254 is leaving DISK1
+
+at time 18767 process 256 is entering DISK1
+
+at time 18768 process 175 is leaving DISK2
+
+at time 18768 process 8 is entering DISK2
+
+at time 18773 process 430 is leaving CPU
+
+at time 18773 process 431 is entering CPU
+
+at time 18779 process 941 is arriving at CPU queue
+
+at time 18803 process 942 is arriving at CPU queue
+
+at time 18811 process 431 is leaving CPU
+
+at time 18811 process 432 is entering CPU
+
+at time 18818 process 943 is arriving at CPU queue
+
+at time 18835 process 432 is leaving CPU
+
+at time 18835 process 83 is entering CPU
+
+at time 18840 process 944 is arriving at CPU queue
+
+at time 18856 process 945 is arriving at CPU queue
+
+at time 18857 process 83 is leaving CPU
+
+at time 18857 process 83 is leaving simulation
+
+at time 18857 process 433 is entering CPU
+
+at time 18883 process 946 is arriving at CPU queue
+
+at time 18894 process 947 is arriving at CPU queue
+
+at time 18895 process 256 is leaving DISK1
+
+at time 18895 process 48 is entering DISK1
+
+at time 18905 process 433 is leaving CPU
+
+at time 18905 process 115 is entering CPU
+
+at time 18917 process 948 is arriving at CPU queue
+
+at time 18942 process 949 is arriving at CPU queue
+
+at time 18949 process 115 is leaving CPU
+
+at time 18949 process 434 is entering CPU
+
+at time 18970 process 950 is arriving at CPU queue
+
+at time 18982 process 434 is leaving CPU
+
+at time 18982 process 435 is entering CPU
+
+at time 18991 process 8 is leaving DISK2
+
+at time 18991 process 181 is entering DISK2
+
+at time 18994 process 951 is arriving at CPU queue
+
+at time 18998 process 48 is leaving DISK1
+
+at time 18998 process 258 is entering DISK1
+
+at time 19019 process 952 is arriving at CPU queue
+
+at time 19023 process 435 is leaving CPU
+
+at time 19023 process 435 is leaving simulation
+
+at time 19023 process 436 is entering CPU
+
+at time 19041 process 953 is arriving at CPU queue
+
+at time 19069 process 436 is leaving CPU
+
+at time 19069 process 437 is entering CPU
+
+at time 19071 process 954 is arriving at CPU queue
+
+at time 19084 process 955 is arriving at CPU queue
+
+at time 19094 process 437 is leaving CPU
+
+at time 19094 process 437 is leaving simulation
+
+at time 19094 process 438 is entering CPU
+
+at time 19100 process 258 is leaving DISK1
+
+at time 19100 process 259 is entering DISK1
+
+at time 19105 process 956 is arriving at CPU queue
+
+at time 19116 process 438 is leaving CPU
+
+at time 19116 process 439 is entering CPU
+
+at time 19132 process 957 is arriving at CPU queue
+
+at time 19142 process 439 is leaving CPU
+
+at time 19142 process 27 is entering CPU
+
+at time 19156 process 958 is arriving at CPU queue
+
+at time 19172 process 959 is arriving at CPU queue
+
+at time 19177 process 27 is leaving CPU
+
+at time 19177 process 440 is entering CPU
+
+at time 19200 process 960 is arriving at CPU queue
+
+at time 19217 process 440 is leaving CPU
+
+at time 19217 process 440 is leaving simulation
+
+at time 19217 process 441 is entering CPU
+
+at time 19223 process 961 is arriving at CPU queue
+
+at time 19235 process 962 is arriving at CPU queue
+
+at time 19246 process 181 is leaving DISK2
+
+at time 19246 process 184 is entering DISK2
+
+at time 19248 process 259 is leaving DISK1
+
+at time 19248 process 261 is entering DISK1
+
+at time 19256 process 441 is leaving CPU
+
+at time 19256 process 442 is entering CPU
+
+at time 19261 process 963 is arriving at CPU queue
+
+at time 19278 process 964 is arriving at CPU queue
+
+at time 19290 process 442 is leaving CPU
+
+at time 19290 process 443 is entering CPU
+
+at time 19307 process 965 is arriving at CPU queue
+
+at time 19317 process 443 is leaving CPU
+
+at time 19317 process 443 is leaving simulation
+
+at time 19317 process 444 is entering CPU
+
+at time 19334 process 966 is arriving at CPU queue
+
+at time 19348 process 444 is leaving CPU
+
+at time 19348 process 445 is entering CPU
+
+at time 19362 process 967 is arriving at CPU queue
+
+at time 19382 process 968 is arriving at CPU queue
+
+at time 19387 process 445 is leaving CPU
+
+at time 19387 process 18 is entering CPU
+
+at time 19388 process 261 is leaving DISK1
+
+at time 19388 process 262 is entering DISK1
+
+at time 19393 process 969 is arriving at CPU queue
+
+at time 19423 process 970 is arriving at CPU queue
+
+at time 19429 process 18 is leaving CPU
+
+at time 19429 process 34 is entering CPU
+
+at time 19450 process 971 is arriving at CPU queue
+
+at time 19463 process 34 is leaving CPU
+
+at time 19463 process 34 is leaving simulation
+
+at time 19463 process 446 is entering CPU
+
+at time 19474 process 972 is arriving at CPU queue
+
+at time 19476 process 184 is leaving DISK2
+
+at time 19476 process 50 is entering DISK2
+
+at time 19487 process 446 is leaving CPU
+
+at time 19487 process 447 is entering CPU
+
+at time 19488 process 973 is arriving at CPU queue
+
+at time 19495 process 262 is leaving DISK1
+
+at time 19495 process 264 is entering DISK1
+
+at time 19505 process 974 is arriving at CPU queue
+
+at time 19530 process 447 is leaving CPU
+
+at time 19530 process 448 is entering CPU
+
+at time 19535 process 975 is arriving at CPU queue
+
+at time 19549 process 976 is arriving at CPU queue
+
+at time 19554 process 448 is leaving CPU
+
+at time 19554 process 449 is entering CPU
+
+at time 19570 process 977 is arriving at CPU queue
+
+at time 19587 process 978 is arriving at CPU queue
+
+at time 19592 process 449 is leaving CPU
+
+at time 19592 process 450 is entering CPU
+
+at time 19611 process 979 is arriving at CPU queue
+
+at time 19616 process 450 is leaving CPU
+
+at time 19616 process 450 is leaving simulation
+
+at time 19616 process 451 is entering CPU
+
+at time 19622 process 980 is arriving at CPU queue
+
+at time 19634 process 981 is arriving at CPU queue
+
+at time 19641 process 264 is leaving DISK1
+
+at time 19641 process 265 is entering DISK1
+
+at time 19643 process 451 is leaving CPU
+
+at time 19643 process 452 is entering CPU
+
+at time 19661 process 982 is arriving at CPU queue
+
+at time 19683 process 983 is arriving at CPU queue
+
+at time 19692 process 452 is leaving CPU
+
+at time 19692 process 452 is leaving simulation
+
+at time 19692 process 119 is entering CPU
+
+at time 19709 process 984 is arriving at CPU queue
+
+at time 19721 process 985 is arriving at CPU queue
+
+at time 19738 process 119 is leaving CPU
+
+at time 19738 process 453 is entering CPU
+
+at time 19746 process 986 is arriving at CPU queue
+
+at time 19767 process 50 is leaving DISK2
+
+at time 19767 process 12 is entering DISK2
+
+at time 19772 process 987 is arriving at CPU queue
+
+at time 19777 process 265 is leaving DISK1
+
+at time 19777 process 267 is entering DISK1
+
+at time 19784 process 453 is leaving CPU
+
+at time 19784 process 454 is entering CPU
+
+at time 19800 process 988 is arriving at CPU queue
+
+at time 19810 process 989 is arriving at CPU queue
+
+at time 19814 process 454 is leaving CPU
+
+at time 19814 process 455 is entering CPU
+
+at time 19837 process 990 is arriving at CPU queue
+
+at time 19847 process 455 is leaving CPU
+
+at time 19847 process 456 is entering CPU
+
+at time 19858 process 991 is arriving at CPU queue
+
+at time 19880 process 992 is arriving at CPU queue
+
+at time 19892 process 456 is leaving CPU
+
+at time 19892 process 457 is entering CPU
+
+at time 19898 process 993 is arriving at CPU queue
+
+at time 19904 process 267 is leaving DISK1
+
+at time 19904 process 51 is entering DISK1
+
+at time 19912 process 457 is leaving CPU
+
+at time 19912 process 458 is entering CPU
+
+at time 19927 process 994 is arriving at CPU queue
+
+at time 19937 process 995 is arriving at CPU queue
+
+at time 19950 process 458 is leaving CPU
+
+at time 19950 process 121 is entering CPU
+
+at time 19959 process 996 is arriving at CPU queue
+
+at time 19978 process 997 is arriving at CPU queue
+
+at time 19993 process 121 is leaving CPU
+
+at time 19993 process 459 is entering CPU
+
+at time 19996 process 998 is arriving at CPU queue
+
+at time 20000 process END is ENDING SIMULATION
+
+
+Unused cycles:
+	CPU:   30
+	DISK1: 0
+	DISK2: 1
+
+Utilization:
+	CPU:   99.849998%
+	DISK1: 100.000000%
+	DISK2: 99.995003%
+
+Average Reponse Times:
+	CPU:   5458.118164
+	DISK1: 4086.375000
+	DISK2: 5944.294922
+
+Longest Reponse Times:
+	CPU:   10939
+	DISK1: 8294
+	DISK2: 11644
+
+Maximum Queue Lengths:
+	CPU:   669
+	DISK1: 108
+	DISK2: 108
+	Event: 5
+
+Average Queue Lengths:
+	CPU:   338.574982
+	DISK1: 54.503849
+	DISK2: 54.103043
+	Event: 4.033003
+
+Throughput of System:
+	CPU:   0.028350
+	DISK1: 0.008000
+	DISK2: 0.003900
