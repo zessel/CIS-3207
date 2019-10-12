@@ -1,14 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <linux/limits.h> // For PATH_MAX
 #include <limits.h>
 #include <dirent.h>
 #include <errno.h>
 #include <sys/ioctl.h>
 #include <string.h>
+#include <sys/types.h>  // For wait()
+#include <sys/wait.h>   // For wait()
 
 extern char ** environ;
 
+void external_function(int argsnum, char *argument_array[]);
+int check_shell_function(int argsnum, char *argument_array[]);
+void run_shell_function(int argnum, char *argument_array[], int built_in);
 void parser ();//int *inputflag, int *outputflag, int * createoutflag, int *pipeflag, int *backgroundflag);
 void print_args(int argsnum, char*argument_array[]);
 char *read_user_input();
@@ -19,15 +25,15 @@ void cd (char* new_directory);
 void clr();
 void dir (char* directory);
 void environs();
-void echo(char *arguments[]);
-void help(char* arguments[]);
+void echo(int argsnum, char *arguments[]);
+void help();
 void my_pause();
 
 void main()
 {
     char *argument_array[64];
     char *input;
-    int input_flag, output_flag, output_create_flag, pipe_flag, background_flag;
+    int input_flag, output_flag, output_create_flag, pipe_flag;
 
     while (1)
     {
@@ -38,8 +44,9 @@ void main()
         output_flag = check_args_for(argsnum, argument_array, ">");
         output_create_flag = check_args_for(argsnum, argument_array, ">>");
         pipe_flag = check_args_for(argsnum, argument_array, "|");
-        background_flag = check_args_for(argsnum, argument_array, "&");
         
+        print_args(argsnum, argument_array);
+
         if (pipe_flag)
         {
 
@@ -53,50 +60,86 @@ void main()
             }
             else
             {
-                externalFunction();
+                external_function(argsnum, argument_array);
             }
-            
         }
         
     }
     my_pause();
-    help(Zach);
+    help();
 }
+
+
+void external_function(int argsnum, char *argument_array[])
+{
+    int background_flag = check_args_for(argsnum, argument_array, "&");
+    int status;
+
+    int pid = fork();
+    if (pid == 0)
+    {
+        execvp(argument_array[0], argument_array);
+    }
+    else if (!background_flag)
+        wait(&status);
+}
+
 
 /*  Checks if a function built into the shell is called at arg[0] 
     returns an identified for that function
+
+    had to change to strncmp because strcmp was only working if the
+    command was followed by whitespace.  I imagine there is a difference
+    in null char or \n but this should be a fine workaround
 */
 
-int shellFunction(int argsnum, char *argument_array[])
+int check_shell_function(int argsnum, char *argument_array[])
 {
     int is_function = 0;
 
-    if (strcmp(argument_array[0], "cd") == 0)
+    if (strncmp(argument_array[0], "cd", 2) == 0)
         is_function = 1;
-    else if (strcmp(argument_array[0], "clr") == 0)
+    else if (strncmp(argument_array[0], "clr", 3) == 0)
         is_function = 2;
-    else if (strcmp(argument_array[0], "dir") == 0)
+    else if (strncmp(argument_array[0], "dir", 3) == 0)
         is_function = 3;
-    else if (strcmp(argument_array[0], "environ") == 0)
+    else if (strncmp(argument_array[0], "environ", 7) == 0)
         is_function = 4;
-    else if (strcmp(argument_array[0], "echo") == 0)
+    else if (strncmp(argument_array[0], "echo", 4) == 0)
         is_function = 5;
-    else if (strcmp(argument_array[0], "help") == 0)
+    else if (strncmp(argument_array[0], "help", 4) == 0)
         is_function = 6;
-    else if (strcmp(argument_array[0], "pause") == 0)
+    else if (strncmp(argument_array[0], "pause", 5) == 0)
         is_function = 7;
-    else if (strcmp(argument_array[0], "quit") == 0)
+    else if (strncmp(argument_array[0], "quit", 4) == 0)
         is_function = 8;    
 
     return is_function;
 }
 
-void run_shell_function(int argnum, char *argument_array[], int built_in)
+void run_shell_function(int argsnum, char *argument_array[], int built_in)
 {
-
+    switch(built_in)
+    {
+        case 1: cd(argument_array[1]);
+            break;
+        case 2: clr();
+            break;
+        case 3: dir(argument_array[1]);
+            break;
+        case 4: environs();
+            break;
+        case 5: echo(argsnum, argument_array);
+            break;
+        case 6: help();
+            break;
+        case 7: my_pause();
+            break;
+        case 8: quit();
+            printf("This shouldn't be reached");
+            break;
+    }
 }
-
-
 
 void parser ()//int *inputflag, int *outputflag, int * createoutflag, int *pipeflag, int *backgroundflag)
 {
@@ -131,13 +174,14 @@ char *read_user_input()
 int tokenize(char *input, char* argument_array[])
 {
     int words = 0;
-    char *token = strtok(input, " ");
+    char *token = strtok(input, " \t\n");
     while (token != NULL)
     {
         argument_array[words] = token;
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " \t\n");
         words++;
     }
+    argument_array[words] = NULL;
     return words;
 }
 
@@ -171,9 +215,8 @@ void cd (char* new_directory)
         printf("%s", getcwd(cwd, sizeof(cwd)));
     }
     else 
+    {
         error = chdir(new_directory);
-    if (error = -1)
-    { 
         perror("cd");
     }
 }
@@ -188,9 +231,16 @@ void clr()
 
     Code taken almost directly from the manpage for 'opendir'
 
+    modified to use cwd on NULL to work around seg faults
+
 */
 void dir (char* directory)
 {
+    if (directory == NULL)
+    {
+        char cwd[PATH_MAX];
+        directory = getcwd(cwd, sizeof(cwd));
+    }
     DIR *direct;
     struct dirent *dptr;
     if ((direct = opendir (directory)) == NULL) 
@@ -215,13 +265,26 @@ void environs()
     }
 }
 
-/* prints all arguments */
-void echo(char *arguments[])
+/*  prints all arguments up to an output redirect follow by a single return */
+void echo(int argsnum, char *arguments[])
 {
-    for(int i = 0; arguments[i] != NULL; i++)
+    int still_comment = 1;
+    int i = 1;
+    while(still_comment)
     {
-        printf("%s\n", arguments[i]);
+        if ((i >= argsnum) 
+            || (strcmp(arguments[i], ">") == 0) 
+            || (strcmp(arguments[i], ">>") == 0))
+        {
+            still_comment = 0;
+        }
+        else
+        {  
+            printf("%s ", arguments[i]);
+            i++;
+        }
     }
+    printf("\n");
 }
 
 /*  opens a readme file and pauses when the terminal is full (simulates "more")
@@ -235,7 +298,7 @@ void echo(char *arguments[])
     the terminal screen.  This only happens after the initial pause which has worked great so far.
     Possible that might nested loops logic is a little off 
  */
-void help(char* arguments[])
+void help()
 {
     clr();
     FILE *filepointer;
