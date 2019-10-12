@@ -1,0 +1,12 @@
+.
+..
+diroutput.txt
+echo.txt
+environtest
+environtest.c
+myshell
+myshell.c
+readme.md
+test.txt
+text.txt
+>

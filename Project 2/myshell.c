@@ -14,12 +14,19 @@
 
 extern char ** environ;
 
+int recount_args(char *argument_array[]);
+void reset_io(int old_input_fd, int old_output_fd);
+void reset_input(int old_input_fd);
+void reset_output(int old_output_fd);
+void redirect_io(int argsnum, char *argument_array[], int *old_input_fd, int *old_output_fd);
+int redirect_input(char *filename);
+int redirect_output(char *filename, int append);
 void shell_path_print();
 void set_shell();
-void external_function(int argsnum, char *argument_array[]);
+void run_external_function(int argsnum, char *argument_array[]);
 int check_shell_function(int argsnum, char *argument_array[]);
 void run_shell_function(int argnum, char *argument_array[], int built_in);
-void parser ();//int *inputflag, int *outputflag, int * createoutflag, int *pipeflag, int *backgroundflag);
+void parser ();
 void print_args(int argsnum, char*argument_array[]);
 char *read_user_input();
 int tokenize(char *input, char* argument_array[]);
@@ -40,46 +47,116 @@ void main()
     set_shell();
     char *argument_array[64];
     char *input;
-    int input_flag, output_overwrite_flag, output_append_flag, pipe_flag;
+
+    int old_input_fd;
+    int old_output_fd;
 
     while (1)
     {   
+        old_input_fd = -1;
+        old_output_fd = -1;
         shell_path_print();
 
         input = read_user_input();
         int argsnum = tokenize(input, argument_array);
         if (argument_array[0] != NULL)
         {
-            input_flag = check_args_for(argsnum, argument_array, "<");
+      /*      input_flag = check_args_for(argsnum, argument_array, "<");
             output_overwrite_flag = check_args_for(argsnum, argument_array, ">");
             output_append_flag = check_args_for(argsnum, argument_array, ">>");
             pipe_flag = check_args_for(argsnum, argument_array, "|");
             
             print_args(argsnum, argument_array);
             if (input_flag || output_overwrite_flag || output_append_flag)
+            {*/   
+                redirect_io(argsnum, argument_array, &old_input_fd, &old_output_fd);
+                argsnum = recount_args(argument_array);
+            //}
+            if (check_args_for(argsnum, argument_array, "|"))
             {
-                redirect_io(argsnum, argument_array);
-            }
-            if (pipe_flag)
-            {
-
+                int pre_pipe_input, pre_pipe_output;
+                int pipe_ends[2];
+                char *right_pipe_argument_array[argsnum];
+                split_pipe_arguments(argsnum, argument_array, right_pipe_argument_array);
+                pipe(pipe_ends);
             }
             else
             {
                 int built_in = check_shell_function(argsnum, argument_array);
+
                 if (built_in > 0)
                 {
                     run_shell_function(argsnum, argument_array, built_in);
                 }
                 else
                 {
-                    external_function(argsnum, argument_array);
+                    run_external_function(argsnum, argument_array);
                 }
             }
         }
+        reset_io(old_input_fd, old_output_fd);
     }
-    my_pause();
-    help();
+    fprintf(stderr, "You shouldn't have gotten to this point");
+}
+
+void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[])
+{
+    int hit_pipe = 0;
+    for (int i = 0; i < argsnum; i++)
+    {
+        if (hit_pipe != 0)
+            right_pipe_argument_array[i-hit_pipe-1] = argument_array[i];
+        if (strcmp(argument_array[i], "|"))
+        {
+            hit_pipe = i;
+            argument_array[i] = NULL;
+        }
+    }
+}
+
+/*  This function counts the number of arguments in the array
+    
+    The redirect_io function has the ability to NULL pointers in the
+    arguments array after a redirect has been processed.  This was causing
+    seg faults later on for other functions that required an accurate number
+    of arguments.
+*/
+int recount_args(char *argument_array[])
+{
+    int i = 0;
+    while (argument_array[i] != NULL)
+        i++;
+    return i;
+}
+
+/*  reset_io checks if the input was changed before calling
+    a funciton to reset it back to the original
+
+    because file descriptors are always returned positive by initializing
+    these as negative in main you can use them as sentinel values 
+*/
+void reset_io(int old_input_fd, int old_output_fd)
+{
+    if (old_input_fd != -1)
+        reset_input(old_input_fd);
+    if (old_output_fd != -1)
+        reset_output(old_output_fd);
+}
+
+/*  Resets the input back to the original file descriptor
+*/
+void reset_input(int old_input_fd)
+{
+    dup2(old_input_fd, STDIN_FILENO);
+    close(old_input_fd);
+}
+
+/*  Resets the output back to the original file descriptor
+*/
+void reset_output(int old_output_fd)
+{
+    dup2(old_output_fd, STDOUT_FILENO);
+    close(old_output_fd);
 }
 
 /*  search backwards through the arguments until you hit a redirect
@@ -89,17 +166,69 @@ void main()
     The search is backwards so that you can NULL any string pointer
     that contained a redirect, effective "erasing" it from the arguments.
 */
-void redirect_io(int argsnum, char *argument_array[])
-{
-    for (int i = (argsnum - 1); i >= 0; i--)
-    {
-        if (strcmp(argument_array[i], ">>") == 0)
-            redirect_output(argument_array[i+1], 1);
-        else if (strcmp(argument_array[i+1], ">") == 0)
-            redirect_output(argument_array[i+1], 0);
-        else if (strcmp(argument_array[i+1], "<") == 0)
-            redirect_input();
+void redirect_io(int argsnum, char *argument_array[], int *old_input_fd, int *old_output_fd)
+{   
+    int input_flag = check_args_for(argsnum, argument_array, "<");
+    int output_overwrite_flag = check_args_for(argsnum, argument_array, ">");
+    int output_append_flag = check_args_for(argsnum, argument_array, ">>");
+    
+    for (int i = (argsnum - 1); i > 0; i--)
+    {   if (i == output_append_flag)
+        {
+            *old_output_fd = redirect_output(argument_array[i+1], 1);
+            argument_array[i] = NULL;
+        }
+        else if (i == output_overwrite_flag)
+        {
+            *old_output_fd = redirect_output(argument_array[i+1], 0);
+            argument_array[i] = NULL;
+        }
+        else if (i == input_flag)
+        {
+            *old_input_fd = redirect_input(argument_array[i+1]);
+            argument_array[i] = NULL;
+        }
     }
+
+/*    for (int i = (argsnum - 1); i >= 0; i--)
+    {
+        printf("start loop\n");
+        my_pause();
+        if (strcmp(argument_array[i], ">>") == 0)
+        {
+            *old_outputfd = redirect_output(argument_array[i+1], 1);
+            argument_array[i] = NULL;
+        }
+        else if (strcmp(argument_array[i+1], ">") == 0)
+        {
+            *old_outputfd = redirect_output(argument_array[i+1], 0);
+            argument_array[i] = NULL;
+        }
+        else if (strcmp(argument_array[i+1], "<") == 0)
+        {
+            *old_input_fd = redirect_input(argument_array[i+1]);
+            argument_array[i] = NULL;
+        }
+        printf("end loop\n");
+        my_pause();
+    }*/
+}
+
+/*  redirects input to the file in filename
+
+    Makes a copy of the original file descriptor with dup
+    opens the filename file read only
+    redirects standard input to the filename file
+    closes the file
+    returns the original standard input copy so that redirect can be reversed
+*/
+int redirect_input(char *filename)
+{
+    int old_input_fd = dup(STDIN_FILENO);
+    int new_input_fd = open(filename, O_RDONLY);
+    dup2(new_input_fd, STDIN_FILENO);
+    close(new_input_fd);
+    return old_input_fd;
 }
 
 /*  changes the file descriptors to redirect output
@@ -112,10 +241,13 @@ void redirect_io(int argsnum, char *argument_array[])
     Since both output redirects are almost identical with the exception of
     O_APPEND or O_TRUNC the two different redirects are combined into one function
     with the bool append denoting the difference
+
+    returns the old file descriptor so that input can be reverted back
 */
-void redirect_output(char *filename, int append)
+int redirect_output(char *filename, int append)
 {
     mode_t wrmode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
+    int old_output_fd = dup(STDOUT_FILENO);
     int new_output_fd;
     if (append == 1)
         new_output_fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, wrmode);
@@ -124,6 +256,7 @@ void redirect_output(char *filename, int append)
 
     dup2(new_output_fd, STDOUT_FILENO);
     close(new_output_fd);
+    return (old_output_fd);
 }
 
 /*  prints the command line prompt for the shell
@@ -140,7 +273,6 @@ void shell_path_print()
         printf("\x1b[33m");
         printf("$ \x1b[0m");
 }
-
 
 /*  Changes two environmental variables
 
@@ -165,7 +297,17 @@ void set_shell()
     setenv("README", actualpath, 1);
 }
 
-void external_function(int argsnum, char *argument_array[])
+/*  Attempts to run any program not predefined in the shell
+
+    forks a child process
+    overwrites that child process with execvp
+    -p to search for the program
+    -l because it is passed the argument_array
+
+    then oarent process will wait or the child to finish unless
+    a & was detected
+*/
+void run_external_function(int argsnum, char *argument_array[])
 {
     int background_flag = check_args_for(argsnum, argument_array, "&");
     int status;
@@ -184,15 +326,13 @@ void external_function(int argsnum, char *argument_array[])
         wait(&status);
 }
 
-
-/*  Checks if a function built into the shell is called at arg[0] 
+/*  Checks if a function built into the shell is called at argument_array[0] 
     returns an identified for that function
 
     had to change to strncmp because strcmp was only working if the
     command was followed by whitespace.  I imagine there is a difference
     in null char or \n but this should be a fine workaround
 */
-
 int check_shell_function(int argsnum, char *argument_array[])
 {
     int is_function = 0;
@@ -217,6 +357,12 @@ int check_shell_function(int argsnum, char *argument_array[])
     return is_function;
 }
 
+/*  run_shell_function will run the proper built in function specified in the
+    command
+
+    Seperate from the logic of check_shell_function mostly just 
+    to make it look slightly nicer
+*/
 void run_shell_function(int argsnum, char *argument_array[], int built_in)
 {
     switch(built_in)
@@ -242,7 +388,11 @@ void run_shell_function(int argsnum, char *argument_array[], int built_in)
     }
 }
 
-void parser ()//int *inputflag, int *outputflag, int * createoutflag, int *pipeflag, int *backgroundflag)
+/*  an early function that ran parsing operations for testing
+
+    not called
+*/
+void parser ()
 {
     char *input = read_user_input();
     char *argument_array[64];
@@ -295,7 +445,7 @@ int check_args_for(int argsnum, char*argument_array[], char *value)
     for (int i = 0; i < argsnum; i++)
     {
         if (strcmp(argument_array[i], value) == 0)
-            hit_value = 1;
+            hit_value = i;
     }
     return hit_value;
 }
@@ -306,8 +456,9 @@ void quit()
     exit(0);
 }
 
-/* calls chdir to change the directory to a given path */
-// TODO Add proper error printing if time permits
+/* calls chdir to change the directory to a given path
+   TODO Add proper error printing if time permits
+*/
 void cd (char* new_directory)
 {
     int error;
