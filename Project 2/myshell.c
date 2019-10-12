@@ -3,15 +3,19 @@
 #include <unistd.h>
 #include <linux/limits.h> // For PATH_MAX
 #include <limits.h>
-#include <dirent.h>
-#include <errno.h>
+#include <dirent.h>       // for chdir()
+#include <errno.h>        // for perror()
 #include <sys/ioctl.h>
 #include <string.h>
-#include <sys/types.h>  // For wait()
-#include <sys/wait.h>   // For wait()
+#include <sys/types.h>    // For wait() && open()
+#include <sys/wait.h>     // For wait()
+#include <sys/stat.h>     // for open()
+#include <fcntl.h>        // for open()
 
 extern char ** environ;
 
+void shell_path_print();
+void set_shell();
 void external_function(int argsnum, char *argument_array[]);
 int check_shell_function(int argsnum, char *argument_array[]);
 void run_shell_function(int argnum, char *argument_array[], int built_in);
@@ -29,46 +33,137 @@ void echo(int argsnum, char *arguments[]);
 void help();
 void my_pause();
 
+
+
 void main()
 {
+    set_shell();
     char *argument_array[64];
     char *input;
-    int input_flag, output_flag, output_create_flag, pipe_flag;
+    int input_flag, output_overwrite_flag, output_append_flag, pipe_flag;
 
     while (1)
-    {
+    {   
+        shell_path_print();
+
         input = read_user_input();
         int argsnum = tokenize(input, argument_array);
-
-        input_flag = check_args_for(argsnum, argument_array, "<");
-        output_flag = check_args_for(argsnum, argument_array, ">");
-        output_create_flag = check_args_for(argsnum, argument_array, ">>");
-        pipe_flag = check_args_for(argsnum, argument_array, "|");
-        
-        print_args(argsnum, argument_array);
-
-        if (pipe_flag)
+        if (argument_array[0] != NULL)
         {
-
-        }
-        else
-        {
-            int built_in = check_shell_function(argsnum, argument_array);
-            if (built_in > 0)
+            input_flag = check_args_for(argsnum, argument_array, "<");
+            output_overwrite_flag = check_args_for(argsnum, argument_array, ">");
+            output_append_flag = check_args_for(argsnum, argument_array, ">>");
+            pipe_flag = check_args_for(argsnum, argument_array, "|");
+            
+            print_args(argsnum, argument_array);
+            if (input_flag || output_overwrite_flag || output_append_flag)
             {
-                run_shell_function(argsnum, argument_array, built_in);
+                redirect_io(argsnum, argument_array);
+            }
+            if (pipe_flag)
+            {
+
             }
             else
             {
-                external_function(argsnum, argument_array);
+                int built_in = check_shell_function(argsnum, argument_array);
+                if (built_in > 0)
+                {
+                    run_shell_function(argsnum, argument_array, built_in);
+                }
+                else
+                {
+                    external_function(argsnum, argument_array);
+                }
             }
         }
-        
     }
     my_pause();
     help();
 }
 
+/*  search backwards through the arguments until you hit a redirect
+    then go forward once to grab the file name and call a function
+    to perform the redirect
+
+    The search is backwards so that you can NULL any string pointer
+    that contained a redirect, effective "erasing" it from the arguments.
+*/
+void redirect_io(int argsnum, char *argument_array[])
+{
+    for (int i = (argsnum - 1); i >= 0; i--)
+    {
+        if (strcmp(argument_array[i], ">>") == 0)
+            redirect_output(argument_array[i+1], 1);
+        else if (strcmp(argument_array[i+1], ">") == 0)
+            redirect_output(argument_array[i+1], 0);
+        else if (strcmp(argument_array[i+1], "<") == 0)
+            redirect_input();
+    }
+}
+
+/*  changes the file descriptors to redirect output
+    sets permission to 666 which is read write for all levels
+    supposedly the standard but a variable is set up for quick editing
+    opposed to hardcoding the 666 into the mode argument of open()\
+    
+    After redirecting the output with dup2() the file is closed
+
+    Since both output redirects are almost identical with the exception of
+    O_APPEND or O_TRUNC the two different redirects are combined into one function
+    with the bool append denoting the difference
+*/
+void redirect_output(char *filename, int append)
+{
+    mode_t wrmode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
+    int new_output_fd;
+    if (append == 1)
+        new_output_fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, wrmode);
+    else
+        new_output_fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, wrmode);
+
+    dup2(new_output_fd, STDOUT_FILENO);
+    close(new_output_fd);
+}
+
+/*  prints the command line prompt for the shell
+
+    colors were added originally to differenciate the prompt from
+    poorly formatted output.  However, it gave the shell a more authentic
+    feel, so username was added as well
+*/
+void shell_path_print()
+{
+        printf("\x1b[96m%s:", getenv("USER"));
+        printf("\x1b[31m");
+        cd(NULL);
+        printf("\x1b[33m");
+        printf("$ \x1b[0m");
+}
+
+
+/*  Changes two environmental variables
+
+    The first is it overwrites the directory of the shell you called
+    myshell in with the directory that myshell was called from
+    ie ../bash -> ../desktop/myshell 
+    
+    The second is used to keep a path to the help file so it can be called
+    if you have left the directory you started in.  Maybe environmental
+    variables are not meant to be used this way but it seems like a clean work
+    around
+*/
+void set_shell()
+{
+    char cwd[PATH_MAX];
+    getcwd(cwd, sizeof(cwd));
+    strcat(cwd, "/myshell");
+    setenv("SHELL", cwd, 1);
+
+    char actualpath [PATH_MAX];
+    realpath("readme.md", actualpath);
+    setenv("README", actualpath, 1);
+}
 
 void external_function(int argsnum, char *argument_array[])
 {
@@ -78,7 +173,12 @@ void external_function(int argsnum, char *argument_array[])
     int pid = fork();
     if (pid == 0)
     {
-        execvp(argument_array[0], argument_array);
+        if (execvp(argument_array[0], argument_array) == -1)
+        {
+            fprintf(stderr, "Could not execute '%s'", argument_array[0]);
+            perror(" ");
+            quit();            
+        }
     }
     else if (!background_flag)
         wait(&status);
@@ -122,6 +222,7 @@ void run_shell_function(int argsnum, char *argument_array[], int built_in)
     switch(built_in)
     {
         case 1: cd(argument_array[1]);
+            printf("\n");
             break;
         case 2: clr();
             break;
@@ -159,6 +260,7 @@ void print_args(int argsnum, char*argument_array[])
     {
         printf("\nArgument %d: %s", i, argument_array[i]);
     }
+    printf("\n");
 }
 
 /* This will return the users input stream as a string.  If input and length are NULL and 0 getline handles the buffer allocation, user handles the free*/
@@ -287,6 +389,27 @@ void echo(int argsnum, char *arguments[])
     printf("\n");
 }
 
+/*  This help forks a child that runs the more command with the readme
+
+    execlp is used because it was easier to hardcode the arguments in as strings
+    with l and the more command will be searched for with p
+*/
+void help()
+{
+    int pid = fork();
+    int status;
+
+    if (pid == 0)
+    {
+        execlp("more", "more", getenv("README"), (char *) NULL);
+    }
+    else
+    {
+        wait(&status);
+    }
+    
+}
+
 /*  opens a readme file and pauses when the terminal is full (simulates "more")
 
     This isn't quite working how I would like it too, I might need to make a custom
@@ -296,9 +419,12 @@ void echo(int argsnum, char *arguments[])
 
     Also it occasionally stops printing midword when it doesn't appear the be at the end of
     the terminal screen.  This only happens after the initial pause which has worked great so far.
-    Possible that might nested loops logic is a little off 
+    Possible that might nested loops logic is a little off
+
+    UPDATE - Reading the project requirements I think I was only supposed to actually call
+    more command, not try to implement my own so I have this depreciated
  */
-void help()
+void help_depreciated()
 {
     clr();
     FILE *filepointer;
