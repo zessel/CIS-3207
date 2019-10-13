@@ -14,6 +14,7 @@
 
 extern char ** environ;
 
+void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[]);
 int recount_args(char *argument_array[]);
 void reset_io(int old_input_fd, int old_output_fd);
 void reset_input(int old_input_fd);
@@ -74,11 +75,55 @@ void main()
             //}
             if (check_args_for(argsnum, argument_array, "|"))
             {
-                int pre_pipe_input, pre_pipe_output;
+                int pre_pipe_input = dup(STDIN_FILENO);
+                int pre_pipe_output = dup(STDOUT_FILENO);
                 int pipe_ends[2];
+                int pid_right, pid_left;
                 char *right_pipe_argument_array[argsnum];
+
                 split_pipe_arguments(argsnum, argument_array, right_pipe_argument_array);
+
                 pipe(pipe_ends);
+                if ((pid_right = fork()) == 0)
+                {
+                    argsnum = recount_args(right_pipe_argument_array);
+                    dup2(pipe_ends[0], STDIN_FILENO);
+                    close(pipe_ends[1]);
+                    close(pipe_ends[0]);
+                    int built_in = check_shell_function(argsnum, right_pipe_argument_array);
+
+                    if (built_in > 0)
+                    {
+                        run_shell_function(argsnum, right_pipe_argument_array, built_in);
+                    }
+                    else
+                    {
+                        run_external_function(argsnum, right_pipe_argument_array);
+                    }
+                    quit();
+                }
+                else if ((pid_left = fork()) == 0)
+                {
+                    argsnum = recount_args(argument_array);
+                    dup2(pipe_ends[1], STDOUT_FILENO);
+                    close(pipe_ends[0]);
+                    close(pipe_ends[1]);
+                    int built_in = check_shell_function(argsnum, argument_array);
+
+                    if (built_in > 0)
+                    {
+                        run_shell_function(argsnum, argument_array, built_in);
+                    }
+                    else
+                    {
+                        run_external_function(argsnum, argument_array);
+                    }
+                    quit();
+                }
+                else
+                {
+                    wait(NULL);
+                }
             }
             else
             {
@@ -101,17 +146,18 @@ void main()
 
 void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[])
 {
-    int hit_pipe = 0;
+    int hit_pipe = 0;    
     for (int i = 0; i < argsnum; i++)
     {
         if (hit_pipe != 0)
             right_pipe_argument_array[i-hit_pipe-1] = argument_array[i];
-        if (strcmp(argument_array[i], "|"))
+        if (strcmp(argument_array[i], "|") == 0)
         {
             hit_pipe = i;
             argument_array[i] = NULL;
         }
     }
+    right_pipe_argument_array[argsnum-hit_pipe-1] = NULL;
 }
 
 /*  This function counts the number of arguments in the array
@@ -267,11 +313,10 @@ int redirect_output(char *filename, int append)
 */
 void shell_path_print()
 {
-        printf("\x1b[96m%s:", getenv("USER"));
-        printf("\x1b[31m");
+        printf("\x1b[31m%s:", getenv("USER"));
+        printf("\x1b[96m");
         cd(NULL);
-        printf("\x1b[33m");
-        printf("$ \x1b[0m");
+        printf("/myshell> \x1b[0m");
 }
 
 /*  Changes two environmental variables
