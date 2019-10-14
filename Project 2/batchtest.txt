@@ -1,0 +1,9 @@
+echo hello
+echo is
+dir | wc
+echo this
+echo working?
+echo hi
+ls | tr e e
+cd
+dir

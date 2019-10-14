@@ -12,8 +12,12 @@
 #include <sys/stat.h>     // for open()
 #include <fcntl.h>        // for open()
 
+
+#include <unistd.h>
+
 extern char ** environ;
 
+int file_line_count(FILE *stream);
 void edit_path(int argsnum, char *argument_array[]);
 void execute_command (int argsnum, char *argument_array[]);
 void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[]);
@@ -32,7 +36,7 @@ int check_shell_function(int argsnum, char *argument_array[]);
 void run_shell_function(int argnum, char *argument_array[], int built_in);
 void parser ();
 void print_args(int argsnum, char*argument_array[]);
-char *read_user_input();
+char *read_user_input(FILE *stream, long int *position);
 int tokenize(char *input, char* argument_array[]);
 int check_args_for(int argsnum, char*argument_array[], char *value);
 void quit();
@@ -49,20 +53,50 @@ void my_pause();                            //got errors naming this pause
 void main (int argc, char *argv[])
 {
     set_shell();
+
     char *argument_array[64];
     char *input;
-
     int old_input_fd;
     int old_output_fd;
+    FILE *stream = NULL;
+    int batchfile_lines, run_count;
+    long int position = 0;
 
-    while (1)
+    if (argc >= 2)
+    {
+        stream = fopen(argv[1], "r");  // attempt to open batchfile as read only
+        if (!stream)
+        {
+            fprintf(stderr, "Error: batchfile not found\n");
+            quit();
+        }
+        batchfile_lines = file_line_count(stream);  //  count the lines of the file
+        fseek(stream, 0, SEEK_SET);                 //  reset the file pointer
+
+    }
+    else
+    {
+        stream = stdin;  // read from stdin in user mode
+    }
+    
+    while (1)  
     {   
-        old_input_fd = -1;
-        old_output_fd = -1;
-        shell_prompt_print();
 
-        input = read_user_input();
+        old_output_fd = -1;
+        old_input_fd = -1;
+        if (argc == 1)
+        {
+            shell_prompt_print();   //only print the prompt in user mode
+        }
+    /*    else   //  getline was acting unpredictably, putting together strings from random
+        {        //  parts of the stream, not recognizing EOF, this was an early workaround
+            if ((run_count++ == batchfile_lines) || (feof(stream)))
+                quit();  
+        }        
+    */
+        input = read_user_input(stream, &position);
         int argsnum = tokenize(input, argument_array);
+        
         if (argument_array[0] != NULL)
         { 
                 redirect_io(argsnum, argument_array, &old_input_fd, &old_output_fd);
@@ -116,7 +150,7 @@ void main (int argc, char *argv[])
                     close(pipe_ends[1]);
                     close(pipe_ends[2]);
                     waitpid(pid_left, &status_left, 0);         //wait for the output creating (left) child to terminate
-                    wait(NULL);                                 //possibly excessive wait for the input taking (right) child
+                    waitpid(pid_right, &status_right, 0);       //possibly excessive wait for the input taking (right) child
             }
             else
             {
@@ -128,6 +162,28 @@ void main (int argc, char *argv[])
     fprintf(stderr, "You shouldn't have gotten to this point");
 }
 
+
+/*  a function to count the returns in a file
+
+    this was a workaround for the unexplained behavior of getline in
+    batchfile mode after a pipe.  Abandoned for ftell() fseek()
+*/
+int file_line_count(FILE *stream)
+{
+    char buf[512];
+    int count = 0;
+    while(fgets(buf,sizeof(buf), stream) != NULL)
+    {
+        count++;
+    }
+    return count;
+}
+
+/*  function to allow path editing with path command
+
+    unclear whether this was needed, listed in one part of assignment
+    requirements and not in another
+*/
 void edit_path(int argsnum, char *argument_array[])
 {
     char new_path_value[PATH_MAX];
@@ -525,7 +581,7 @@ void run_shell_function(int argsnum, char *argument_array[], int built_in)
 */
 void parser ()
 {
-    char *input = read_user_input();
+    char *input = read_user_input(NULL, 0);
     char *argument_array[64];
     int argsnum = tokenize(input, argument_array);
     //void mark_flags(int argsnum, char*argument_array[], &input_flag, &output_flag, &pipe_flag, );
@@ -544,12 +600,27 @@ void print_args(int argsnum, char*argument_array[])
     printf("\n");
 }
 
-/* This will return the users input stream as a string.  If input and length are NULL and 0 getline handles the buffer allocation, user handles the free*/
-char *read_user_input()
+/*  This will return the users input stream as a string.  
+    If input and length are NULL and 0 getline handles the buffer allocation, user handles the free
+
+    In batchfile mode this function has unpredictable behaviour, adding previous parts of the 
+    stream to the input string after encountering a pipe
+
+    added position tracking to work around.  Records position after a getline and offsets
+    it from the start of stream before next getline.
+
+    perror will print "bad file descriptor" after any piping call
+*/
+char *read_user_input(FILE * stream, long int *position)
 {
     char *input = NULL;
     size_t length = 0;
-    getline(&input, &length, stdin);    
+    fseek(stream, *position, SEEK_SET);
+    if (getline(&input, &length, stream) == -1)
+        quit();
+    *position = ftell(stream); 
+    // perror("stream");
+
     return input;
 }
 
