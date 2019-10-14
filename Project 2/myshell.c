@@ -14,6 +14,7 @@
 
 extern char ** environ;
 
+void execute_command (int argsnum, char *argument_array[]);
 void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[]);
 int recount_args(char *argument_array[]);
 void reset_io(int old_input_fd, int old_output_fd);
@@ -22,7 +23,8 @@ void reset_output(int old_output_fd);
 void redirect_io(int argsnum, char *argument_array[], int *old_input_fd, int *old_output_fd);
 int redirect_input(char *filename);
 int redirect_output(char *filename, int append);
-void shell_path_print();
+void shell_prompt_print();
+void set_env_parent();
 void set_shell();
 void run_external_function(int argsnum, char *argument_array[]);
 int check_shell_function(int argsnum, char *argument_array[]);
@@ -33,17 +35,17 @@ char *read_user_input();
 int tokenize(char *input, char* argument_array[]);
 int check_args_for(int argsnum, char*argument_array[], char *value);
 void quit();
-void cd (char* new_directory);
+void cd (int argsnum, char* new_directory);
 void clr();
 void dir (char* directory);
-void environs();
+void environs();                            //got errors naming this environ
 void echo(int argsnum, char *arguments[]);
 void help();
-void my_pause();
+void my_pause();                            //got errors naming this pause
 
 
 
-void main()
+void main (int argc, char *argv[])
 {
     set_shell();
     char *argument_array[64];
@@ -56,92 +58,92 @@ void main()
     {   
         old_input_fd = -1;
         old_output_fd = -1;
-        shell_path_print();
+        shell_prompt_print();
 
         input = read_user_input();
         int argsnum = tokenize(input, argument_array);
         if (argument_array[0] != NULL)
-        {
-      /*      input_flag = check_args_for(argsnum, argument_array, "<");
-            output_overwrite_flag = check_args_for(argsnum, argument_array, ">");
-            output_append_flag = check_args_for(argsnum, argument_array, ">>");
-            pipe_flag = check_args_for(argsnum, argument_array, "|");
-            
-            print_args(argsnum, argument_array);
-            if (input_flag || output_overwrite_flag || output_append_flag)
-            {*/   
+        { 
                 redirect_io(argsnum, argument_array, &old_input_fd, &old_output_fd);
                 argsnum = recount_args(argument_array);
-            //}
-            if (check_args_for(argsnum, argument_array, "|"))
+
+            if (check_args_for(argsnum, argument_array, "|"))  //Piping has a special section of main
             {
-                int pre_pipe_input = dup(STDIN_FILENO);
-                int pre_pipe_output = dup(STDOUT_FILENO);
-                int pipe_ends[2];
-                int pid_right, pid_left;
-                char *right_pipe_argument_array[argsnum];
+                int pipe_ends[2];                              //Create the array for the ends of the pip 0 is read 1 is write
+                int pid_right, pid_left;                       //Create pid variables that are to be used in the two upcoming forks 
+                char *right_pipe_argument_array[argsnum];      //Create a new array to hold the right side of the pipe arguments
+                int status_left, status_right;
 
                 split_pipe_arguments(argsnum, argument_array, right_pipe_argument_array);
+                                                    //divides the original arguments into two seperate for both sides of the pipe
+                if(pipe(pipe_ends) < 0)
+                {                                          //creates the pipe and exits on failure
+                    perror("Pipe creation error");
+                    quit();
+                }                               
+                if ((pid_left = fork()) == 0)              //This creates a child for the left hand side. The write end
+                {   
+                    set_env_parent();                    
+                    argsnum = recount_args(argument_array);     //recalculates the number of arguments for left
+                    dup2(pipe_ends[1], STDOUT_FILENO);          //redirects stdout to the pipe
+                    close(pipe_ends[0]);                        //closes read end of the pipe
+                    close(pipe_ends[1]);                        //closes the write end of the pipe
 
-                pipe(pipe_ends);
-                if ((pid_right = fork()) == 0)
+                    execute_command(argsnum, argument_array);   //execute a built in or external command
+                    quit();                                     //this should close the child process if it was a built in command
+                }
+                else if (pid_left < 0)                     //exit if fork creation failed
                 {
-                    argsnum = recount_args(right_pipe_argument_array);
-                    dup2(pipe_ends[0], STDIN_FILENO);
-                    close(pipe_ends[1]);
-                    close(pipe_ends[0]);
-                    int built_in = check_shell_function(argsnum, right_pipe_argument_array);
-
-                    if (built_in > 0)
-                    {
-                        run_shell_function(argsnum, right_pipe_argument_array, built_in);
-                    }
-                    else
-                    {
-                        run_external_function(argsnum, right_pipe_argument_array);
-                    }
+                    perror("Left pipe fork failed");
                     quit();
                 }
-                else if ((pid_left = fork()) == 0)
+                if ((pid_right = fork()) == 0)             //This child will be the right hand side
+                {                                                 //this means this side listens to the pipe
+                    set_env_parent();
+                    argsnum = recount_args(right_pipe_argument_array);  //recount the arguments for just the right hand side
+                    dup2(pipe_ends[0], STDIN_FILENO);                   //redirect the pipe read end of the pipe to stdin
+                    close(pipe_ends[1]);                                //close the write end of the pipe
+                    close(pipe_ends[0]);                                //closes the read end of pipe, I think this is needed to prevent a hang
+                    execute_command(argsnum, right_pipe_argument_array);//execute a built in or external command
+                    quit();                                             //this should close the child process if it was a built in command
+                }
+                else if (pid_right < 0)                     //exit if fork creation failed
                 {
-                    argsnum = recount_args(argument_array);
-                    dup2(pipe_ends[1], STDOUT_FILENO);
-                    close(pipe_ends[0]);
-                    close(pipe_ends[1]);
-                    int built_in = check_shell_function(argsnum, argument_array);
-
-                    if (built_in > 0)
-                    {
-                        run_shell_function(argsnum, argument_array, built_in);
-                    }
-                    else
-                    {
-                        run_external_function(argsnum, argument_array);
-                    }
+                    perror("Right pipe fork failed");
                     quit();
                 }
-                else
-                {
-                    wait(NULL);
-                }
+                    close(pipe_ends[1]);
+                    close(pipe_ends[2]);
+                    waitpid(pid_left, &status_left, 0);         //wait for the output creating (left) child to terminate
+                    wait(NULL);                                 //possibly excessive wait for the input taking (right) child
             }
             else
             {
-                int built_in = check_shell_function(argsnum, argument_array);
-
-                if (built_in > 0)
-                {
-                    run_shell_function(argsnum, argument_array, built_in);
-                }
-                else
-                {
-                    run_external_function(argsnum, argument_array);
-                }
+                execute_command(argsnum, argument_array);
             }
         }
         reset_io(old_input_fd, old_output_fd);
     }
     fprintf(stderr, "You shouldn't have gotten to this point");
+}
+
+/*  Checks if a command is build into the shell and executes either way
+
+    This code block ended up repeating 3 times in main so it
+    got moved into it's own function
+*/
+void execute_command (int argsnum, char *argument_array[])
+{
+    int built_in = check_shell_function(argsnum, argument_array);
+
+    if (built_in > 0)
+    {
+        run_shell_function(argsnum, argument_array, built_in);
+    }
+    else
+    {
+        run_external_function(argsnum, argument_array);
+    }
 }
 
 void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[])
@@ -235,29 +237,6 @@ void redirect_io(int argsnum, char *argument_array[], int *old_input_fd, int *ol
             argument_array[i] = NULL;
         }
     }
-
-/*    for (int i = (argsnum - 1); i >= 0; i--)
-    {
-        printf("start loop\n");
-        my_pause();
-        if (strcmp(argument_array[i], ">>") == 0)
-        {
-            *old_outputfd = redirect_output(argument_array[i+1], 1);
-            argument_array[i] = NULL;
-        }
-        else if (strcmp(argument_array[i+1], ">") == 0)
-        {
-            *old_outputfd = redirect_output(argument_array[i+1], 0);
-            argument_array[i] = NULL;
-        }
-        else if (strcmp(argument_array[i+1], "<") == 0)
-        {
-            *old_input_fd = redirect_input(argument_array[i+1]);
-            argument_array[i] = NULL;
-        }
-        printf("end loop\n");
-        my_pause();
-    }*/
 }
 
 /*  redirects input to the file in filename
@@ -311,14 +290,24 @@ int redirect_output(char *filename, int append)
     poorly formatted output.  However, it gave the shell a more authentic
     feel, so username was added as well
 */
-void shell_path_print()
+void shell_prompt_print()
 {
-        printf("\x1b[31m%s:", getenv("USER"));
         printf("\x1b[96m");
-        cd(NULL);
-        printf("/myshell> \x1b[0m");
+        cd(1, NULL);
+        printf("\x1b[31m myshell> \x1b[0m");
 }
 
+/*  Set a variable called PARENT in the environment
+
+    called in both forks and also in run external
+*/
+void set_env_parent()
+{
+    char cwd[PATH_MAX];
+    getcwd(cwd, sizeof(cwd));
+    strcat(cwd, "/myshell");
+    setenv("PARENT", cwd, 1);
+}
 /*  Changes two environmental variables
 
     The first is it overwrites the directory of the shell you called
@@ -342,14 +331,14 @@ void set_shell()
     setenv("README", actualpath, 1);
 }
 
-/*  Attempts to run any program not predefined in the shell
+/*  function for running any non built-in command
 
     forks a child process
     overwrites that child process with execvp
     -p to search for the program
     -l because it is passed the argument_array
 
-    then oarent process will wait or the child to finish unless
+    then parent process will wait or the child to finish unless
     a & was detected
 */
 void run_external_function(int argsnum, char *argument_array[])
@@ -360,12 +349,80 @@ void run_external_function(int argsnum, char *argument_array[])
     int pid = fork();
     if (pid == 0)
     {
-        if (execvp(argument_array[0], argument_array) == -1)
+        set_env_parent();
+
+        if (execv(argument_array[0], argument_array) == -1)
         {
             fprintf(stderr, "Could not execute '%s'", argument_array[0]);
             perror(" ");
-            quit();            
+            quit();
+        }                     
+        else
+        {
+            fprintf(stderr, "%s: command not found\n", argument_array[0]);
         }
+        
+    }
+    else if (!background_flag)
+        wait(&status);
+}
+/*  NOT USED Attempts to run any program not predefined in the shell
+
+    Checks for execution access on the /bin/command and /usr/bin/command paths
+    if found attempts to fork and execv
+
+    There is a confusing requirement that I didn't notice until reviewing my program
+    It states that only execv can be used, meaning the arg[0] program won't be searched for
+    instead you have to provide a path the the executable.  I'm not sure how many paths
+    are supposed to be checked, it seems like maybe only bin, but I added usr/bin as well
+    because the tr program was very useful for checking piping.
+
+    Checking again the TA recommends using execvp so maybe this just meant we had to use pointer
+    arrays, not strings.
+
+    This function is not used, but included as proof of project requirements
+    I prefer the function "run_external_function" because it's cleaner
+*/
+void run_external_function_exec(int argsnum, char *argument_array[])
+{
+    int background_flag = check_args_for(argsnum, argument_array, "&");
+    int status;
+
+    int pid = fork();
+    if (pid == 0)
+    {
+        char program_path[6+sizeof(argument_array[0])];
+        strcpy(program_path, "/bin/");
+        strcat(program_path, argument_array[0]);
+
+        char program_path_usr[10+sizeof(argument_array[0])];
+        strcpy(program_path_usr, "/usr/bin/");
+        strcat(program_path_usr, argument_array[0]);
+
+        set_env_parent();
+        if (access(program_path, X_OK) == 0)
+        {
+            if (execv(program_path, argument_array) == -1)
+            {
+                fprintf(stderr, "Could not execute '%s'", argument_array[0]);
+                perror(" ");
+                quit();
+            }            
+        }
+        else if (access(program_path_usr, X_OK) == 0)
+        {
+            if (execv(program_path_usr, argument_array) == -1)
+            {
+                fprintf(stderr, "Could not execute '%s'", argument_array[0]);
+                perror(" ");
+                quit();
+            }            
+        }
+        else
+        {
+            fprintf(stderr, "%s: command not found\n", argument_array[0]);
+        }
+        
     }
     else if (!background_flag)
         wait(&status);
@@ -377,6 +434,8 @@ void run_external_function(int argsnum, char *argument_array[])
     had to change to strncmp because strcmp was only working if the
     command was followed by whitespace.  I imagine there is a difference
     in null char or \n but this should be a fine workaround
+
+    There is also support for "exit" which just executes as quit
 */
 int check_shell_function(int argsnum, char *argument_array[])
 {
@@ -398,6 +457,8 @@ int check_shell_function(int argsnum, char *argument_array[])
         is_function = 7;
     else if (strncmp(argument_array[0], "quit", 4) == 0)
         is_function = 8;    
+    else if (strncmp(argument_array[0], "exit", 4) == 0)
+        is_function = 8;
 
     return is_function;
 }
@@ -412,7 +473,8 @@ void run_shell_function(int argsnum, char *argument_array[], int built_in)
 {
     switch(built_in)
     {
-        case 1: cd(argument_array[1]);
+        case 1: 
+            cd(argsnum, argument_array[1]);
             printf("\n");
             break;
         case 2: clr();
@@ -503,8 +565,17 @@ void quit()
 
 /* calls chdir to change the directory to a given path
    TODO Add proper error printing if time permits
+
+   There are conflicting specifications on what the cd function
+   must do.  It must both error out on receiving no arguments
+   and also print of the current directory
+
+   I chose to go with the current directory.
+
+   To error would just involve replacing the two cwd commands
+   with a fprintf to stderr
 */
-void cd (char* new_directory)
+void cd (int argsnum, char* new_directory)
 {
     int error;
     if (new_directory == NULL)
@@ -512,10 +583,15 @@ void cd (char* new_directory)
         char cwd[PATH_MAX];
         printf("%s", getcwd(cwd, sizeof(cwd)));
     }
+    else if (argsnum > 2)
+    {
+        fprintf(stderr, "cd: too many arguments");
+    }
     else 
     {
         error = chdir(new_directory);
-        perror("cd");
+        if (error != 0)
+            perror("cd");
     }
 }
 
@@ -589,15 +665,21 @@ void echo(int argsnum, char *arguments[])
 
     execlp is used because it was easier to hardcode the arguments in as strings
     with l and the more command will be searched for with p
+
+    changed this to execvp because I saw that execv must always be used in this project
 */
 void help()
 {
     int pid = fork();
     int status;
-
+    char *help_args[3];
+    help_args[0] = "/bin/more";
+    help_args[1] = getenv("README");
+    help_args[2] = NULL;
     if (pid == 0)
-    {
-        execlp("more", "more", getenv("README"), (char *) NULL);
+    {   
+        execv(help_args[0], help_args);
+        //execlp("more", "more", getenv("README"), (char *) NULL);
     }
     else
     {
