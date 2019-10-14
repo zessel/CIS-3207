@@ -14,6 +14,7 @@
 
 extern char ** environ;
 
+void edit_path(int argsnum, char *argument_array[]);
 void execute_command (int argsnum, char *argument_array[]);
 void split_pipe_arguments(int argsnum, char *argument_array[], char * right_pipe_argument_array[]);
 int recount_args(char *argument_array[]);
@@ -125,6 +126,24 @@ void main (int argc, char *argv[])
         reset_io(old_input_fd, old_output_fd);
     }
     fprintf(stderr, "You shouldn't have gotten to this point");
+}
+
+void edit_path(int argsnum, char *argument_array[])
+{
+    char new_path_value[PATH_MAX];
+    if (argsnum == 1)
+        new_path_value[0] = '\0';
+    else
+    {
+        strcpy(new_path_value, argument_array[1]);
+        for (int i = 2; i < argsnum; i++)
+        {
+            strcat(new_path_value, ":");
+            strcat(new_path_value, argument_array[i]);
+        }
+    }
+    setenv("PATH", new_path_value, 1);
+    
 }
 
 /*  Checks if a command is build into the shell and executes either way
@@ -351,7 +370,7 @@ void run_external_function(int argsnum, char *argument_array[])
     {
         set_env_parent();
 
-        if (execv(argument_array[0], argument_array) == -1)
+        if (execvp(argument_array[0], argument_array) == -1)
         {
             fprintf(stderr, "Could not execute '%s'", argument_array[0]);
             perror(" ");
@@ -364,8 +383,9 @@ void run_external_function(int argsnum, char *argument_array[])
         
     }
     else if (!background_flag)
-        wait(&status);
+        waitpid(pid, &status, 0);
 }
+
 /*  NOT USED Attempts to run any program not predefined in the shell
 
     Checks for execution access on the /bin/command and /usr/bin/command paths
@@ -459,6 +479,8 @@ int check_shell_function(int argsnum, char *argument_array[])
         is_function = 8;    
     else if (strncmp(argument_array[0], "exit", 4) == 0)
         is_function = 8;
+    else if (strncmp(argument_array[0], "path", 4) == 0)
+        is_function = 9;
 
     return is_function;
 }
@@ -491,6 +513,8 @@ void run_shell_function(int argsnum, char *argument_array[], int built_in)
             break;
         case 8: quit();
             printf("This shouldn't be reached");
+            break;
+        case 9: edit_path(argsnum, argument_array);
             break;
     }
 }
