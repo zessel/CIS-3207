@@ -30,6 +30,18 @@ void* processLog (void *args);
 
 
 
+int isPort(char *argv)
+{
+    int i = 0;
+    int nonNumbflag = 1;
+    while (argv[i] != '\0')
+    {        
+        if (isdigit(argv[i]) == 0)
+            nonNumbflag = 0;
+        i++;
+    }
+    return nonNumbflag;
+}
 
 void initializeStruct(buf *spellBuffer)
 {
@@ -82,26 +94,40 @@ int main(int argc, char** argv)
     char *dictionary_path;
     switch (argc)
     {
-    case 3: dictionary_path = argv[2];
-        printf("case 3");
+    case 3: 
+        dictionary_path = argv[2];
         connectionPort = atoi(argv[1]);        
         break;
-    case 2: dictionary_path = DEFAULT_DICTIONARY;
-        connectionPort = atoi(argv[1]);
-        printf("case 2");
+    case 2: 
+        if (isPort(argv[1]))
+        {
+            connectionPort = atoi(argv[1]);
+            dictionary_path = DEFAULT_DICTIONARY;
+        }
+        else
+        {
+            dictionary_path = argv[1];
+            connectionPort = DEFAULT_PORT;
+        }       
         break;
-    case 1: dictionary_path = DEFAULT_DICTIONARY;
+    case 1: 
+        dictionary_path = DEFAULT_DICTIONARY;
         connectionPort = DEFAULT_PORT;
-        printf("case 1");
         break;
     default: perror("Too many arguments\n");
-        printf("default");
         return -1;
-        break;
     }
     
     dictionary = readInDict(dictionary_path);
 
+    for (int z = 0; z< strlen(dictionary[0]); z++)
+    {
+        if (dictionary[0][z] == '\r')
+        {
+            perror("You a using a dictionary with CRLF \"\\r\\n\", \nplease restart with a LF \"\\n\" only file or default dictionary");
+            exit(-1);
+        }
+    }
     //We can't use ports below 1024 and ports above 65535 don't exist.
     if(connectionPort < 1024 || connectionPort > 65535)
     {
@@ -212,15 +238,15 @@ char* takeForLogging(buf *spellBuffer)
 */
 char* resultConcat(char *word, int found, int bytesReturned)
 {  
-    char *entry = malloc(bytesReturned + 12);
+    char *entry = malloc(bytesReturned + 13); // 1 space + 10 MISSPELLED + 1 \n + 1 \0
     strcpy(entry, word);
     if (found == 1)
     {
-        strcat(entry, " OK");
+        strcat(entry, " OK\n");
     }
     else
     {
-        strcat(entry, " MISSPELLED");
+        strcat(entry, " MISSPELLED\n");
     }
     return entry;
 }
@@ -264,7 +290,7 @@ char** readInDict (char *dictionaryPath)
     }
     arraySize = getLineCount(dictfp);
     fseek(dictfp,0,SEEK_SET);
-    printf("\n\n The array size is %zd\n\n", arraySize);
+    printf("\n\nServer loaded with %zd dictionary entries\n\n", arraySize);
 
     char **dictionary = (char**) (malloc(arraySize*sizeof(char*)));
     for (size_t i = 0; i < arraySize; i++)
@@ -306,7 +332,7 @@ void* processRequest (void *args)
     while(1)
     { 
         clientSocket = retrieveFromClientQueue(spellBuffer);
-
+        send(clientSocket, MY_PROMPT, strlen(MY_PROMPT),0);
         bytesReturned = recv(clientSocket, recvBuffer, BUF_LEN, 0);
         
         //Check if we got a message, send a message back or quit if the
@@ -346,9 +372,9 @@ void* processLog (void *args)
         fprintf(stderr, "Cannot open log.txt");
         exit(-1);
         }
-        fprintf(logfp, "%s\n", entry);
+        fprintf(logfp, "%s", entry);
         fclose(logfp);
     }
-    perror("Log thread terminated while loop");
+    perror("Log thread terminated");
     exit(-1);
 }
