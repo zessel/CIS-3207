@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <ctype.h>
+#include <netdb.h>
 #define BUF_LEN 512
 #define DEFAULT_DICTIONARY "words.txt"
 #define DEFAULT_PORT 3207
@@ -18,5 +19,7 @@
 #define SOCKET_BUFFER 20
 #define LOG_BUFFER 20
 #define MAX_WORKERS 10
+typedef struct sockaddr SA;
 int open_listenfd(int);
+int open_clientfd(char*, int);
 #endif
