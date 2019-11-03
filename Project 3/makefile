@@ -2,5 +2,5 @@
 CC = gcc
 CFLAGS = -g
 
-program: spellcheckTest.c open_listenfd.c
-	$(CC) $(CFLAGS) -o program spellcheckTest.c open_listenfd.c 
+program: dictionary_server.c open_listenfd.c
+	$(CC) $(CFLAGS) -o program dictionary_server.c open_listenfd.c -lpthread

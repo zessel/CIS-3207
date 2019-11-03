@@ -1,8 +1,47 @@
 #include "simpleServer.h"
 
+typedef struct{
+    int socketQueue[SOCKET_BUFFER];
+    char *logQueue[LOG_BUFFER];
+    int clients, nextEmptyClient, nextClient;
+    int logs, nextEmptyLog, nextLog;
+    pthread_mutex_t sockmutex;
+    pthread_mutex_t logmutex;
+    pthread_cond_t canAddClient, canRemoveClient;
+    pthread_cond_t canAddLog, canRemoveLog;
+} buf;
+
 char **dictionary;
 size_t arraySize; 
 
+void initializeStruct(buf *spellBuffer);
+void addToClientQueue(int clientsocket, buf *spellBuffer);
+int retrieveFromClientQueue(buf *spellBuffer);
+void prepareForLogging(char* result, buf *spellBuffer);
+char* takeForLogging(buf *spellBuffer);
+char* resultConcat(char *word, int found, int bytesReturned);
+int goThroughLine (FILE *fp, size_t* newLine);
+size_t getLineCount (FILE *fp);
+char** readInDict (char *dictionaryPath);
+char* checkword(char query[BUF_LEN], int bytesReturned);
+void* processRequest (void *args);
+void* processLog (void *args);
+
+
+
+
+
+void initializeStruct(buf *spellBuffer)
+{
+    pthread_mutex_init(&spellBuffer->sockmutex, NULL);
+    pthread_mutex_init(&spellBuffer->logmutex, NULL);
+    pthread_cond_init(&spellBuffer->canAddClient, NULL);
+    pthread_cond_init(&spellBuffer->canAddLog, NULL);
+    pthread_cond_init(&spellBuffer->canRemoveClient, NULL);
+    pthread_cond_init(&spellBuffer->canRemoveLog, NULL);
+    spellBuffer->clients = spellBuffer->nextEmptyClient = spellBuffer->nextClient = 0;
+    spellBuffer-> logs = spellBuffer->nextEmptyLog = spellBuffer->nextLog = 0;
+}
 //An extremely simple server that connects to a given port.
 //Once the server is connected to the port, it will listen on that port
 //for a user connection.
@@ -13,6 +52,24 @@ size_t arraySize;
 //receiving messages.
 int main(int argc, char** argv)
 {
+    buf spellBuffer;
+    initializeStruct(&spellBuffer);
+
+    pthread_t workers[MAX_WORKERS];
+    for(int i = 0; i < MAX_WORKERS-1; i++)
+    {
+        if(pthread_create(&workers[i], NULL, processRequest, &spellBuffer) != 0)
+        {
+        fprintf(stderr, "Error creating worker thread %d\n", i);
+        exit(-1);
+        }
+    }
+    if(pthread_create(&workers[MAX_WORKERS-1], NULL, processLog, &spellBuffer) != 0)
+    {
+        perror("Error creating logging thread %d\n");
+        exit(-1);
+    }
+
     int connectionPort;
     char *dictionary_path;
     switch (argc)
@@ -68,103 +125,77 @@ int main(int argc, char** argv)
     //One by the server to listen for incoming connections.
     //The second that was just created that will be used to communicate with 
     //the connected user.
-    if((clientSocket = accept(connectionSocket, (struct sockaddr*)&client, &clientLen)) == -1)
-    {
-        printf("Error connecting to client.\n");
-        return -1;
-    }
-    addToClientQueue(clientSocket);
-
-    printf("Connection success!\n");
-    char* clientMessage = "Hello! I hope you can see this.\n";
-    char* msgRequest = "Send me some text and I'll respond with something interesting!\nSend the escape key to close the connection.\n";
-    char* msgResponse = "I actually don't have anything interesting to say...but I know you sent ";
-    char* msgPrompt = ">>>";
-    char* msgError = "Message not recieved\n";
-    char* msgClose = "Goodbye!\n";
-
-    //send()...sends a message.
-    //We specify the socket we want to send, the message and it's length, the 
-    //last parameter are flags.
-    send(clientSocket, clientMessage, strlen(clientMessage), 0);
-    send(clientSocket, msgRequest, strlen(msgRequest), 0);
-
-    //Begin sending and receiving messages.
     while(1)
     {
-        send(clientSocket, msgPrompt, strlen(msgPrompt), 0);
-        
-        //recv() will store the message from the user in the buffer, returning
-        //how many bytes we received.
-        bytesReturned = recv(clientSocket, recvBuffer, BUF_LEN, 0);
-        
-        //Check if we got a message, send a message back or quit if the
-        //user specified it.
-        if(bytesReturned == -1)
+        if((clientSocket = accept(connectionSocket, (struct sockaddr*)&client, &clientLen)) == -1)
         {
-            send(clientSocket, msgError, strlen(msgError), 0);
+            printf("Error connecting to client.\n");
+            return -1;
         }
-        //'27' is the escape key.
-        else if(recvBuffer[0] == 27)
-        {
-            send(clientSocket, msgClose, strlen(msgClose), 0);
-            close(clientSocket);
-            break;
-        }
-        else
-        {
-            send(clientSocket, msgResponse, strlen(msgResponse), 0);
-            send(clientSocket, recvBuffer, bytesReturned, 0);
-        }
+        addToClientQueue(clientSocket, &spellBuffer);
     }
+
     return 0;
 }
 
-void addToClientQueue(int clientsocket)
+void addToClientQueue(int clientsocket, buf *spellBuffer)
 {
-    getlock;
-    {
-        clientqueue[nextempty] = clientsocket;
-        clients++
-        nextempty++;
+    pthread_mutex_lock(&spellBuffer->sockmutex);
+    while(spellBuffer->clients == SOCKET_BUFFER)
+    {  
+        pthread_cond_wait(&spellBuffer->canAddClient, &spellBuffer->sockmutex);
     }
-    releaselock;
+        spellBuffer->socketQueue[spellBuffer->nextEmptyClient] = clientsocket;
+        spellBuffer->clients++;
+        spellBuffer->nextEmptyClient = (spellBuffer->nextEmptyClient + 1) % SOCKET_BUFFER;
+    pthread_cond_signal(&spellBuffer->canRemoveClient);
+    pthread_mutex_unlock(&spellBuffer->sockmutex);
 }
 
-int retrieveFromClientQueue()
+int retrieveFromClientQueue(buf *spellBuffer)
 {
     int clientsocket;
-    getlock;
-    {
-        clientsocket = clientqueue[nextclient];
-        clients--;
-        nextclient++;
-    }
-    releaselock;
+    pthread_mutex_lock(&spellBuffer->sockmutex);
+    while(spellBuffer->clients == 0)
+    {  
+        pthread_cond_wait(&spellBuffer->canRemoveClient, &spellBuffer->sockmutex);
+    }    
+        clientsocket = spellBuffer->socketQueue[spellBuffer->nextClient];
+        spellBuffer->clients--;
+        spellBuffer->nextClient = (spellBuffer->nextClient + 1) % SOCKET_BUFFER;
+    
+    pthread_cond_signal(&spellBuffer->canAddClient);
+    pthread_mutex_unlock(&spellBuffer->sockmutex);
     return clientsocket; 
 }
 
-void prepareForLogging(char* result)
+void prepareForLogging(char* result, buf *spellBuffer)
 {
-    getlock;
-    {
-        logqueue[nextentry] = entry;
-        tolog++;
-        nextentry++;
+    pthread_mutex_lock(&spellBuffer->logmutex);
+    while(spellBuffer->logs == LOG_BUFFER)
+    {  
+        pthread_cond_wait(&spellBuffer->canAddLog, &spellBuffer->logmutex);
     }
-    releaselock;
+        spellBuffer->logQueue[spellBuffer->nextEmptyLog] = result;
+        spellBuffer->logs++;
+        spellBuffer->nextEmptyLog = (spellBuffer->nextEmptyLog + 1) % LOG_BUFFER;
+    pthread_cond_signal(&spellBuffer->canRemoveLog);
+    pthread_mutex_unlock(&spellBuffer->logmutex);
 }
 
-char* takeForLogging()
+char* takeForLogging(buf *spellBuffer)
 {
     char *entry;
-    getlock;
-    {
-        entry = logqueue[nextforlog];
-        tolog--;
-        nextforlog++;
+    pthread_mutex_lock(&spellBuffer->logmutex);
+    while(spellBuffer->logs == 0)
+    {  
+        pthread_cond_wait(&spellBuffer->canRemoveLog, &spellBuffer->logmutex);
     }
-    releaselock;
+        entry = spellBuffer->logQueue[spellBuffer->nextLog];
+        spellBuffer->logs++;
+        spellBuffer->nextLog = (spellBuffer->nextLog + 1) % LOG_BUFFER;
+    pthread_cond_signal(&spellBuffer->canAddLog);
+    pthread_mutex_unlock(&spellBuffer->logmutex);
 }
 
 /*  Slightly wasteful but I just made the entry big enough to hold
@@ -206,7 +237,7 @@ int goThroughLine (FILE *fp, size_t* newLine)
 size_t getLineCount (FILE *fp)
 {
     size_t newLine = 0;
-    while(gothrough(fp, &newLine));
+    while(goThroughLine(fp, &newLine));
     return newLine;
 }
 // This function will read the dictionary file into some other structure for the thread to use
@@ -257,14 +288,15 @@ char* checkword(char query[BUF_LEN], int bytesReturned)
 // This will be a thread that is handed a client
 // process the spelling request
 // might be broken into more pieces 
-int processRequest ()
+void* processRequest (void *args)
 {
+    buf *spellBuffer = (buf*) args;
     int clientSocket, bytesReturned;
     char recvBuffer[BUF_LEN];
     char *response;
     while(1)
     { 
-        clientSocket = retrieveFromClientQueue();
+        clientSocket = retrieveFromClientQueue(spellBuffer);
 
         bytesReturned = recv(clientSocket, recvBuffer, BUF_LEN, 0);
         
@@ -285,15 +317,16 @@ int processRequest ()
         {        
             response = checkword(recvBuffer, bytesReturned);
             send(clientSocket, response, strlen(response), 0);
-            prepareForLogging(response);
+            prepareForLogging(response, spellBuffer);
             close(clientSocket);
         }
     }
 }
 
 // This will be the thread for logging 
-int processLog ()
+void* processLog (void *args)
 {
+    buf *spellBuffer = (buf*) args;
     char *entry;
     FILE *logfp = fopen("log.txt", "w");
     if (!logfp)
@@ -301,9 +334,10 @@ int processLog ()
         fprintf(stderr, "Cannot open log.txt");
         exit(-1);
     }
+    printf("at this point");
     while(1)
     {
-        entry = takeForLogging();
+        entry = takeForLogging(spellBuffer);
         fprintf(logfp, "%s\n", entry);
     }
     perror("Log thread terminated while loop");
