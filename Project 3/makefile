@@ -3,4 +3,4 @@ CC = gcc
 CFLAGS = -g
 
 program: dictionary_server.c open_listenfd.c
-	$(CC) $(CFLAGS) -o program dictionary_server.c open_listenfd.c -lpthread
+	$(CC) $(CFLAGS) -o Project3_Server dictionary_server.c open_listenfd.c -lpthread

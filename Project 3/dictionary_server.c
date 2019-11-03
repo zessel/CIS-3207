@@ -43,6 +43,36 @@ int isPort(char *argv)
     return nonNumbflag;
 }
 
+void createLogfile()
+{
+    FILE *logfp = fopen("log.txt", "w");
+    if (!logfp)
+    {
+        fprintf(stderr, "Cannot open log.txt");
+        exit(-1);
+    }
+    fclose(logfp);
+}
+
+void createWorkers(buf *spellBuffer)
+{
+    pthread_t workers[MAX_WORKERS];
+    if(pthread_create(&workers[0], NULL, processLog, &spellBuffer) != 0)
+    {
+        perror("Error creating logging thread %d\n");
+        exit(-1);
+    }
+    for(int i = 1; i < MAX_WORKERS; i++)
+    {
+        if(pthread_create(&workers[i], NULL, processRequest, &spellBuffer) != 0)
+        {
+        fprintf(stderr, "Error creating worker thread %d\n", i);
+        exit(-1);
+        }
+    }
+}
+
+
 void initializeStruct(buf *spellBuffer)
 {
     pthread_mutex_init(&spellBuffer->sockmutex, NULL);
@@ -64,16 +94,49 @@ void initializeStruct(buf *spellBuffer)
 //receiving messages.
 int main(int argc, char** argv)
 {
-    FILE *logfp = fopen("log.txt", "w");
-    if (!logfp)
-    {
-        fprintf(stderr, "Cannot open log.txt");
-        exit(-1);
-    }
-    fclose(logfp);
+    createLogfile();
 
     buf spellBuffer;
     initializeStruct(&spellBuffer);
+
+    int connectionPort;
+    char *dictionary_path;
+    switch (argc)
+    {
+        case 3: 
+            dictionary_path = argv[2];
+            connectionPort = atoi(argv[1]);        
+            break;
+        case 2: 
+            if (isPort(argv[1]))
+            {
+                connectionPort = atoi(argv[1]);
+                dictionary_path = DEFAULT_DICTIONARY;
+            }
+            else
+            {
+                dictionary_path = argv[1];
+                connectionPort = DEFAULT_PORT;
+            }       
+            break;
+        case 1: 
+            dictionary_path = DEFAULT_DICTIONARY;
+            connectionPort = DEFAULT_PORT;
+            break;
+        default: 
+            perror("Too many arguments\n");
+            exit (-1);
+    }
+    
+    dictionary = readInDict(dictionary_path);
+    for (int z = 0; z< strlen(dictionary[0]); z++)
+    {
+        if (dictionary[0][z] == '\r')
+        {
+            perror("You a using a dictionary with CRLF \"\\r\\n\", \nplease restart with a LF \"\\n\" only file or default dictionary");
+            exit(-1);
+        }
+    }
 
     pthread_t workers[MAX_WORKERS];
     if(pthread_create(&workers[0], NULL, processLog, &spellBuffer) != 0)
@@ -90,44 +153,6 @@ int main(int argc, char** argv)
         }
     }
 
-    int connectionPort;
-    char *dictionary_path;
-    switch (argc)
-    {
-    case 3: 
-        dictionary_path = argv[2];
-        connectionPort = atoi(argv[1]);        
-        break;
-    case 2: 
-        if (isPort(argv[1]))
-        {
-            connectionPort = atoi(argv[1]);
-            dictionary_path = DEFAULT_DICTIONARY;
-        }
-        else
-        {
-            dictionary_path = argv[1];
-            connectionPort = DEFAULT_PORT;
-        }       
-        break;
-    case 1: 
-        dictionary_path = DEFAULT_DICTIONARY;
-        connectionPort = DEFAULT_PORT;
-        break;
-    default: perror("Too many arguments\n");
-        return -1;
-    }
-    
-    dictionary = readInDict(dictionary_path);
-
-    for (int z = 0; z< strlen(dictionary[0]); z++)
-    {
-        if (dictionary[0][z] == '\r')
-        {
-            perror("You a using a dictionary with CRLF \"\\r\\n\", \nplease restart with a LF \"\\n\" only file or default dictionary");
-            exit(-1);
-        }
-    }
     //We can't use ports below 1024 and ports above 65535 don't exist.
     if(connectionPort < 1024 || connectionPort > 65535)
     {
@@ -136,15 +161,12 @@ int main(int argc, char** argv)
     }
 
     //sockaddr_in holds information about the user connection. 
-    //We don't need it, but it needs to be passed into accept().
     struct sockaddr_in client;
     int clientLen = sizeof(client);
     int connectionSocket, clientSocket, bytesReturned;
     char recvBuffer[BUF_LEN];
     recvBuffer[0] = '\0';
-    connectionPort = atoi(argv[1]);
     
-    //Does all the hard work for us.
     connectionSocket = open_listenfd(connectionPort);
     if(connectionSocket == -1)
     {
@@ -152,13 +174,6 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    //accept() waits until a user connects to the server, writing information about that server
-    //into the sockaddr_in client.
-    //If the connection is successful, we obtain A SECOND socket descriptor. 
-    //There are two socket descriptors being used now:
-    //One by the server to listen for incoming connections.
-    //The second that was just created that will be used to communicate with 
-    //the connected user.
     while(1)
     {
         if((clientSocket = accept(connectionSocket, (struct sockaddr*)&client, &clientLen)) == -1)
@@ -168,7 +183,6 @@ int main(int argc, char** argv)
         }
         addToClientQueue(clientSocket, &spellBuffer);
     }
-
     return 0;
 }
 
@@ -275,6 +289,7 @@ size_t getLineCount (FILE *fp)
     while(goThroughLine(fp, &newLine));
     return newLine;
 }
+
 // This function will read the dictionary file into some other structure for the thread to use
 // return type will probably change to return however I store the file
 // using
@@ -300,11 +315,6 @@ char** readInDict (char *dictionaryPath)
     }
     return dictionary;        
 }
-
-//  Originally I was going to get the word count using the code from wc.c
-//  but in the case of this dicationarys format it's the same as counting lines
-//  https://www.gnu.org/software/cflow/manual/html_node/Source-of-wc-command.html 
-
 
 char* checkword(char query[BUF_LEN], int bytesReturned)
 {
@@ -332,6 +342,7 @@ void* processRequest (void *args)
     while(1)
     { 
         clientSocket = retrieveFromClientQueue(spellBuffer);
+        printf("Servicing socket %d\n", clientSocket);
         send(clientSocket, MY_PROMPT, strlen(MY_PROMPT),0);
         bytesReturned = recv(clientSocket, recvBuffer, BUF_LEN, 0);
         
