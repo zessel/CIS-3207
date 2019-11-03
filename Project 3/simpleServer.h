@@ -10,6 +10,8 @@
 #define BUF_LEN 512
 #define DEFAULT_DICTIONARY "words.txt"
 #define DEFAULT_PORT 3207
-#define DICTIONARY_WORD_MAX 25
+#define LOG_ENTRY_MAX 30
+#define MY_MSG_ERROR "Message not recieved\n"
+#define MY_MSG_CLOSE "Terminating connection....\n"
 int open_listenfd(int);
 #endif

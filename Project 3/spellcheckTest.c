@@ -1,4 +1,99 @@
 #include "simpleServer.h"
+
+char ** dictionary;
+size_t arraySize; 
+
+int goThroughLine (FILE *fp, size_t* newLine)
+{
+    int c;
+
+    if (feof (fp))
+        return 0;
+      
+    while ((c = getc (fp)) != EOF)
+    {
+        if ((c) == '\n')
+        {
+            (*newLine)++;
+            break;
+        }
+    }
+    return c != EOF;
+}
+size_t getLineCount (FILE *fp)
+{
+    size_t newLine = 0;
+    while(goThroughLine(fp, &newLine));
+    return newLine;
+}
+char** readInDict (char *dictionaryPath)
+{  
+    char *input; 
+    size_t length;
+    FILE *dictp = fopen(dictionaryPath, "r");
+    if (!dictp)
+    {
+        fprintf(stderr, "Cannot open file %s", dictionaryPath);
+        exit(-1);
+    }
+    arraySize = getLineCount(dictp);
+
+    fseek(dictp,0,SEEK_SET);
+
+    char **dictionary = (char**) (malloc(arraySize*sizeof(char*)));
+    for (size_t i = 0; i < arraySize; i++)
+    {
+        length = 0;
+        getline(&dictionary[i], &length, dictp);
+    }
+    return dictionary;        
+}
+
+char* resultConcat(char *word, int found, int bytesReturned)
+{  
+    char *entry = malloc(bytesReturned + 12);
+    strcpy(entry, word);
+    if (found == 1)
+    {
+        strcat(entry, " OK");
+    }
+    else
+    {
+        strcat(entry, " MISSPELLED");
+    }
+    return entry;
+}
+
+
+char* checkword(char query[BUF_LEN], int bytesReturned)
+{
+    int found = 0;
+    for (size_t i = 0; i < arraySize; i++)
+    {
+        if (strncmp(dictionary[i], query, bytesReturned) == 0){
+            found = 1;
+            break;
+        }
+    }
+    query[bytesReturned-1] = '\0';
+    return resultConcat(query, found, bytesReturned);
+}
+/*
+void main ()
+{
+    char recvBuffer[BUF_LEN];
+    char *response;
+
+    size_t i = 0;
+    dictionary = readInDict("words.txt");
+    char *a = "message";
+    recvBuffer[0] = 'A';
+    response = checkword(recvBuffer);
+    printf("~~~~~~~~%s", response);
+    printf("@@@@@@@@%s", checkword(a));
+}
+*/
+#include "simpleServer.h"
 //An extremely simple server that connects to a given port.
 //Once the server is connected to the port, it will listen on that port
 //for a user connection.
@@ -35,7 +130,7 @@ int main(int argc, char** argv){
     char recvBuffer[BUF_LEN];
     recvBuffer[0] = '\0';
     connectionPort = atoi(argv[1]);
-    
+        dictionary = readInDict("words.txt");    
     //We can't use ports below 1024 and ports above 65535 don't exist.
     if(connectionPort < 1024 || connectionPort > 65535){
         printf("Port number is either too low(below 1024), or too high(above 65535).\n");
@@ -97,15 +192,8 @@ int main(int argc, char** argv){
         else{
             send(clientSocket, msgResponse, strlen(msgResponse), 0);
             send(clientSocket, recvBuffer, bytesReturned, 0);
-            printf("~%d \n", sizeof(recvBuffer));
-            int i = 0;
-            while (recvBuffer[i] != NULL)
-            {
-                printf("%c.", recvBuffer[i]);
-                i++;
-                if (i == 500)
-                    break;
-            }
+            printf("@@@@@@@@%s %d | %s",recvBuffer, bytesReturned, checkword(recvBuffer , bytesReturned));
+
         }
     }
 return 0;

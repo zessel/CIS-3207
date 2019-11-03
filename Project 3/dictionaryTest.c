@@ -1,7 +1,9 @@
 #include "simpleServer.h"
 
+char ** dictionary;
+size_t arraySize; 
 
-int gothrough (FILE *fp, size_t* newLine)
+int goThroughLine (FILE *fp, size_t* newLine)
 {
     int c;
 
@@ -28,7 +30,6 @@ char** readInDict (char *dictionaryPath)
 {  
     char *input; 
     size_t length;
-    size_t arraySize; 
     FILE *dictp = fopen(dictionaryPath, "r");
     if (!dictp)
     {
@@ -51,7 +52,6 @@ char** readInDict (char *dictionaryPath)
 void main ()
 {
     size_t i = 0;
-    char ** dictionary;
     dictionary = readInDict("words.txt");
     while (dictionary[i] != NULL)
     {
