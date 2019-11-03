@@ -52,22 +52,30 @@ void initializeStruct(buf *spellBuffer)
 //receiving messages.
 int main(int argc, char** argv)
 {
+    FILE *logfp = fopen("log.txt", "w");
+    if (!logfp)
+    {
+        fprintf(stderr, "Cannot open log.txt");
+        exit(-1);
+    }
+    fclose(logfp);
+
     buf spellBuffer;
     initializeStruct(&spellBuffer);
 
     pthread_t workers[MAX_WORKERS];
-    for(int i = 0; i < MAX_WORKERS-1; i++)
+    if(pthread_create(&workers[0], NULL, processLog, &spellBuffer) != 0)
+    {
+        perror("Error creating logging thread %d\n");
+        exit(-1);
+    }
+    for(int i = 1; i < MAX_WORKERS; i++)
     {
         if(pthread_create(&workers[i], NULL, processRequest, &spellBuffer) != 0)
         {
         fprintf(stderr, "Error creating worker thread %d\n", i);
         exit(-1);
         }
-    }
-    if(pthread_create(&workers[MAX_WORKERS-1], NULL, processLog, &spellBuffer) != 0)
-    {
-        perror("Error creating logging thread %d\n");
-        exit(-1);
     }
 
     int connectionPort;
@@ -192,10 +200,11 @@ char* takeForLogging(buf *spellBuffer)
         pthread_cond_wait(&spellBuffer->canRemoveLog, &spellBuffer->logmutex);
     }
         entry = spellBuffer->logQueue[spellBuffer->nextLog];
-        spellBuffer->logs++;
+        spellBuffer->logs--;
         spellBuffer->nextLog = (spellBuffer->nextLog + 1) % LOG_BUFFER;
     pthread_cond_signal(&spellBuffer->canAddLog);
     pthread_mutex_unlock(&spellBuffer->logmutex);
+    return entry;
 }
 
 /*  Slightly wasteful but I just made the entry big enough to hold
@@ -328,17 +337,17 @@ void* processLog (void *args)
 {
     buf *spellBuffer = (buf*) args;
     char *entry;
-    FILE *logfp = fopen("log.txt", "w");
-    if (!logfp)
-    {
-        fprintf(stderr, "Cannot open log.txt");
-        exit(-1);
-    }
-    printf("at this point");
     while(1)
     {
         entry = takeForLogging(spellBuffer);
+        FILE *logfp = fopen("log.txt", "a");
+        if (!logfp)
+        {
+        fprintf(stderr, "Cannot open log.txt");
+        exit(-1);
+        }
         fprintf(logfp, "%s\n", entry);
+        fclose(logfp);
     }
     perror("Log thread terminated while loop");
     exit(-1);
