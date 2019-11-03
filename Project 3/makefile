@@ -2,8 +2,8 @@
 CC = gcc
 CFLAGS = -g
 
-program: dictionary_server.c open_listenfd.c
+Project3_Server: dictionary_server.c open_listenfd.c
 	$(CC) $(CFLAGS) -o Project3_Server dictionary_server.c open_listenfd.c -lpthread
 
-#program: client.c open_clientfd.c
-#	$(CC) $(CFLAGS) -o client client.c open_clientfd.c -lpthread
+client: client.c open_clientfd.c
+	$(CC) $(CFLAGS) -o client client.c open_clientfd.c -lpthread
