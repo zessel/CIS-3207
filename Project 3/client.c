@@ -3,6 +3,7 @@
 #include <time.h>
 
 #define WORKER_MAX 20
+#define WORKER_LOOPS 5
 size_t arraySize;
 char **dictionary;
 int portnumber = 3207;
@@ -59,6 +60,8 @@ void* annoyServer(void *argument)
     int bytesReturned;
     char junktext[BUF_LEN];
     printf("WORKERMADE\n");
+    for (int i= 0; i < WORKER_LOOPS; i++)
+    {
     int hostSocket = open_clientfd(localhost, portnumber);
     if(hostSocket == -1 || hostSocket == -2){
         printf("Could not connect to %d, maybe try another port number?\n", portnumber);
@@ -76,6 +79,7 @@ void* annoyServer(void *argument)
     }
     //printf("%s", junktext);
     close(hostSocket);
+    }
 } 
 
 int main(int argc, char** argv)
