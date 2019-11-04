@@ -1,5 +1,9 @@
 #include "simpleServer.h"
 
+/*  This hold all the condition variable stuff
+    This should probably be split into two  structs
+    one for each condition 
+*/
 typedef struct{
     int socketQueue[SOCKET_BUFFER];
     char *logQueue[LOG_BUFFER];
@@ -11,6 +15,7 @@ typedef struct{
     pthread_cond_t canAddLog, canRemoveLog;
 } buf;
 
+//  Should change these from globals
 char **dictionary;
 size_t arraySize; 
 
@@ -29,7 +34,9 @@ void* processLog (void *args);
 
 
 
-
+/*  Is used to determine if the second command line argument is a port
+    number or a text file
+*/
 int isPort(char *argv)
 {
     int i = 0;
@@ -43,6 +50,8 @@ int isPort(char *argv)
     return nonNumbflag;
 }
 
+/*  Creates the log.txt that's appended to later
+*/
 void createLogfile()
 {
     FILE *logfp = fopen("log.txt", "w");
@@ -54,6 +63,12 @@ void createLogfile()
     fclose(logfp);
 }
 
+/*  Creates all the worker threads
+    Sends one worker to be the logging thread and the
+    rest to be client processing threads.
+
+    Was getting segfaults with this so it's unused
+*/
 void createWorkers(buf *spellBuffer)
 {
     pthread_t workers[MAX_WORKERS];
@@ -72,7 +87,9 @@ void createWorkers(buf *spellBuffer)
     }
 }
 
-
+/*  The pthread conditional variables need to
+    be initialized so that happens here
+    */
 void initializeStruct(buf *spellBuffer)
 {
     pthread_mutex_init(&spellBuffer->sockmutex, NULL);
@@ -84,14 +101,18 @@ void initializeStruct(buf *spellBuffer)
     spellBuffer->clients = spellBuffer->nextEmptyClient = spellBuffer->nextClient = 0;
     spellBuffer-> logs = spellBuffer->nextEmptyLog = spellBuffer->nextLog = 0;
 }
-//An extremely simple server that connects to a given port.
-//Once the server is connected to the port, it will listen on that port
-//for a user connection.
-//A user will connect through telnet, the user also needs to know the port number.
-//If the user connects successfully, a socket descriptor will be created.
-//The socket descriptor works exactly like a file descriptor, allowing us to read/write on it.
-//The server will then use the socket descriptor to communicate with the user, sending and 
-//receiving messages.
+
+/*  A server that supports spell checking.
+    -Creates the log file
+    -Creates and intializes the buffer struct
+    -Intiliazes a dictionary to compare against
+    -Create and send off worker threads
+    After that the thread just listens for incoming connections
+    if one is established it puts that socket (file descriptor)
+    into a queue for the worker threads to deals with
+
+    Should loop indefinitely.
+*/
 int main(int argc, char** argv)
 {
     createLogfile();
@@ -99,6 +120,7 @@ int main(int argc, char** argv)
     buf spellBuffer;
     initializeStruct(&spellBuffer);
 
+    // Switch to determine what the user wants for the port and dict
     int connectionPort;
     char *dictionary_path;
     switch (argc)
@@ -128,6 +150,7 @@ int main(int argc, char** argv)
             exit (-1);
     }
     
+    // After dict is read in does a quick check to make sure it will work 
     dictionary = readInDict(dictionary_path);
     for (int z = 0; z< strlen(dictionary[0]); z++)
     {
@@ -167,6 +190,7 @@ int main(int argc, char** argv)
     char recvBuffer[BUF_LEN];
     recvBuffer[0] = '\0';
     
+    // open_listenfd from CS:APP by Bryant
     connectionSocket = open_listenfd(connectionPort);
     if(connectionSocket == -1)
     {
@@ -174,6 +198,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
+    // Loop to continue adding new connections
     while(1)
     {
         if((clientSocket = accept(connectionSocket, (struct sockaddr*)&client, &clientLen)) == -1)
@@ -186,6 +211,10 @@ int main(int argc, char** argv)
     return 0;
 }
 
+/*  Adds to the next empty slot of the queue holding client sockets
+    Only called by main
+    Producer
+*/
 void addToClientQueue(int clientsocket, buf *spellBuffer)
 {
     pthread_mutex_lock(&spellBuffer->sockmutex);
@@ -200,6 +229,10 @@ void addToClientQueue(int clientsocket, buf *spellBuffer)
     pthread_mutex_unlock(&spellBuffer->sockmutex);
 }
 
+/*  Retrieves the next client from the queue holding client sockets
+    Only called by worker threads
+    Consumer
+*/
 int retrieveFromClientQueue(buf *spellBuffer)
 {
     int clientsocket;
@@ -217,6 +250,10 @@ int retrieveFromClientQueue(buf *spellBuffer)
     return clientsocket; 
 }
 
+/*  Adds a spell checked entry to be logging into the logging queue
+    Only called by worker threads
+    Producer
+*/
 void prepareForLogging(char* result, buf *spellBuffer)
 {
     pthread_mutex_lock(&spellBuffer->logmutex);
@@ -231,6 +268,10 @@ void prepareForLogging(char* result, buf *spellBuffer)
     pthread_mutex_unlock(&spellBuffer->logmutex);
 }
 
+/*  Retrieves a spell checked entry for logging from queue
+    Only called by logger thread
+    Consumer
+*/
 char* takeForLogging(buf *spellBuffer)
 {
     char *entry;
@@ -247,7 +288,8 @@ char* takeForLogging(buf *spellBuffer)
     return entry;
 }
 
-/*  Slightly wasteful but I just made the entry big enough to hold
+/*  Concatenates the result onto the queried word
+    Slightly wasteful malloc but big enough to hold
     OK or MISSPELLED
 */
 char* resultConcat(char *word, int found, int bytesReturned)
@@ -265,6 +307,10 @@ char* resultConcat(char *word, int found, int bytesReturned)
     return entry;
 }
 
+/*  Just goes through the dictionary char by char
+    Was originally looking to style it after the wc.c
+    code but kind of lost sight of that
+*/
 int goThroughLine (FILE *fp, size_t* newLine)
 {
     int c;
@@ -283,6 +329,10 @@ int goThroughLine (FILE *fp, size_t* newLine)
     return c != EOF;
 }
 
+/*  Counts the lines in the dictionary file
+    Was originally looking to style it after the wc.c
+    code but kind of lost sight of that
+*/
 size_t getLineCount (FILE *fp)
 {
     size_t newLine = 0;
@@ -290,9 +340,10 @@ size_t getLineCount (FILE *fp)
     return newLine;
 }
 
-// This function will read the dictionary file into some other structure for the thread to use
-// return type will probably change to return however I store the file
-// using
+/*  This ends of loading the dictionary pointed to by path in arguments or default
+    It reads the total lines in the file then mallocs an array of strings for every entry
+    Then resets the position in the file and reads back through to fill the array  
+*/
 char** readInDict (char *dictionaryPath)
 {  
     char *input; 
@@ -316,6 +367,10 @@ char** readInDict (char *dictionaryPath)
     return dictionary;        
 }
 
+/*  Checks the query against every entry in the dictionary
+    I really should have used a more effiecent structure because this
+    is wasteful
+*/
 char* checkword(char query[BUF_LEN], int bytesReturned)
 {
     int found = 0;
@@ -330,9 +385,16 @@ char* checkword(char query[BUF_LEN], int bytesReturned)
     return resultConcat(query, found, bytesReturned);
 }
 
-// This will be a thread that is handed a client
-// process the spelling request
-// might be broken into more pieces 
+/*  Worker thread function
+    Infinite loop of
+        getting a client file descriptor
+        prompting client
+        reading clients response
+        checking query
+        answering client
+        sending query for logging
+        closing filedescriptor
+*/
 void* processRequest (void *args)
 {
     buf *spellBuffer = (buf*) args;
@@ -369,7 +431,12 @@ void* processRequest (void *args)
     }
 }
 
-// This will be the thread for logging 
+/*  Logger thread function
+    Infinite loop of
+        Grabbing query from loggin queue
+        appending to log
+        closing log
+*/
 void* processLog (void *args)
 {
     buf *spellBuffer = (buf*) args;
