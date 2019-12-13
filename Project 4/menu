@@ -1,0 +1,17 @@
+void printMenu() {
+    printf("\n==============\n");
+    printf("1  make_fs(char *disk_name)\n");
+    printf("2  int mount_fs(char *disk_name)\n");
+    printf("3  int fs_open(char *name)\n");
+    printf("4  int fs_close(int fildes)\n");
+    printf("5  int fs_create(char *name)\n");
+    printf("6  int fs_delete(char *name);\n");
+    printf("7  int fs_mkdir(char *name);\n");
+    printf("8  int fs_read(int fildes, void *buf, size_t nbyte)\n");
+    printf("9  int fs_write(int fildes, void *buf, size_t nbyte)\n");
+    printf("10  int fs_get_filesize(int fildes)\n");
+    printf("11  int fs_lseek(int fildes, off_t offset)\n");
+    printf("12  int fs_truncate(int fildes, off_t length)\n");
+    printf("13  int find_free_file()\n\n\n");    
+}
+
